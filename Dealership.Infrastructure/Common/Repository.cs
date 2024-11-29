@@ -19,9 +19,8 @@ namespace Dealership.Infrastructure.Common
 
         private DbSet<T> DbSet<T>() where T : class
         {
-            return context.Set<T>();
+            return context.Set<T>(); // Тук context трябва да е от тип DbContext от EF Core
         }
-
         public IQueryable<T> All<T>() where T : class
         {
             return DbSet<T>();

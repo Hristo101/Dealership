@@ -20,7 +20,7 @@ namespace Dealership.Infrastructure.Models
         [Required]
         [ForeignKey("User")]
         public string UserId { get; set; }
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Required]
         [ForeignKey("Dealership")]

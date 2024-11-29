@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Dealership.Infrastructure.Models
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [StringLength(50, MinimumLength = 2)]
