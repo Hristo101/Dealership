@@ -1,0 +1,182 @@
+﻿/* Основни стилове */
+body {
+    background: linear-gradient(135deg, #f5f5f5, #a8dadc); /* Светло сив и пастелно тюркоазено за приятна и свежа атмосфера */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Контейнер за основното съдържание */
+.container {
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
+/* Заглавия */
+header h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #ffb600;
+    margin-bottom: 10px;
+}
+
+header p {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Описание на компанията */
+.about-section {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+    .about-section h2 {
+        text-align: center;
+        font-size: 30px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .about-section p {
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+        color: #666;
+    }
+
+.about-img {
+    width: 100%; /* Намалява ширината на снимката до 80% от родителския елемент */
+    height: 650px; /* Автоматично променя височината, за да запази пропорциите на изображението */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Нашата визия */
+.vision-section {
+    background-color: #fff3cd;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+    .vision-section h2 {
+        text-align: center;
+        font-size: 30px;
+        color: #ff9e00;
+        margin-bottom: 20px;
+    }
+
+.vision {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.vision-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+    .vision-item h3 {
+        font-size: 24px;
+        color: #ff9e00;
+    }
+
+.vision-img {
+    width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+/* Първият футър с градиент за успешна сделка */
+footer {
+    background: linear-gradient(135deg, #28a745, #007bff); /* Зеленото и синьото за успешна сделка */
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Съдържанието на футъра */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Текстовата част на футъра */
+.footer-text h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.footer-text p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Изображението в футъра */
+.footer-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Социални икони */
+.footer-social {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+    .footer-social p {
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 15px;
+    }
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icon img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .social-icon img:hover {
+        transform: scale(1.1);
+    }
