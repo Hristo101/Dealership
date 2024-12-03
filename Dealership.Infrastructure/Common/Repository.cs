@@ -1,4 +1,4 @@
-﻿using Dealership.Infrastructure.Models;
+﻿using Dealership.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dealership.Infrastructure.Common
 {
-    public class Repository
+    public class Repository : IRepository
     {
         private readonly CarDealershipContext context;
 

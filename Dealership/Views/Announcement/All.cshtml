@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Търсачка на автомобили</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-container select, .search-container button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .car-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Търсачка на автомобили</h1>
+    <div class="search-container">
+        <select id="brand">
+            <option value="">Марка</option>
+            <option value="Ford">Ford</option>
+            <option value="Toyota">Toyota</option>
+            <option value="BMW">BMW</option>
+        </select>
+        <select id="year">
+            <option value="">Година</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+        </select>
+        <select id="engine">
+            <option value="">Двигател</option>
+            <option value="Petrol">Бензин</option>
+            <option value="Diesel">Дизел</option>
+            <option value="Electric">Електрически</option>
+        </select>
+        <select id="gearbox">
+            <option value="">Скорости</option>
+            <option value="Manual">Ръчни</option>
+            <option value="Automatic">Автоматични</option>
+        </select>
+        <select id="body">
+            <option value="">Купе</option>
+            <option value="Sedan">Седан</option>
+            <option value="SUV">Джип</option>
+            <option value="Hatchback">Хечбек</option>
+        </select>
+        <select id="color">
+            <option value="">Цвят</option>
+            <option value="Black">Черен</option>
+            <option value="White">Бял</option>
+            <option value="Red">Червен</option>
+        </select>
+        <select id="sort">
+            <option value="">Сортиране по</option>
+            <option value="priceAsc">Цена - възходяща</option>
+            <option value="priceDesc">Цена - низходяща</option>
+            <option value="yearDesc">Най-нови</option>
+        </select>
+        <button onclick="searchCars()">Търси</button>
+    </div>
+    <div class="results" id="results">
+        <!-- Тук ще се показват резултатите -->
+    </div>
+    <script>
+               const cars = [
+                   { brand: 'Ford', year: 2023, engine: 'Petrol', gearbox: 'Manual', body: 'Sedan', color: 'Black', price: 20000 },
+                   { brand: 'Toyota', year: 2022, engine: 'Diesel', gearbox: 'Automatic', body: 'SUV', color: 'White', price: 25000 },
+                   { brand: 'BMW', year: 2024, engine: 'Electric', gearbox: 'Automatic', body: 'Hatchback', color: 'Red', price: 30000 },
+               ];
+               function searchCars() {
+                   const brand = document.getElementById('brand').value;
+                   const year = document.getElementById('year').value;
+                   const engine = document.getElementById('engine').value;
+                   const gearbox = document.getElementById('gearbox').value;
+                   const body = document.getElementById('body').value;
+                   const color = document.getElementById('color').value;
+                   const sort = document.getElementById('sort').value;
+                   let filteredCars = cars.filter(car => {
+                       return (!brand || car.brand === brand) &&
+                              (!year || car.year === parseInt(year)) &&
+                              (!engine || car.engine === engine) &&
+                              (!gearbox || car.gearbox === gearbox) &&
+                              (!body || car.body === body) &&
+                              (!color || car.color === color);
+                   });
+                   if (sort === 'priceAsc') {
+                       filteredCars.sort((a, b) => a.price - b.price);
+                   } else if (sort === 'priceDesc') {
+                       filteredCars.sort((a, b) => b.price - a.price);
+                   } else if (sort === 'yearDesc') {
+                       filteredCars.sort((a, b) => b.year - a.year);
+                   }
+                   displayResults(filteredCars);
+               }
+               function displayResults(cars) {
+                   const results = document.getElementById('results');
+                   results.innerHTML = '';
+                   if (cars.length === 0) {
+                       results.innerHTML = '<p>Няма намерени резултати.</p>';
+                       return;
+                   }
+                   cars.forEach(car => {
+                       const carCard = document.createElement('div');
+                       carCard.className = 'car-card';
+                       carCard.innerHTML = `
+        <h3>${car.brand} - ${car.year}</h3>
+        <p>Двигател: ${car.engine}</p>
+        <p>Скорости: ${car.gearbox}</p>
+        <p>Купе: ${car.body}</p>
+        <p>Цвят: ${car.color}</p>
+        <p>Цена: ${car.price} лв.</p>
+                       `;
+                       results.appendChild(carCard);
+                   });
+               }
+    </script>
+</body>
+</html>

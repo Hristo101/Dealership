@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Dealership.Infrastructure.Models
+namespace Dealership.Infrastructure.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
@@ -18,10 +19,8 @@ namespace Dealership.Infrastructure.Models
         [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
 
-        // Релации
-        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-        public ICollection<UserCar> UserCars { get; set; } = new List<UserCar>();
+        public ICollection<Query> Queries { get; set; } = new List<Query>();
     }
 
 }

@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Infrastructure.Models
+namespace Dealership.Infrastructure.Data.Models
 {
     public class Comment
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [StringLength(500, MinimumLength = 1)]
@@ -26,6 +24,10 @@ namespace Dealership.Infrastructure.Models
         [ForeignKey("Dealership")]
         public int DealershipId { get; set; }
         public Dealership Dealership { get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; }
+        [Required]
+        public int Grade { get; set; }
     }
 
 }

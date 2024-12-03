@@ -6,19 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Infrastructure.Models
+namespace Dealership.Infrastructure.Data.Models
 {
-    public class UserCar
+    public class CarDealership
     {
-        [Required]
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
-
         [Required]
         [ForeignKey("Car")]
         public int CarId { get; set; }
         public Car Car { get; set; }
+
+        [Required]
+        [ForeignKey("Dealership")]
+        public int DealershipId { get; set; }
+        public Dealership Dealership { get; set; }
     }
 
 }

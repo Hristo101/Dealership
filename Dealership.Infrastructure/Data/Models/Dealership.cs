@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Infrastructure.Models
+namespace Dealership.Infrastructure.Data.Models
 {
     public class Dealership
     {
