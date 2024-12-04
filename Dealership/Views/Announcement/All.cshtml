@@ -1,77 +1,81 @@
 ﻿@using Dealership.Core.Models
 @model IEnumerable<AllAnnouncementViewModel>
+<link rel="stylesheet" href="~/css/AllAnnouncementStyle.css">
+<div class="container search-container">
+    <!-- Заглавие -->
+    <h2 class="search-title">Търсене на автомобил</h2>
+    <hr class="title-divider" />
 
-    <link href="~/css/AllAnnouncementStyle.css" rel="stylesheet" />
-<div class="container" style="padding: 20px;">
-    <!-- Полета за търсене -->
-    <form method="get" action="" style="margin-bottom: 20px;">
-        <div class="row">
+    <!-- Търсачка -->
+    <form method="get" action="">
+        <div class="row search-row">
             <!-- Марка -->
             <div class="col-md-2">
-                <label>Марка</label>
                 <select class="form-control">
-                    <option>Всички</option>
-                    <option>Volkswagen</option>
+                    <option>Марка</option>
                     <option>BMW</option>
-                    <option>Ssang Yong</option>
+                    <option>Mercedes</option>
+                    <option>Volkswagen</option>
+                    <option>Toyota</option>
                 </select>
             </div>
 
             <!-- Година -->
             <div class="col-md-2">
-                <label>Година</label>
                 <select class="form-control">
-                    <option>Всички</option>
+                    <option>Година</option>
                     <option>2023</option>
                     <option>2022</option>
                     <option>2021</option>
+                    <option>2020</option>
                 </select>
             </div>
 
             <!-- Гориво -->
             <div class="col-md-2">
-                <label>Гориво</label>
                 <select class="form-control">
-                    <option>Всички</option>
-                    <option>Дизел</option>
+                    <option>Двигател</option>
                     <option>Бензин</option>
+                    <option>Дизел</option>
                     <option>Електрически</option>
+                    <option>Хибрид</option>
                 </select>
             </div>
 
-            <!-- Скоростна кутия -->
+            <!-- Скорости -->
             <div class="col-md-2">
-                <label>Скорости</label>
                 <select class="form-control">
-                    <option>Всички</option>
-                    <option>Автоматична</option>
-                    <option>Ръчна</option>
+                    <option>Скорости</option>
+                    <option>Автоматични</option>
+                    <option>Ръчни</option>
                 </select>
             </div>
+
 
             <!-- Цвят -->
             <div class="col-md-2">
-                <label>Цвят</label>
                 <select class="form-control">
-                    <option>Всички</option>
+                    <option>Цвят</option>
                     <option>Черен</option>
-                    <option>Сив</option>
                     <option>Бял</option>
-                </select>
-            </div>
-
-            <!-- Сортиране -->
-            <div class="col-md-2">
-                <label>Сортиране</label>
-                <select class="form-control">
-                    <option>Цена</option>
-                    <option>Година</option>
+                    <option>Син</option>
+                    <option>Червен</option>
                 </select>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success" style="margin-top: 20px;">Търси</button>
+        <!-- Сортиране -->
+        <div class="sort-section">
+            <label>Сортиране по:</label>
+            <select class="form-control sort-dropdown">
+                <option>Година (възходящо)</option>
+                <option>Година (низходящо)</option>
+                <option>Цена (възходящо)</option>
+                <option>Цена (низходящо)</option>
+            </select>
+        </div>
     </form>
+</div>
 
     <!-- Обяви -->
     <div class="row">
