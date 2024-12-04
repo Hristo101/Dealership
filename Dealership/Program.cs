@@ -1,4 +1,6 @@
 
+using Dealership.Core.Contracts;
+using Dealership.Core.Services;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +31,8 @@ namespace Dealership
             .AddEntityFrameworkStores<CarDealershipContext>();
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IRepository, Repository>();
+            builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 
             var app = builder.Build();
 
