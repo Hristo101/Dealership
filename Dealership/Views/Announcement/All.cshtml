@@ -1,15 +1,14 @@
 ﻿@using Dealership.Core.Models
 @model IEnumerable<AllAnnouncementViewModel>
-<link rel="stylesheet" href="~/css/AllAnnouncementStyle.css">
+<link rel="stylesheet" href="~/css/AllitemStyle.css">
+
 <div class="container search-container">
-    <!-- Заглавие -->
+
     <h2 class="search-title">Търсене на автомобил</h2>
     <hr class="title-divider" />
 
-    <!-- Търсачка -->
     <form method="get" action="">
         <div class="row search-row">
-            <!-- Марка -->
             <div class="col-md-2">
                 <select class="form-control">
                     <option>Марка</option>
@@ -20,7 +19,6 @@
                 </select>
             </div>
 
-            <!-- Година -->
             <div class="col-md-2">
                 <select class="form-control">
                     <option>Година</option>
@@ -31,7 +29,6 @@
                 </select>
             </div>
 
-            <!-- Гориво -->
             <div class="col-md-2">
                 <select class="form-control">
                     <option>Двигател</option>
@@ -42,7 +39,6 @@
                 </select>
             </div>
 
-            <!-- Скорости -->
             <div class="col-md-2">
                 <select class="form-control">
                     <option>Скорости</option>
@@ -51,8 +47,6 @@
                 </select>
             </div>
 
-
-            <!-- Цвят -->
             <div class="col-md-2">
                 <select class="form-control">
                     <option>Цвят</option>
@@ -63,36 +57,38 @@
                 </select>
             </div>
         </div>
-
-        <!-- Сортиране -->
-        <div class="sort-section">
-            <label>Сортиране по:</label>
-            <select class="form-control sort-dropdown">
-                <option>Година (възходящо)</option>
-                <option>Година (низходящо)</option>
-                <option>Цена (възходящо)</option>
-                <option>Цена (низходящо)</option>
-            </select>
-        </div>
     </form>
 </div>
 
-    <!-- Обяви -->
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4">
-                <div class="announcement-card">
-                    <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
-                    <div class="car-info">
-                        <span class="car-make">@item.Make</span>
-                        <span class="car-model">@item.Model</span>
-                        <span class="car-horsepower">@item.HorsePower HP</span>
-                    </div>
-                    <div class="car-price">Цена: @item.Price лв.</div>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
-                </div>
-            </div>
-        }
-    </div>
+<div class="container sort-container">
+    <select id="sortDropdown" class="form-control sort-dropdown">
+        <option value="">Сортиране по:</option>
+        <option value="year-asc">Година (възходящо)</option>
+        <option value="year-desc">Година (низходящо)</option>
+        <option value="price-asc">Цена (възходящо)</option>
+        <option value="price-desc">Цена (низходящо)</option>
+    </select>
 </div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="announcement-card">
+                <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
+                <div class="car-info">
+                    <span class="car-make">@item.Make</span>
+                    <span class="car-model">@item.Model</span>
+                    <span class="car-horsepower">@item.HorsePower HP</span>
+                </div>
+                <div class="car-price">Цена: @item.Price лв.</div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="bottom-right-image">
+    <img src="~/images/your-image.png" alt="Decorative Image" />
+</div>
+

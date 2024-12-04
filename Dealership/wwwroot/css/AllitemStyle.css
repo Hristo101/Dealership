@@ -1,0 +1,183 @@
+﻿
+body {
+    background-color: #f4f7fc;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.search-container {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.search-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Чертата под заглавието */
+.title-divider {
+    width: 150px;
+    height: 2px;
+    background-color: #007BFF; /* Син цвят */
+    margin: 10px auto;
+    border: none;
+}
+
+/* Ред с полетата за търсене */
+.search-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Полетата за търсене */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 15px; /* Малко разстояние между полетата */
+    transition: border 0.3s ease; /* Плавна анимация при фокус */
+}
+
+    .form-control:focus {
+        border-color: #007BFF; /* Синя рамка при фокус */
+        outline: none;
+    }
+
+/* Контейнер за сортиране */
+.sort-container {
+    margin-top: 40px;
+    width: 320px;
+    margin-top: 2em;
+    margin-left: 6em;
+}
+
+/* Падащо меню за сортиране */
+.sort-dropdown {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    transition: border 0.3s ease;
+}
+
+    .sort-dropdown:focus {
+        border-color: #007BFF; /* Синя рамка при фокус */
+    }
+
+.announcement-card {
+    width: 100%;
+    max-width: 400px; /* Размер на картата */
+    border: 1px solid #ddd; /* Лека рамка около обявата */
+    border-radius: 8px;
+    background-color: white;
+    padding: 25px;
+    margin: 20px;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: none; /* Премахваме сянката за по-прост външен вид */
+}
+
+    /* При hover */
+    .announcement-card:hover {
+        background-color: #f0f8ff; /* Променяме фона на светло син при hover */
+        transform: translateY(-5px); /* Леко повдигане на картата при hover */
+    }
+
+/* Стили за изображението */
+.car-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Изображението не се изрязва */
+    border-radius: 8px;
+}
+
+/* Стили за марка, модел и конски сили */
+.car-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+    gap: 8px;
+}
+
+    .car-info .car-make,
+    .car-info .car-model,
+    .car-info .car-horsepower {
+        font-size: 22px; /* Увеличаваме шрифта на 22px */
+        color: #555;
+        font-weight: bold;
+    }
+
+/* Променяме цвета на текста и рамката при hover */
+.announcement-card:hover .car-info .car-make,
+.announcement-card:hover .car-info .car-model,
+.announcement-card:hover .car-info .car-horsepower {
+    color: #007bff; /* Променяме цвета на текста в синия */
+}
+
+/* Стили за цената */
+.car-price {
+    color: #28a745;
+    font-size: 18px; /* Увеличаваме цената на 18px */
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+/* Стили за бутона */
+.view-button {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: 'Arial', sans-serif;
+}
+
+    .view-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Бутон в активно състояние */
+    .view-button:active {
+        background-color: #004085;
+        color: #cce5ff; /* Светъл цвят на текста за добро виждане */
+    }
+/* Декоративна картинка в долния десен ъгъл */
+.bottom-right-image img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+    .bottom-right-image img:hover {
+        opacity: 1;
+    }

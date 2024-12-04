@@ -1,4 +1,5 @@
 ﻿using Dealership.Core.Contracts;
+using Dealership.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dealership.Controllers
@@ -20,6 +21,17 @@ namespace Dealership.Controllers
         public async Task<IActionResult> All()
         {
             var model = await announcementService.AllAnnouncementAsync();
+
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (await announcementService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+            var model = await announcementService.DetailsAnnouncementAsync(id);
 
             return View(model);
         }

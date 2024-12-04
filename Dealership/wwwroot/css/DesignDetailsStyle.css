@@ -1,0 +1,174 @@
+﻿/* Основни стилове за заглавие */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Контейнер за основното съдържание (снимка и информация) */
+.announcement-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: flex-start; /* Подредба вляво */
+}
+
+/* Стилове за изображението */
+.image-gallery {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50%; /* Изображенията ще заемат половината от ширината */
+}
+
+/* Основно изображение */
+.main-image {
+    position: relative;
+    width: 100%; /* За да бъде на целия контейнер */
+    margin-bottom: 1rem;
+}
+
+.large-image {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain; /* Запазва пропорциите на изображението */
+    background-color: #f8f8f8;
+}
+
+/* Стрелки за навигация */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+    .arrow.left {
+        left: 10px;
+    }
+
+    .arrow.right {
+        right: 10px;
+    }
+
+/* Галерия с малки изображения */
+.thumbnail-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.thumbnail {
+    width: calc(25% - 0.5rem); /* 4 изображения на ред */
+    cursor: pointer;
+    border: 1px solid #ddd;
+    padding: 2px;
+    transition: transform 0.2s;
+}
+
+    .thumbnail:hover {
+        transform: scale(1.1);
+        border-color: #aaa;
+    }
+
+.clear {
+    flex-basis: 100%;
+}
+
+/* Стилове за дясната част (информация) */
+.right-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Стилове за цената */
+.price-section {
+    margin: 2rem 0;
+}
+
+.price {
+    color: #FF4500; /* Цветът за цената */
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #ddd;
+}
+
+/* Особености */
+.features {
+    font-size: 1.25rem;
+}
+
+    .features h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+/* Стилове за списъка с особеностите */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+    ul li {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+        /* Възстановяване на триъгълниците за особеностите */
+        ul li::before {
+            content: "▶ ";
+            color: orange;
+            font-size: 1rem;
+        }
+
+/* Екстри */
+.extras {
+    font-size: 1.25rem;
+}
+
+    .extras h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .extras p {
+        margin-bottom: 1rem;
+    }
+
+/* Подредба на цената, особеностите и екстрите */
+.right-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+    .right-info .price-section {
+        order: 1; /* Цената да бъде първа */
+    }
+
+    .right-info .features {
+        order: 2; /* Особеностите да са втори */
+    }
+
+    .right-info .extras {
+        order: 3; /* Екстрите да са последни */
+    }
+
+/* Премахване на триъгълниците в навигацията */
+ul li:before {
+    display: none; /* Скриваме стрелките или триъгълниците в навигацията */
+}
