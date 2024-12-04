@@ -10,6 +10,7 @@
     <!-- Включване на Font Awesome за иконки -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Основен стил за навигационната лента */
         nav.navbar {
             background-color: #343a40; /* Тъмно сив фон */
             display: flex;
@@ -21,7 +22,6 @@
 
         .navbar-nav .nav-link {
             color: white !important;
-            / font-size: 18px;
             font-weight: bold;
             margin-right: 15px;
             display: flex;
@@ -40,12 +40,13 @@
                 color: orange;
             }
 
-        /* Контактна информация */
+        /* Контактна информация в навигацията */
         .nav-contact-info {
             display: flex;
             align-items: center;
         }
 
+            /* Стил за контактните икони */
             .nav-contact-info span {
                 color: white;
                 font-size: 22px; /* По-големи иконки */
@@ -55,11 +56,16 @@
             }
 
                 .nav-contact-info span i {
-                    color: orange;
+                    color: yellow; /* Иконката за местоположение ще е жълта */
                     margin-right: 10px;
                     font-size: 28px; /* Увеличаване на размера на иконите */
-                    cursor: pointer; /* Задаване на курсор за показване на интерактивност */
+                    cursor: pointer; /* Подаваме на курсора "кликвай ме" */
                 }
+
+            /* Стил за телефонния номер */
+            .nav-contact-info .phone {
+                color: white !important;
+            }
 
         /* Стил за контактния бутон */
         .btn-contacts {
@@ -97,10 +103,25 @@
             padding-top: 20px;
         }
 
-        /* Стилове за телефона */
-        .nav-contact-info .phone {
-            color: white !important; /* Важно, за да осигурим видимост */
+        /* Увеличаване на размера на текста за бутона Контакти */
+        .btn-contacts {
+            font-size: 16px;
         }
+
+        /* Стилизиране на навигационния контейнер */
+        .navbar-brand {
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Стил за иконата на местоположение */
+        .nav-contact-info span i {
+            color: yellow; /* Правим иконката за местоположение жълта */
+            font-size: 28px;
+            cursor: pointer; /* Подаваме на курсора "кликвай ме" */
+        }
+
+
     </style>
 </head>
 <body>
@@ -144,12 +165,20 @@
                         </li>
                     </ul>
 
-                    <!-- Контактна информация -->
                     <div class="nav-contact-info">
-                        <!-- Кликване върху иконките да води до съответните страници -->
-                        <span><i class="fas fa-map-marker-alt" onclick="window.location.href='/Location'"></i></span> <!-- Локация -->
-                        <span class="phone"><i class="fas fa-phone-alt" onclick="window.location.href='tel:+08770677767'"></i>0877 067 767</span>
-                        <button class="btn-contacts" onclick="window.location.href='/Контакти'">Контакти</button>
+                        <!-- Иконка за местоположение -->
+                        <span>
+                            <a asp-action="Contact" asp-controller="Home">
+                                <i class="fas fa-map-marker-alt" style="color: yellow;"></i>
+                            </a>
+                        </span>
+                        <!-- Телефонен номер (не води към друга страница) -->
+                        <span class="phone">
+                            <i class="fas fa-phone-alt"></i>0877 067 767
+                        </span>
+                        <!-- Бутон Контакти, който ще те води към същия Action -->
+                        <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'">Контакти</button>
+                    </div>
                     </div>
                 </div>
             </div>
