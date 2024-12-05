@@ -1,36 +1,54 @@
-﻿<!DOCTYPE html>
-<html lang="bg">
+﻿<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Автомобили</title>
-    <link rel="stylesheet" href="~/css/HowWeWork.css">
+    <link rel="stylesheet" href="~/css/HowWeWork.css" />
+    <script src="~/js/faq.js" defer></script>
 </head>
 <body>
-    <header>
+    <header class="title">
         <h1>Продажба на автомобили - Лесно и бързо</h1>
     </header>
+
+    <section class="intro">
+        <div class="intro-content">
+            <img src="~/img/CarDeal.jpg" alt="Автомобил" class="intro-img">
+            <div class="intro-text">
+                <h2>Какви коли купуваме?</h2>
+                <ul class="checklist">
+                    <li>В движение</li>
+                    <li>В добро състояние</li>
+                    <li>След 2002 година на производство</li>
+                    <li>С ляв волан</li>
+                    <li>Без проблеми с документите</li>
+                </ul>
+                <h3>С каква цел изкупуваме автомобили?</h3>
+                <p>С цел препродажба, което означава, че цената на изкупения от нас автомобил ще бъде малко по-ниска от неговата пазарна стойност.</p>
+            </div>
+        </div>
+    </section>
 
     <section class="process">
         <h2>Как работим?</h2>
         <div class="steps">
             <div class="step">
-                <img src="images/step1.jpg" alt="Запитване" class="step-img">
+                <img src="https://www.kentavar.bg/img/row1-step1.png" alt="Запитване" class="step-img">
                 <h3>1. Запитване</h3>
                 <p>Попълнете формата за онлайн запитване или изпратете няколко снимки на Viber или WhatsApp.</p>
             </div>
             <div class="step">
-                <img src="images/step2.jpg" alt="Елате при нас" class="step-img">
+                <img src="https://www.kentavar.bg/img/row1-step2.png" alt="Елате при нас" class="step-img">
                 <h3>2. Елате при нас</h3>
                 <p>След като получите нашата предварителна оценка, заповядайте на оглед в нашия офис.</p>
             </div>
             <div class="step">
-                <img src="images/step3.jpg" alt="Продажба на автомобила" class="step-img">
+                <img src="https://www.kentavar.bg/img/row1-step3.png" alt="Продажба на автомобила" class="step-img">
                 <h3>3. Продажба на автомобила</h3>
                 <p>Подписваме договор пред нотариус.</p>
             </div>
             <div class="step">
-                <img src="images/step4.jpg" alt="Получаване на парите" class="step-img">
+                <img src="https://www.kentavar.bg/img/we-buy.png" alt="Получаване на парите" class="step-img">
                 <h3>4. Получаване на парите</h3>
                 <p>Веднага ще ви платим цялата сума в брой или по банкова сметка.</p>
             </div>
@@ -41,30 +59,83 @@
         <h2>Защо да изберете нас за продажба на вашия автомобил?</h2>
         <div class="reasons">
             <div class="reason">
-                <img src="images/reason1.jpg" alt="Коректна оценка" class="reason-img">
+                <img src="https://www.kentavar.bg/img/row2-step1.png" alt="Коректна оценка" class="reason-img">
                 <h3>Коректна оценка</h3>
                 <p>Нашите експерти ще направят справедлива оценка въз основа на пазара и състоянието на вашия автомобил.</p>
             </div>
             <div class="reason">
-                <img src="images/reason2.jpg" alt="Бързо и без забавяне" class="reason-img">
+                <img src="https://www.kentavar.bg/img/row2-step2.png" alt="Бързо и без забавяне" class="reason-img">
                 <h3>Бързо и без забавяне</h3>
                 <p>Целият процес е бърз и ефективен – без да публикувате обяви, без да имате досадни огледи и сделки.</p>
             </div>
             <div class="reason">
-                <img src="images/reason3.jpg" alt="Без комисионна" class="reason-img">
+                <img src="https://www.kentavar.bg/img/row2-step3.png" alt="Без комисионна" class="reason-img">
                 <h3>Без комисионна</h3>
                 <p>Вие не дължите никакви комисионни или такси, получавате парите си веднага при сделка.</p>
             </div>
             <div class="reason">
-                <img src="images/reason4.jpg" alt="Вземете парите веднага" class="reason-img">
+                <img src="https://www.kentavar.bg/img/row2-step4.png" alt="Вземете парите веднага" class="reason-img">
                 <h3>Вземете парите веднага</h3>
                 <p>В момента на изповядване на сделката получавате парите си веднага.</p>
             </div>
         </div>
     </section>
+    <section class="faq">
+        <div class="faq-content">
+            <img src="~/img/WorkOnLaptop.jpg" alt="Илюстрация с човек" class="faq-image">
+            <div class="faq-questions">
+                <h2>Често задавани въпроси</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Защо да избера Вас?
+                    </button>
+                    <div class="faq-answer">
+                        Ние купуваме и плащаме веднага, спестявайки Ви време!
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Какви автомобили изкупувате?
+                    </button>
+                    <div class="faq-answer">
+                        Ние купуваме всички марки и модели автомобили – стари и нови, в много добро състояние или не, на много или малко километри, за България или чужбина.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Колко време ще отнеме да получа оферта?
+                    </button>
+                    <div class="faq-answer">
+                        Вземете оферта от нас за по-малко от час, или ако бързате, можете да се свържете с нас чрез Whatsapp или Viber, или чрез телефонно обаждане.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Кога ще получа парите за автомобила си?
+                    </button>
+                    <div class="faq-answer">
+                        Веднага след потвърждаване на продажбата.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Как се изготвя оценката?
+                    </button>
+                    <div class="faq-answer">
+                        Цената зависи от състоянието на вашия автомобил и неговата пазарна стойност.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        ▾ Можете ли да дойдете да видите автомобила ми на място?
+                    </button>
+                    <div class="faq-answer">
+                        Да, можем да дойдем на място след предварителна уговорка.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2024 Всички права запазени. | <a href="#">Политика за конфиденциалност</a></p>
-    </footer>
 </body>
 </html>
