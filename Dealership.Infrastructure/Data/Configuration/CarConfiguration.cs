@@ -36,7 +36,37 @@ namespace Dealership.Infrastructure.Data.Configuration
             };
             cars.Add(car);
 
+            car = new Car()
+            {
+                Id = 2,
+                Make = "Toyota",
+                Model = "Tacoma 3.5 V6",
+                Color = "Жълт",
+                EngineType = "Бензинов",
+                Speeds = "Автоматик",
+                Year = 2018,
+                Mileage = 61000,
+                Horsepower =278,
+                CarImages = new List<string> { "~/img/Cars/Toyota/Capture6.PNG", "~/img/Cars/Toyota/Capture.PNG", "~/img/Cars/Toyota/Capture3.PNG", "~/img/Cars/Toyota/Capture4.PNG", "~/img/Cars/Toyota/Capture5.PNG", "~/img/Cars/Toyota/Capture2.PNG", "~/img/Cars/Toyota/Capture7.PNG", "~/img/Cars/Toyota/Capture8.PNG" }
+            };
 
+            cars.Add(car);
+
+            car = new Car()
+            {
+                Id = 3,
+                Make = "Mercedes-Benz",
+                Model = "S 350",
+                Color = "Черен",
+                EngineType = "Дизелов",
+                Speeds = "Автоматик",
+                Year = 2021,
+                Mileage = 120000,
+                Horsepower = 286,
+                CarImages = new List<string> { "~/img/Cars/Mercedes/MercedesCapture3.PNG", "~/img/Cars/Mercedes/MercedesCapture4.PNG", "~/img/Cars/Mercedes/MercedesCapture5.PNG", "~/img/Cars/Mercedes/MercedesCapture6.PNG", "~/img/Cars/Mercedes/MercedesCapture7.PNG", "~/img/Cars/Mercedes/MercedesCapture8.PNG", "~/img/Cars/Mercedes/MercedesCapture1.PNG", "~/img/Cars/Mercedes/MercedesCapture2.PNG" }
+            };
+
+            cars.Add(car);
 
             return cars;
         }

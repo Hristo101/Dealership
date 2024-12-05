@@ -12,7 +12,6 @@
             <!-- Main Image -->
             <div class="main-image">
                 <img id="mainImage" src="@Url.Content(Model.ImageUrls.FirstOrDefault() ?? "~/images/default.jpg")" alt="@Model.Make @Model.Model" class="large-image" />
-                <!-- Left/Right arrows -->
                 <button class="arrow left" onclick="previousImage()">←</button>
                 <button class="arrow right" onclick="nextImage()">→</button>
             </div>
@@ -30,7 +29,6 @@
             </div>
         </div>
 
-        <!-- Right Info (цена, особености, екстри) -->
         <div class="right-info">
             <!-- Price -->
             <div class="price-section">
@@ -39,7 +37,6 @@
                 <hr />
             </div>
 
-            <!-- Features -->
             <div class="features">
                 <h3>Особености</h3>
                 <ul>
@@ -78,6 +75,26 @@
     </div>
 </div>
 
+<div class="recent-announcements">
+    <h2><span class="car-emoji">🚗</span> Последни обяви</h2>
+    <div class="announcement-grid">
+        @foreach (var item in Model.RecentAnnouncements)
+        {
+            <div class="announcement-card">
+                <img src="@Url.Content(item.ImageUrl)" alt="@item.Make @item.Model" class="car-image" />
+                <div class="car-info">
+                    <span class="car-make-model-hp">
+                        @item.Make @item.Model, @item.HorsePower к.с.
+                    </span>
+                    <span class="car-price">
+                        @item.Price.ToString("N0") лв.
+                    </span>
+                </div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="view-details-button">Преглед</a>
+            </div>
+        }
+    </div>
+    <link rel="stylesheet" href="~/css/DesignDetailsStyle.css" />
 
 <!-- Включване на JavaScript -->
 <script>
@@ -89,323 +106,3 @@
 
 
 
-<style>
-    .announcement-container {
-        font-family: 'Arial', sans-serif;
-        line-height: 1.6;
-        background-color: #f9f9f9; /* Светло сив фон */
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Стилове за заглавие на автомобила */
-    .title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333; /* Тъмно сив текст */
-        margin-bottom: 1rem;
-        text-align: center;
-        border-bottom: 2px solid #2C3E50; /* Тъмносиньо за акцентиране */
-        padding-bottom: 10px;
-    }
-
-    /* Контейнер за снимките и информацията */
-    .content-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: space-between; /* Разделя елементите по цялата ширина */
-        margin-top: 2rem;
-    }
-
-    /* Изображения и навигационни стрелки */
-    .image-gallery {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .main-image {
-        position: relative;
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .large-image {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        border-radius: 8px;
-        transition: transform 0.3s ease-in-out;
-    }
-
-        .large-image:hover {
-            transform: scale(1.05); /* Лека анимация за увеличаване на снимката */
-        }
-
-    .arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        border: none;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        z-index: 10;
-        border-radius: 50%;
-        transition: background-color 0.3s;
-    }
-
-        .arrow.left {
-            left: 10px;
-        }
-
-        .arrow.right {
-            right: 10px;
-        }
-
-        .arrow:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-    /* Галерия с миниатюри */
-    .thumbnail-gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .thumbnail {
-        width: calc(25% - 0.5rem);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s;
-        border: 2px solid #ddd;
-    }
-
-        .thumbnail:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-    /* Информация за автомобила */
-    .right-info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    /* Цена */
-    .price-section {
-        background-color: #2C3E50; /* Тъмносиньо */
-        color: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .price {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-top: 1rem;
-    }
-
-    hr {
-        border: none;
-        border-top: 2px solid #fff;
-        margin-top: 0.5rem;
-    }
-
-    /* Стилове за списъка с особеностите */
-    .features {
-        background-color: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .features h3 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-    ul li {
-        font-size: 1.25rem;
-        margin-bottom: 0.8rem;
-    }
-
-    /* Акцентиране на триъгълници и емотикони само за особености */
-    .features ul li::before {
-        content: "🔹 "; /* Емотикон вместо триъгълник */
-        color: #2C3E50; /* Тъмносиньо за емотиконите */
-        font-size: 1.25rem;
-    }
-
-    /* Премахваме емотиконите от навигацията */
-    .navigation ul li::before {
-        content: none; /* Премахваме емотикона от навигацията */
-    }
-
-    /* Екстри */
-    .extras {
-        background-color: #f4f4f4;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .extras h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .extras p {
-            font-size: 1.25rem;
-            margin-bottom:12px;
-        }
-
-    /* Допълнителна информация */
-    .additional-info {
-        margin-top: 2rem;
-        padding: 1.5rem;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .additional-info h3 {
-            font-size: 1.75rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .additional-info p {
-            font-size: 1.25rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-    /* Стил за завъртани триъгълличета */
-    .triangle {
-        transform: rotate(90deg);
-        color: #2C3E50; /* Тъмносиньо за триъгълниците */
-        font-size: 1.25rem;
-        margin-right: 0.5rem;
-        vertical-align: middle;
-    }
-
-    /* Общи стилове за текстове и полета */
-    h1, h2, h3, h4, p {
-        margin: 0;
-    }
-
-    p {
-        color: #666;
-        font-size: 1rem;
-    }
-
-    ul {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    /* Общи стилове за елементите */
-    button, .thumbnail, .arrow {
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-    }
-
-        button:hover, .thumbnail:hover {
-            opacity: 0.8;
-        }
-
-    /* Стилове за бутоните */
-    .button {
-        padding: 10px 20px;
-        font-size: 1.2rem;
-        background-color: #2C3E50;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        text-align: center;
-    }
-
-        .button:hover {
-            background-color: #1A2A3C;
-        }
-
-        .button:focus {
-            outline: none;
-        }
-
-    /* Разделяне на бутоните */
-    .button-container {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin-top: 2rem;
-    }
-
-    /* Контейнер за бутоните */
-    .buttons-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    /* Общи стилове за бутоните */
-    .button {
-        background-color: #2C3E50; /* Тъмносиньо */
-        color: #fff;
-        font-size: 1.2rem;
-        font-weight: bold;
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease-in-out;
-        text-align: center;
-        width: 48%; /* Прави бутоните с еднаква ширина */
-    }
-
-        .button:hover {
-            background-color: #34495e; /* Малко по-тъмно синьо за ефект */
-            transform: translateY(-3px); /* Лека анимация при задържане */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Стил за бутон при натискане */
-        .button:active {
-            background-color: #1a242f; /* Тъмно сиво-синьо за натискане */
-            transform: translateY(0);
-        }
-
-        /* Стилове за бутоните с различни текстове */
-        .button.favorite {
-            background-color: #e74c3c; /* Червено за бутон "Добави към любими" */
-        }
-
-            .button.favorite:hover {
-                background-color: #c0392b; /* По-тъмно червено при задържане */
-            }
-
-        .button.back {
-            background-color: #3498db; /* Синьо за бутон "Назад" */
-        }
-
-            .button.back:hover {
-                background-color: #2980b9; /* По-тъмно синьо при задържане */
-            }
-
-</style>

@@ -1,0 +1,90 @@
+/* Основни стилове */
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f4f4f4;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	background-color: #e74c3c;
+	color: white;
+	text-align: center;
+	padding: 40px;
+}
+
+h1 {
+	margin: 0;
+	font-size: 2.5em;
+}
+
+h2, h3 {
+	color: #e67e22;
+}
+
+section {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 40px;
+}
+
+.steps, .reasons {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+}
+
+.step, .reason {
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.step-img, .reason-img {
+	width: 100%;
+	border-radius: 8px;
+	margin-bottom: 15px;
+}
+
+.step h3, .reason h3 {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+.step p, .reason p {
+	font-size: 1em;
+	color: #555;
+}
+
+footer {
+	background-color: #333;
+	color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+	footer a {
+		color: #e67e22;
+		text-decoration: none;
+	}
+
+		footer a:hover {
+			text-decoration: underline;
+		}
+
+/* Мобилна версия */
+@media (max-width: 768px) {
+	.steps, .reasons {
+		grid-template-columns: 1fr;
+	}
+
+	.step, .reason {
+		padding: 15px;
+	}
+}

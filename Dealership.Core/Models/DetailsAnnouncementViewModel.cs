@@ -21,5 +21,7 @@ namespace Dealership.Core.Models
         public string Description { get; set; }
         public string ExtrasForComfort { get; set; }
         public string SecurityExtras { get; set; }
+        public DateTime DataCreated { get; set; }
+        public List<AllAnnouncementViewModel> RecentAnnouncements { get; set; } = new List<AllAnnouncementViewModel>();
     }
 }

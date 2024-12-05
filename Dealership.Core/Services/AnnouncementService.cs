@@ -67,10 +67,26 @@ namespace Dealership.Core.Services
         }
         public async Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id)
         {
+            var recentAnnouncements = await repository.AllAsReadOnly<Announcement>()
+           .Where(a => a.Id != id) 
+           .OrderByDescending(a => a.CreatedDate) 
+           .Take(3) 
+           .Select(a => new AllAnnouncementViewModel
+           {
+               Id = a.Id,
+               ImageUrl = a.Car.CarImages.FirstOrDefault() ?? "~/images/default.jpg",
+               Make = a.Car.Make,
+               Model = a.Car.Model,
+               HorsePower = a.Car.Horsepower,
+               Price = a.Price
+           })
+           .ToListAsync();
+
             var announcement = await repository.AllAsReadOnly<Announcement>()
               .Where(x => x.Id == id)
               .Select(x => new DetailsAnnouncementViewModel()
               {
+                DataCreated = DateTime.Now,
                 Model = x.Car.Model,
                 Price = x.Price,
                 Make = x.Car.Make,
@@ -83,7 +99,8 @@ namespace Dealership.Core.Services
                 Description = x.Description,
                 SecurityExtras = x.SecurityExtras,
                 ExtrasForComfort = x.ExtrasForComfort,
-                ImageUrls = x.Car.CarImages
+                ImageUrls = x.Car.CarImages,
+                RecentAnnouncements = recentAnnouncements
                 
               }).FirstAsync();
 
