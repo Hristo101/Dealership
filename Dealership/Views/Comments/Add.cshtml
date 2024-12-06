@@ -1,0 +1,150 @@
+﻿@using Dealership.Core.Models
+@model AddCommentViewModel
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Споделете мнението си! 😊</h1>
+        <p>Ние вярваме, че вашето мнение е важно! Оставете коментар и споделете вашето мнение за нашия продукт. 💬</p>
+    </div>
+    <img src="https://img.freepik.com/premium-photo/man-sitting-desk-with-laptop-computer-front-him-generative-ai_1034979-27394.jpg" alt="Изображение на продукт" class="hero-image">
+</div>
+
+<div class="container">
+    <h2>Добави нов коментар</h2>
+
+    <form method="post" action="/Comments/Add">
+        <div class="add-comment-form">
+            <textarea id="commentContent" name="Content" placeholder="Напишете вашия коментар..." required></textarea><br>
+
+            <label for="commentGrade">Оценка:</label>
+            <select id="commentGrade" name="Grade">
+                <option value="1">1 ★</option>
+                <option value="2">2 ★★</option>
+                <option value="3">3 ★★★</option>
+                <option value="4">4 ★★★★</option>
+                <option value="5">5 ★★★★★</option>
+            </select><br>
+
+            <input type="hidden" name="Username" value="@Model.Username" />
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-submit" asp-action="Add" asp-controller="Comments">Запази коментара</button>
+                <button type="button" class="btn-cancel" onclick="cancelAddComment()">Отказ</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    var dynamicGrade = 3; 
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.getElementById("commentGrade").value = dynamicGrade;
+    });
+
+    function cancelAddComment() {
+        window.history.back();
+    }
+</script>
+
+<style>
+    .hero-section {
+        position: relative;
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-content p {
+        font-size: 1.1em;
+        margin-top: 10px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        margin-top: 20px;
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Контейнер за формата */
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 30px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    /* Стилове за формата за добавяне на коментар */
+    .add-comment-form {
+        margin-top: 20px;
+    }
+
+        .add-comment-form textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .add-comment-form select {
+            font-size: 1em;
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 100px;
+            border-radius: 5px;
+        }
+
+    .form-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-submit,
+    .btn-cancel {
+        background-color: #007bff;
+        color: white;
+        padding: 12px 25px;
+        font-size: 1.1em;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 48%;
+    }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-cancel {
+        background-color: #dc3545;
+    }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
+</style>

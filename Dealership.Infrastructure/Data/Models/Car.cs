@@ -41,7 +41,6 @@ namespace Dealership.Infrastructure.Data.Models
         public List<string> CarImages { get; set; } = new List<string>();
 
         public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();
-        public ICollection<CarDealership> CarDealerships { get; set; } = new List<CarDealership>();
     }
 
 }

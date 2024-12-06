@@ -4,6 +4,7 @@ using Dealership.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dealership.Infrastructure.Migrations
 {
     [DbContext(typeof(CarDealershipContext))]
-    partial class CarDealershipContextModelSnapshot : ModelSnapshot
+    [Migration("20241206161930_RemoveNamesFromApplicationUser")]
+    partial class RemoveNamesFromApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +69,7 @@ namespace Dealership.Infrastructure.Migrations
                         {
                             Id = 1,
                             CarId = 1,
-                            CreatedDate = new DateTime(2024, 12, 6, 20, 55, 13, 350, DateTimeKind.Local).AddTicks(102),
+                            CreatedDate = new DateTime(2024, 12, 6, 18, 19, 29, 852, DateTimeKind.Local).AddTicks(5615),
                             Description = "Audi RS7 е високопроизводителен спортен седан, оборудван с 4.0-литров V8 битурбо двигател с 600 к.с. (640 к.с. в Performance версията), който ускорява от 0 до 100 км/ч за около 3.5 секунди. Колата разполага с 8-степенна автоматична трансмисия и система за задвижване на четирите колела (quattro), което осигурява отлична стабилност и сцепление. С адаптивно въздушно окачване и високо ефективни спирачки, RS7 предлага както комфорт при дълги пътувания, така и безкомпромисна динамика при спортно шофиране. Интериорът е луксозен, с кожени и спортни седалки, напълно интегрирана мултимедийна система и множество асистиращи технологии за безопасност.",
                             ExtrasForComfort = "Климатроник, Кожен салон, Електрически стъкла, Електрически огледала, Електрически седалки, Подгряване на седалки, Стерео уредба, Алуминиеви джанти, Мултифункционален волан, Автопилот, Серво управление, Бордови компютър, Навигационна система",
                             Price = 89900m,
@@ -77,7 +80,7 @@ namespace Dealership.Infrastructure.Migrations
                         {
                             Id = 2,
                             CarId = 2,
-                            CreatedDate = new DateTime(2024, 12, 6, 20, 55, 13, 350, DateTimeKind.Local).AddTicks(143),
+                            CreatedDate = new DateTime(2024, 12, 6, 18, 19, 29, 852, DateTimeKind.Local).AddTicks(5654),
                             Description = "Toyota Tacoma 2018 е сред най-надеждните пикапи на пазара, със здраво шаси и силен двигател 3.5 V6 с мощност от около 278 к.с. и въртящ момент от 359 Нм. Предлага отлична производителност както на асфалт, така и в офроуд условия благодарение на системата 4x4 и наличните TRD Pro версии, които включват специализирано окачване и офроуд гуми.\r\n\r\nТози модел е популярен и заради издръжливостта си – поддържа висока остатъчна стойност на пазара на употребявани автомобили. Toyota Tacoma е идеален избор за активен начин на живот, който комбинира ежедневна употреба с приключения извън града.",
                             ExtrasForComfort = "Двузонен автоматичен климатроник, Подгряване на предните седалки, Удобна тапицерия, Електрически регулируеми седалки, Мултимедиен дисплей с тъчскрийн, Аудиосистема JBL, Безключов достъп и стартиране, Слънцезащитни сенници с огледала и осветление, Електрическо задно стъкло, Амбиентно осветление в интериора, Автопилот, Серво управление, Бордови компютър, Навигационна система",
                             Price = 92000m,
@@ -88,7 +91,7 @@ namespace Dealership.Infrastructure.Migrations
                         {
                             Id = 3,
                             CarId = 3,
-                            CreatedDate = new DateTime(2024, 12, 6, 20, 55, 13, 350, DateTimeKind.Local).AddTicks(146),
+                            CreatedDate = new DateTime(2024, 12, 6, 18, 19, 29, 852, DateTimeKind.Local).AddTicks(5657),
                             Description = "Mercedes-Benz S 350 (2018) е луксозен седан, който въплъщава върхови технологии и изтънченост. Той е оборудван с 3.0-литров V6 двигател с мощност от около 286 к.с. и въртящ момент от 600 Нм, което осигурява плавно ускорение и нисък разход на гориво за класа си.\r\n\r\nТази лимузина е символ на комфорт и престиж, като предлага най-нови технологии за автономно шофиране и върхова сигурност. Интериорът е изпълнен с висококачествени материали, а стилът и изпълнението правят S-класата един от лидерите в своя сегмент.",
                             ExtrasForComfort = "Мултиконтурни седалки с масаж, Четиризонов климатроник, Ароматизация на купето, Panoramic Sunroof, Ambiente осветление, Мултимедиен дисплей с двойна конфигурация, Електрическа задна врата, Електрически регулиране на волана, Аудиосистема Burmester, Шумоизолиран салон, Автопилот, Серво управление, Бордови компютър, Навигационна система",
                             Price = 195000m,
@@ -254,8 +257,26 @@ namespace Dealership.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.CarDealership", b =>
+                {
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DealershipId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarId", "DealershipId");
+
+                    b.HasIndex("DealershipId");
+
+                    b.ToTable("CarDealerships");
+                });
+
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Comment", b =>
                 {
+                    b.Property<int>("DealershipId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -270,12 +291,34 @@ namespace Dealership.Infrastructure.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.HasKey("DealershipId", "UserId");
 
-                    b.HasKey("UserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Dealership", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Dealerships");
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Query", b =>
@@ -464,13 +507,40 @@ namespace Dealership.Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.CarDealership", b =>
+                {
+                    b.HasOne("Dealership.Infrastructure.Data.Models.Car", "Car")
+                        .WithMany("CarDealerships")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dealership.Infrastructure.Data.Models.Dealership", "Dealership")
+                        .WithMany("CarDealerships")
+                        .HasForeignKey("DealershipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Dealership");
+                });
+
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Comment", b =>
                 {
+                    b.HasOne("Dealership.Infrastructure.Data.Models.Dealership", "Dealership")
+                        .WithMany("Comments")
+                        .HasForeignKey("DealershipId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Dealership.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Dealership");
 
                     b.Navigation("User");
                 });
@@ -560,6 +630,15 @@ namespace Dealership.Infrastructure.Migrations
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Car", b =>
                 {
                     b.Navigation("Announcements");
+
+                    b.Navigation("CarDealerships");
+                });
+
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Dealership", b =>
+                {
+                    b.Navigation("CarDealerships");
+
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

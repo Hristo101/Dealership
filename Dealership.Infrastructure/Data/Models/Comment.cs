@@ -10,7 +10,8 @@ namespace Dealership.Infrastructure.Data.Models
 {
     public class Comment
     {
-
+        [Key]
+        public int Id { get; set; }
         [Required]
         [StringLength(500, MinimumLength = 1)]
         public string Content { get; set; }
@@ -20,10 +21,6 @@ namespace Dealership.Infrastructure.Data.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        [Required]
-        [ForeignKey("Dealership")]
-        public int DealershipId { get; set; }
-        public Dealership Dealership { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; }
         [Required]

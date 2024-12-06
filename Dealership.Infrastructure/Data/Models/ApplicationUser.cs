@@ -12,14 +12,6 @@ namespace Dealership.Infrastructure.Data.Models
     public class ApplicationUser : IdentityUser
     {
 
-        [Required]
-        [StringLength(50, MinimumLength = 2)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [StringLength(50, MinimumLength = 2)]
-        public string LastName { get; set; }
-
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Query> Queries { get; set; } = new List<Query>();
     }

@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Dealership</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Dealership.styles.css" asp-append-version="true" />
-    <!-- Включване на Font Awesome за иконки -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <style>
         /* Основен стил за навигационната лента */
         nav.navbar {
-            background-color: #343a40; /* Тъмно сив фон */
+            background-color: #343a40;
             display: flex;
             justify-content: space-between;
             width: 100%;
@@ -27,69 +24,29 @@
             display: flex;
             align-items: center;
             text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
         }
 
-            .navbar-nav .nav-link i {
-                margin-right: 8px;
+            .navbar-nav .nav-link:hover {
                 color: orange;
             }
 
+            /* Добавяне на триъгълничета към елементите */
             .navbar-nav .nav-link:before {
                 content: '►';
                 margin-right: 5px;
                 color: orange;
             }
 
-        /* Контактна информация в навигацията */
-        .nav-contact-info {
-            display: flex;
-            align-items: center;
-        }
-
-            /* Стил за контактните икони */
-            .nav-contact-info span {
-                color: white;
-                font-size: 22px; /* По-големи иконки */
-                margin-right: 20px;
-                display: flex;
-                align-items: center;
+            .navbar-nav .nav-link i {
+                margin-right: 8px;
+                color: orange;
             }
 
-                .nav-contact-info span i {
-                    color: yellow; /* Иконката за местоположение ще е жълта */
-                    margin-right: 10px;
-                    font-size: 28px; /* Увеличаване на размера на иконите */
-                    cursor: pointer; /* Подаваме на курсора "кликвай ме" */
-                }
-
-            /* Стил за телефонния номер */
-            .nav-contact-info .phone {
-                color: white !important;
-            }
-
-        /* Стил за контактния бутон */
-        .btn-contacts {
-            background-color: orange;
-            color: white;
-            font-weight: bold;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: width 0.3s, border-radius 0.3s, transform 0.3s; /* Плавно преходно действие */
-            cursor: pointer; /* Показване на курсор при задържане на мишката */
-            transform: skewX(-20deg); /* Начална форма като наклонен правоъгълник */
-        }
-
-            /* Промяна на формата на бутона при задържане на курсора */
-            .btn-contacts:hover {
-                width: 160px; /* Разширяване на ширината */
-                border-radius: 10px; /* Промяна на формата */
-                transform: skewX(0deg); /* Преобразуване в правоъгълник */
-            }
-
-        /* Падащо меню */
+        /* Стил за падащото меню */
         .dropdown-menu {
-            background-color: #343a40; /* Тъмно сив фон */
+            background-color: #343a40;
             color: white;
         }
 
@@ -98,82 +55,119 @@
             color: white;
         }
 
-        /* Стилове за контактните данни */
-        .container {
-            padding-top: 20px;
+        .nav-contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Разстояние между контактите и "Welcome Terr26" */
         }
 
-        /* Увеличаване на размера на текста за бутона Контакти */
+            .nav-contact-info span {
+                color: white;
+                font-size: 18px;
+                margin-right: 20px;
+                display: flex;
+                align-items: center;
+            }
+
+                .nav-contact-info span i {
+                    color: yellow;
+                    margin-right: 8px;
+                    font-size: 24px;
+                }
+
+            .nav-contact-info .phone {
+                color: white;
+            }
+
         .btn-contacts {
-            font-size: 16px;
-        }
-
-        /* Стилизиране на навигационния контейнер */
-        .navbar-brand {
+            background-color: orange;
             color: white;
-            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: width 0.3s, border-radius 0.3s, transform 0.3s;
+            cursor: pointer;
+            transform: skewX(-20deg);
         }
 
-        /* Стил за иконата на местоположение */
-        .nav-contact-info span i {
-            color: yellow; /* Правим иконката за местоположение жълта */
-            font-size: 28px;
-            cursor: pointer; /* Подаваме на курсора "кликвай ме" */
-        }
-
-
+            .btn-contacts:hover {
+                width: 160px;
+                border-radius: 10px;
+                transform: skewX(0deg);
+            }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3" style="padding:0;">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dealership</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="background-color:#343a40; padding:1em;color:white;" >
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Announcement" asp-action="All">Налични автомобили</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-sync-alt"></i>Изкупуване на автомобили
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="HowWeWork">Как работим</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="SellCar">Закупуване</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i>Мнения</a>
+                            </li>
+                        }
+                        else
+                        {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Announcement" asp-action="All">Налични автомобили</a>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-sync-alt"></i>Изкупуване на автомобили
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="HowWeWork">Как работим</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="SellCar">Закупуване</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Comments" asp-action="AllComments">
-                                <i class="fas fa-comments"></i>Мнения
-                            </a>
-                        </li>
+                        }
                     </ul>
 
-                    <div class="nav-contact-info">
-                        <span>
-                            <a asp-action="Contact" asp-controller="Home">
-                                <i class="fas fa-map-marker-alt" style="color: yellow;"></i>
-                            </a>
-                        </span>
-                        <!-- Телефонен номер (не води към друга страница) -->
-                        <span class="phone">
-                            <i class="fas fa-phone-alt"></i>0877 067 767
-                        </span>
-                        <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'">Контакти</button>
-                    </div>
-                    </div>
+                    <ul class="navbar-nav">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <div class="nav-contact-info">
+                                <span>
+                                    <a asp-action="Contact" asp-controller="Home">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </a>
+                                </span>
+                                <span class="phone">
+                                    <i class="fas fa-phone-alt"></i> 0877 067 767
+                                </span>
+                                <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'">Контакти</button>
+                                <span>Welcome, @User.Identity.Name!</span>
+                            </div>
+                            <li class="nav-item">
+                                <form method="post" asp-area="" asp-controller="Account" asp-action="Logout">
+                                    <button class="nav-link btn btn-link" style="text-decoration:none; color: white;">Logout</button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -185,7 +179,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="position:relative;">
+    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Dealership - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

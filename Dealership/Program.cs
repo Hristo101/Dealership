@@ -33,6 +33,7 @@ namespace Dealership
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IRepository, Repository>();
             builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             var app = builder.Build();
 
