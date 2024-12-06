@@ -1,4 +1,4 @@
-﻿using System;
+﻿        using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace Dealership.Infrastructure.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
         [Required]
         [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }

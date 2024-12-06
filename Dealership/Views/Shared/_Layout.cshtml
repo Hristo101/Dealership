@@ -135,7 +135,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="background-color:#343a40; padding:1em;color:white;" >
                     <ul class="navbar-nav flex-grow-1">
-                        <!-- Линкове за навигация -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -146,27 +145,23 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Announcement" asp-action="All">Налични автомобили</a>
                         </li>
 
-                        <!-- Добавяне на падащо меню за "Изкупуване на автомобили" -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-sync-alt"></i>Изкупуване на автомобили
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!-- Оставям линковете празни, за да ги попълните по-късно -->
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="HowWeWork">Как работим</a></li>
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="SellCar">Закупуване</a></li>
                             </ul>
                         </li>
-                        <!-- Линк за Мнения -->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Opinions">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Comments" asp-action="AllComments">
                                 <i class="fas fa-comments"></i>Мнения
                             </a>
                         </li>
                     </ul>
 
                     <div class="nav-contact-info">
-                        <!-- Иконка за местоположение -->
                         <span>
                             <a asp-action="Contact" asp-controller="Home">
                                 <i class="fas fa-map-marker-alt" style="color: yellow;"></i>
@@ -176,7 +171,6 @@
                         <span class="phone">
                             <i class="fas fa-phone-alt"></i>0877 067 767
                         </span>
-                        <!-- Бутон Контакти, който ще те води към същия Action -->
                         <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'">Контакти</button>
                     </div>
                     </div>
