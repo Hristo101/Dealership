@@ -86,6 +86,7 @@ namespace Dealership.Core.Services
               .Where(x => x.Id == id)
               .Select(x => new DetailsAnnouncementViewModel()
               {
+                  Id = x.Id,
                 DataCreated = DateTime.Now,
                 Model = x.Car.Model,
                 Price = x.Price,

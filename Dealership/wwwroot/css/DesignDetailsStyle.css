@@ -1,21 +1,35 @@
-﻿
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Основен контейнер за обявата */
 .announcement-container {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    background-color: #f9f9f9; /* Светло сив фон */
+    background-color: #f9f9f9;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Стилове за заглавие на автомобила */
 .title {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #333; /* Тъмно сив текст */
+    color: #333;
     margin-bottom: 1rem;
     text-align: center;
-    border-bottom: 2px solid #2C3E50; /* Тъмносиньо за акцентиране */
+    border-bottom: 2px solid #2C3E50;
     padding-bottom: 10px;
 }
 
@@ -24,7 +38,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    justify-content: space-between; /* Разделя елементите по цялата ширина */
+    justify-content: space-between;
     margin-top: 2rem;
 }
 
@@ -53,7 +67,7 @@
 }
 
     .large-image:hover {
-        transform: scale(1.05); /* Лека анимация за увеличаване на снимката */
+        transform: scale(1.05);
     }
 
 .arrow {
@@ -110,9 +124,8 @@
     gap: 2rem;
 }
 
-/* Цена */
 .price-section {
-    background-color: #2C3E50; /* Тъмносиньо */
+    background-color: #2C3E50;
     color: #fff;
     padding: 1rem;
     border-radius: 8px;
@@ -151,16 +164,10 @@ ul li {
     margin-bottom: 0.8rem;
 }
 
-/* Акцентиране на триъгълници и емотикони само за особености */
 .features ul li::before {
-    content: "🔹 "; /* Емотикон вместо триъгълник */
-    color: #2C3E50; /* Тъмносиньо за емотиконите */
+    content: "🔹 ";
+    color: #2C3E50;
     font-size: 1.25rem;
-}
-
-/* Премахваме емотиконите от навигацията */
-.navigation ul li::before {
-    content: none; /* Премахваме емотикона от навигацията */
 }
 
 /* Екстри */
@@ -202,68 +209,31 @@ ul li {
         line-height: 1.6;
     }
 
-/* Стил за завъртани триъгълличета */
-.triangle {
-    transform: rotate(90deg);
-    color: #2C3E50; /* Тъмносиньо за триъгълниците */
-    font-size: 1.25rem;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-}
-
-/* Общи стилове за текстове и полета */
-h1, h2, h3, h4, p {
-    margin: 0;
-}
-
-p {
-    color: #666;
-    font-size: 1rem;
-}
-
-ul {
-    list-style: none;
-    padding-left: 0;
-}
-
-/* Общи стилове за елементите */
-button, .thumbnail, .arrow {
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-    button:hover, .thumbnail:hover {
-        opacity: 0.8;
-    }
-
-/* Стилове за бутоните */
+/* Стил за бутоните */
 .button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 1.2rem;
     background-color: #2C3E50;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     text-align: center;
+    display: inline-block;
+    width: 100%;
+    max-width: 200px;
+    box-sizing: border-box;
 }
 
     .button:hover {
         background-color: #1A2A3C;
+        transform: scale(1.05);
     }
 
     .button:focus {
         outline: none;
     }
-
-/* Разделяне на бутоните */
-.button-container {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-}
 
 /* Контейнер за бутоните */
 .buttons-container {
@@ -273,50 +243,22 @@ button, .thumbnail, .arrow {
     margin-top: 2rem;
 }
 
-/* Общи стилове за бутоните */
-.button {
-    background-color: #2C3E50; /* Тъмносиньо */
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    text-align: center;
-    width: 48%; /* Прави бутоните с еднаква ширина */
+/* Разделяне на бутоните */
+.button.favorite {
+    background-color: #e74c3c;
 }
 
-    .button:hover {
-        background-color: #34495e; /* Малко по-тъмно синьо за ефект */
-        transform: translateY(-3px); /* Лека анимация при задържане */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    .button.favorite:hover {
+        background-color: #c0392b;
     }
 
-    /* Стил за бутон при натискане */
-    .button:active {
-        background-color: #1a242f; /* Тъмно сиво-синьо за натискане */
-        transform: translateY(0);
+.button.back {
+    background-color: #3498db;
+}
+
+    .button.back:hover {
+        background-color: #2980b9;
     }
-
-    /* Стилове за бутоните с различни текстове */
-    .button.favorite {
-        background-color: #e74c3c; /* Червено за бутон "Добави към любими" */
-    }
-
-        .button.favorite:hover {
-            background-color: #c0392b; /* По-тъмно червено при задържане */
-        }
-
-    .button.back {
-        background-color: #3498db; /* Синьо за бутон "Назад" */
-    }
-
-        .button.back:hover {
-            background-color: #2980b9; /* По-тъмно синьо при задържане */
-        }
-
 
 /* Стилове за последните обяви */
 .recent-announcements {
@@ -343,8 +285,8 @@ button, .thumbnail, .arrow {
 
 .announcement-card {
     width: 100%;
-    max-width: 400px; /* Размер на картата */
-    border: 1px solid #ddd; /* Лека рамка около обявата */
+    max-width: 400px;
+    border: 1px solid #ddd;
     border-radius: 8px;
     background-color: white;
     padding: 25px;
@@ -352,25 +294,22 @@ button, .thumbnail, .arrow {
     text-align: center;
     position: relative;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: none; /* Премахваме сянката за по-прост външен вид */
+    box-shadow: none;
 }
 
-    /* При hover */
     .announcement-card:hover {
-        background-color: #f0f8ff; /* Променяме фона на светло син при hover */
-        transform: translateY(-5px); /* Леко повдигане на картата при hover */
+        background-color: #f0f8ff;
+        transform: translateY(-5px);
     }
 
-/* Стили за изображението */
 .car-image {
     width: 100%;
     height: auto;
-    object-fit: cover; /* Изображението не се изрязва */
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1.5em;
 }
 
-/* Стили за марка, модел и конски сили */
 .car-info .car-make-model-hp {
     display: flex;
     justify-content: center;
@@ -383,8 +322,8 @@ button, .thumbnail, .arrow {
 }
 
 .announcement-card:hover .car-info .car-make-model-hp {
-    color: #007bff; /* Променяме цвета на текста при hover */
-    font-size: 24px; /* Увеличаваме шрифта при hover */
+    color: #007bff;
+    font-size: 24px;
 }
 
 .car-price {
@@ -402,52 +341,65 @@ button, .thumbnail, .arrow {
     display: inline-block;
     margin-top: 10px;
     transition: background-color 0.3s, color 0.3s;
-    font-family: 'Arial', sans-serif;
 }
 
     .view-details-button:hover {
         background-color: #0056b3;
     }
 
-    /* Бутон в активно състояние */
     .view-details-button:active {
         background-color: #004085;
-        color: #cce5ff; /* Светъл цвят на текста за добро виждане */
+        color: #cce5ff;
     }
-/* Стил за секцията с въпроси */
+
+/* Стилове за секцията с въпросите */
 .questions-section {
-    margin-top: 30px;
-    padding: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border: 2px solid #ddd; /* Рамка около секцията */
 }
 
+    /* Стил за текста в секцията */
     .questions-section p {
         font-size: 1.25rem;
-        color: #333;
         margin-bottom: 1rem;
+        color: #333;
     }
 
-/* Стил за бутона за задаване на въпрос */
+/* Стил за бутона "Задайте въпрос" */
 .ask-question-button {
+    background-color: #f39c12; /* Жълт фон за бутона */
+    color: #fff;
     font-size: 1.2rem;
-    background-color: #3498db; /* Синьо за бутон */
-    color: white;
     padding: 12px 25px;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     text-align: center;
+    display: inline-block;
+    max-width: 300px;
+    width: 100%;
 }
 
+    /* Hover ефект за бутона */
     .ask-question-button:hover {
-        background-color: #2980b9;
-        transform: scale(1.05); /* Лека анимация при hover */
+        background-color: #e67e22; /* По-тъмно жълто при hover */
+        transform: scale(1.05);
     }
 
-    /* Ръка за курсора при hover */
-    .ask-question-button:hover {
-        cursor: pointer;
+    .ask-question-button:focus {
+        outline: none;
     }
+
+/* Центриране на бутона и текста в контейнера */
+.questions-section button,
+.questions-section p {
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 1em;
+}

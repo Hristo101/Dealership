@@ -1,4 +1,5 @@
 ﻿using Dealership.Core.Contracts;
+using Dealership.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -15,6 +16,20 @@ namespace Dealership.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            string userId = User.Identity.Name;
+            var favoriteAnnouncements = await _favoriteService.GetFavoritesAsync(userId);
+
+            var model = new FavoriteViewModel
+            {
+                Announcements = favoriteAnnouncements
+            };
+
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(int id)
         {
@@ -28,7 +43,7 @@ namespace Dealership.Controllers
             await _favoriteService.AddToFavoritesAsync(userId, id);
 
             TempData["SuccessMessage"] = "Обявата беше добавена към вашите любими!";
-            return RedirectToAction("Details", "Announcements", new { id });
+            return RedirectToAction("Details", "Announcement", new { id });
         }
         private string GetUserId()
         {

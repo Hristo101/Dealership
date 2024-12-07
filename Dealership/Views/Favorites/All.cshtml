@@ -1,0 +1,89 @@
+﻿@using Dealership.Core.Models
+@model FavoriteViewModel
+
+@{
+    ViewData["Title"] = "Любими обяви";
+}
+
+<h2>Вашите любими обяви</h2>
+
+@if (Model.Announcements != null && Model.Announcements.Any())
+{
+    <div class="announcement-list">
+        @foreach (var announcement in Model.Announcements)
+        {
+            <div class="announcement-item">
+                <div class="announcement-image">
+                    @if (!string.IsNullOrEmpty(announcement.Car.CarImages[0]))
+                    {
+                        <img src="@announcement.Car.CarImages[0]" alt="Обява" class="img-fluid" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/150" alt="Няма изображение" class="img-fluid" />
+                    }
+                </div>
+                <div class="announcement-details">
+                    <h3>@announcement.Car.Make @announcement.Car.Model</h3>
+                    <p>@announcement.Description</p>
+                    <p><strong>Цена:</strong> @announcement.Price</p>
+                    <p><strong>Дата на публикуване:</strong> @announcement.CreatedDate.ToString("dd/MM/yyyy")</p>
+                    <a asp-action="RemoveFromFavorites"
+                       asp-controller="Favorite"
+                       asp-route-announcementId="@announcement.Id"
+                       class="btn btn-danger">Премахни от любимите</a>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Нямате любими обяви.</p>
+}
+
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-text {
+        color: #555;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        padding: 8px 15px;
+        text-align: center;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            text-decoration: none;
+        }
+
+</style>

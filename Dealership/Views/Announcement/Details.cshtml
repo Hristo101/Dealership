@@ -11,11 +11,9 @@
         </div>
     }
 
-    <!-- Title -->
     <h1 class="title">@Model.Make @Model.Model</h1>
 
     <div class="content-container">
-        <!-- Image Gallery -->
         <div class="image-gallery">
             <div class="main-image">
                 <img id="mainImage" src="@Url.Content(Model.ImageUrls.FirstOrDefault() ?? "~/images/default.jpg")" alt="@Model.Make @Model.Model" class="large-image" />
@@ -70,7 +68,6 @@
     </div>
 
     <div class="buttons-container">
-        <!-- Форма за добавяне към любими -->
         <form method="post" asp-action="Add" asp-controller="Favorites">
             <input type="hidden" name="id" value="@Model.Id" />
             <button type="submit" class="button favorite">Добави към любими</button>

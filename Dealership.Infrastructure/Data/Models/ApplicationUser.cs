@@ -19,4 +19,4 @@ namespace Dealership.Infrastructure.Data.Models
     }
 }
 
-}
+

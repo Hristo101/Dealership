@@ -1,5 +1,7 @@
-﻿using Dealership.Infrastructure.Common;
+﻿using Dealership.Core.Contracts;
+using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Dealership.Core.Services
 {
-    public class FavoriteService
+    public class FavoriteService : IFavoriteService
     {
         private readonly IRepository _repository;
 
@@ -35,6 +37,26 @@ namespace Dealership.Core.Services
                 await _repository.SaveChangesAsync();
             }
         }
+        public async Task<List<Announcement>> GetFavoritesAsync(string userId)
+        {
+            var favorites = await _repository.All<UserFavoriteAnnouncement>()
+                .Where(f => f.UserId == userId)
+                .Select(f => f.Announcement)
+                .ToListAsync(); 
 
+            return favorites;
+        }
+
+        public async Task RemoveFromFavoritesAsync(string userId, int announcementId)
+        {
+            var favorite = await _repository.All<UserFavoriteAnnouncement>()
+                .FirstOrDefaultAsync(f => f.UserId == userId && f.AnnouncementId == announcementId);
+
+            if (favorite != null)
+            {
+                _repository.Delete(favorite);
+                await _repository.SaveChangesAsync();
+            }
+        }
     }
 }

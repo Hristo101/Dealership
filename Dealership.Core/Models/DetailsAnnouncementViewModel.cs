@@ -8,6 +8,7 @@ namespace Dealership.Core.Models
 {
     public class DetailsAnnouncementViewModel
     {
+        public int Id { get; set; }
         public List<string> ImageUrls { get; set; } = new List<string>();
         public string Model { get; set; }
         public string Make { get; set; }
