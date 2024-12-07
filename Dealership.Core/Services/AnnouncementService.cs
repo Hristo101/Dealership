@@ -108,5 +108,54 @@ namespace Dealership.Core.Services
             return announcement;
         }
 
+        public async Task<IEnumerable<Announcement>> GetFilteredAnnouncements(string make, string year, string engine, string transmission, string color, string sortBy)
+        {
+            var query = repository.All<Announcement>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(make))
+            {
+                query = query.Where(a => a.Car.Make == make);
+            }
+
+            if (!string.IsNullOrEmpty(year) && int.TryParse(year, out var parsedYear))
+            {
+                query = query.Where(a => a.Car.Year == parsedYear);
+            }
+
+            if (!string.IsNullOrEmpty(engine))
+            {
+                query = query.Where(a => a.Car.EngineType == engine);
+            }
+
+            if (!string.IsNullOrEmpty(transmission))
+            {
+                query = query.Where(a => a.Car.Speeds == transmission);
+            }
+
+            if (!string.IsNullOrEmpty(color))
+            {
+                query = query.Where(a => a.Car.Color == color);
+            }
+
+            switch (sortBy)
+            {
+                case "year-asc":
+                    query = query.OrderBy(a => a.Car.Year);
+                    break;
+                case "year-desc":
+                    query = query.OrderByDescending(a => a.Car.Year);
+                    break;
+                case "price-asc":
+                    query = query.OrderBy(a => a.Price); 
+                    break;
+                case "price-desc":
+                    query = query.OrderByDescending(a => a.Price);
+                    break;
+                default:
+                    break;
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

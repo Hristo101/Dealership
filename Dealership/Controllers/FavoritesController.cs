@@ -19,15 +19,10 @@ namespace Dealership.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            string userId = User.Identity.Name;
+            string userId = GetUserId(); // Идентификатор на потребителя
             var favoriteAnnouncements = await _favoriteService.GetFavoritesAsync(userId);
 
-            var model = new FavoriteViewModel
-            {
-                Announcements = favoriteAnnouncements
-            };
-
-            return View(model);
+            return View(favoriteAnnouncements);
         }
 
         [HttpPost]
@@ -45,6 +40,31 @@ namespace Dealership.Controllers
             TempData["SuccessMessage"] = "Обявата беше добавена към вашите любими!";
             return RedirectToAction("Details", "Announcement", new { id });
         }
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromFavorites(int announcementId)
+        {
+            string userId = GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            bool success = await _favoriteService.RemoveFromFavoritesAsync(userId, announcementId);
+
+            if (success)
+            {
+                TempData["Message"] = "Обявата беше премахната от любимите!";
+            }
+            else
+            {
+                TempData["Message"] = "Не можахме да премахнем обявата.";
+            }
+
+            return RedirectToAction("All"); 
+        }
+
+
         private string GetUserId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;

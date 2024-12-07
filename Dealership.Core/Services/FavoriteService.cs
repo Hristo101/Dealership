@@ -1,4 +1,5 @@
 ﻿using Dealership.Core.Contracts;
+using Dealership.Core.Models;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -37,26 +38,37 @@ namespace Dealership.Core.Services
                 await _repository.SaveChangesAsync();
             }
         }
-        public async Task<List<Announcement>> GetFavoritesAsync(string userId)
+        public async Task<List<FavoriteViewModel>> GetFavoritesAsync(string userId)
         {
             var favorites = await _repository.All<UserFavoriteAnnouncement>()
                 .Where(f => f.UserId == userId)
-                .Select(f => f.Announcement)
-                .ToListAsync(); 
+                .Include(f => f.Announcement)
+                .ThenInclude(a => a.Car) 
+                .ToListAsync();
 
-            return favorites;
+            var favoriteViewModels = favorites.Select(f => new FavoriteViewModel
+            {
+                Id = f.Announcement.Id,
+                CarMake = f.Announcement.Car?.Make,
+                CarModel = f.Announcement.Car?.Model,
+                CarImage = f.Announcement.Car?.CarImages[0], 
+                Price = f.Announcement.Price,
+                Description = f.Announcement.Description,
+                CreatedDate = f.Announcement.CreatedDate
+            }).ToList();
+
+            return favoriteViewModels;
         }
-
-        public async Task RemoveFromFavoritesAsync(string userId, int announcementId)
+        public async Task<bool> RemoveFromFavoritesAsync(string userId, int announcementId)
         {
             var favorite = await _repository.All<UserFavoriteAnnouncement>()
-                .FirstOrDefaultAsync(f => f.UserId == userId && f.AnnouncementId == announcementId);
+                                            .FirstOrDefaultAsync(f => f.UserId == userId && f.AnnouncementId == announcementId);
 
-            if (favorite != null)
-            {
-                _repository.Delete(favorite);
-                await _repository.SaveChangesAsync();
-            }
+            if (favorite == null) return false;
+
+            _repository.Delete(favorite);
+            await _repository.SaveChangesAsync();
+            return true;
         }
     }
 }

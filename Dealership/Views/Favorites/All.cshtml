@@ -1,37 +1,40 @@
 ﻿@using Dealership.Core.Models
-@model FavoriteViewModel
+@model IEnumerable<FavoriteViewModel>
 
 @{
-    ViewData["Title"] = "Любими обяви";
+    ViewData["Title"] = "Вашите любими обяви";
 }
 
-<h2>Вашите любими обяви</h2>
+<h2 class="page-title">Вашите любими обяви</h2>
 
-@if (Model.Announcements != null && Model.Announcements.Any())
+@if (Model != null && Model.Any())
 {
     <div class="announcement-list">
-        @foreach (var announcement in Model.Announcements)
+        @foreach (var announcement in Model)
         {
-            <div class="announcement-item">
+            <div class="announcement-card">
                 <div class="announcement-image">
-                    @if (!string.IsNullOrEmpty(announcement.Car.CarImages[0]))
+                    @if (!string.IsNullOrEmpty(announcement.CarImage))
                     {
-                        <img src="@announcement.Car.CarImages[0]" alt="Обява" class="img-fluid" />
+                        <img src="@Url.Content(@announcement.CarImage)" alt="Обява" class="img-fluid" />
                     }
                     else
                     {
-                        <img src="https://via.placeholder.com/150" alt="Няма изображение" class="img-fluid" />
+                        <img src="https://via.placeholder.com/300" alt="Няма изображение" class="img-fluid" />
                     }
                 </div>
                 <div class="announcement-details">
-                    <h3>@announcement.Car.Make @announcement.Car.Model</h3>
-                    <p>@announcement.Description</p>
-                    <p><strong>Цена:</strong> @announcement.Price</p>
-                    <p><strong>Дата на публикуване:</strong> @announcement.CreatedDate.ToString("dd/MM/yyyy")</p>
-                    <a asp-action="RemoveFromFavorites"
-                       asp-controller="Favorite"
-                       asp-route-announcementId="@announcement.Id"
-                       class="btn btn-danger">Премахни от любимите</a>
+                    <h3>@announcement.CarMake @announcement.CarModel</h3>
+                    <p class="announcement-description">@announcement.Description</p>
+                    <p class="price">Цена: @announcement.Price лв.</p>
+                    <p class="date"><strong>Дата на публикуване:</strong> @announcement.CreatedDate.ToString("dd/MM/yyyy")</p>
+                    <form asp-action="RemoveFromFavorites" asp-controller="Favorites" method="post" style="display:inline;">
+                        <input type="hidden" name="announcementId" value="@announcement.Id" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Сигурни ли сте, че искате да премахнете тази обява от любимите?');">
+                            Премахни от любимите
+                        </button>
+                    </form>
+
                 </div>
             </div>
         }
@@ -43,47 +46,170 @@ else
 }
 
 <style>
-    .card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .card-body {
-        padding: 15px;
-    }
-
-    .card-title {
-        font-size: 1.25rem;
-        font-weight: bold;
+    /* Общи стилове за страницата */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f8;
         color: #333;
     }
 
-    .card-text {
-        color: #555;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border: none;
-        color: white;
-        font-size: 1rem;
-        padding: 8px 15px;
+    .page-title {
         text-align: center;
-        border-radius: 4px;
-        text-decoration: none;
+        font-size: 3em;
+        font-weight: bold;
+        margin-bottom: 40px;
+        color: #2c3e50;
+        position: relative;
     }
 
-        .btn-danger:hover {
-            background-color: #c82333;
-            text-decoration: none;
-        }
+    .page-title::before {
+        content: "✨";
+        position: absolute;
+        left: -30px;
+        top: -20px;
+        font-size: 2em;
+        color: #f39c12;
+    }
+
+    .page-title::after {
+        content: "✨";
+        position: absolute;
+        right: -30px;
+        top: -20px;
+        font-size: 2em;
+        color: #f39c12;
+    }
+
+    /* Стилове за списък с обяви */
+    .announcement-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 0 20px;
+        margin-top: 40px;
+    }
+
+    /* Карта за обява */
+    .announcement-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        border: 2px solid #ddd;
+        padding: 10px;
+        background: linear-gradient(135deg, #f8f8f8, #ffffff);
+    }
+
+    .announcement-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Изображение на обявата */
+    .announcement-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 8px;
+    }
+
+    .announcement-image img:hover {
+        transform: scale(1.05);
+    }
+
+    /* Детайли на обявата */
+    .announcement-details {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-top: 2px solid #f0f0f0;
+    }
+
+    .announcement-details h3 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        color: #2c3e50;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .announcement-details h3::after {
+        content: "🚗";
+        margin-left: 10px;
+        font-size: 1.5em;
+    }
+
+    .announcement-description {
+        font-size: 1em;
+        color: #7f8c8d;
+        margin-bottom: 15px;
+        height: 425px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .price {
+        font-size: 1.4em;
+        font-weight: bold;
+        color: #27ae60;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .price::before {
+        content: "💰";
+        margin-right: 10px;
+    }
+
+    .date {
+        font-size: 0.9em;
+        color: #95a5a6;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .date::before {
+        content: "📅";
+        margin-right: 10px;
+    }
+
+    /* Стилове за бутон */
+    .btn {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 12px 20px;
+        font-size: 1.1em;
+        text-align: center;
+        border-radius: 6px;
+        display: inline-block;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        margin-top: 15px;
+    }
+
+    .btn:hover {
+        background-color: #c0392b;
+        transform: scale(1.05);
+    }
+
+    /* Боксови сенки */
+    .announcement-card {
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .announcement-card:hover {
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
 
 </style>

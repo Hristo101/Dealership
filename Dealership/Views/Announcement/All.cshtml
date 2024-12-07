@@ -7,61 +7,62 @@
     <h2 class="search-title">Търсене на автомобил</h2>
     <hr class="title-divider" />
 
-    <form method="get" action="">
+    <form method="get" action="" id="searchForm">
         <div class="row search-row">
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>Марка</option>
-                    <option>BMW</option>
-                    <option>Mercedes</option>
-                    <option>Volkswagen</option>
-                    <option>Toyota</option>
+                <select class="form-control" name="make" id="makeSelect">
+                    <option value="">Марка</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mercedes">Mercedes</option>
+                    <option value="Volkswagen">Volkswagen</option>
+                    <option value="Toyota">Toyota</option>
                 </select>
             </div>
 
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>Година</option>
-                    <option>2023</option>
-                    <option>2022</option>
-                    <option>2021</option>
-                    <option>2020</option>
+                <select class="form-control" name="year" id="yearSelect">
+                    <option value="">Година</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
                 </select>
             </div>
 
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>Двигател</option>
-                    <option>Бензин</option>
-                    <option>Дизел</option>
-                    <option>Електрически</option>
-                    <option>Хибрид</option>
+                <select class="form-control" name="engine" id="engineSelect">
+                    <option value="">Двигател</option>
+                    <option value="Бензин">Бензин</option>
+                    <option value="Дизел">Дизел</option>
+                    <option value="Електрически">Електрически</option>
+                    <option value="Хибрид">Хибрид</option>
                 </select>
             </div>
 
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>Скорости</option>
-                    <option>Автоматични</option>
-                    <option>Ръчни</option>
+                <select class="form-control" name="transmission" id="transmissionSelect">
+                    <option value="">Скорости</option>
+                    <option value="Автоматични">Автоматични</option>
+                    <option value="Ръчни">Ръчни</option>
                 </select>
             </div>
 
             <div class="col-md-2">
-                <select class="form-control">
-                    <option>Цвят</option>
-                    <option>Черен</option>
-                    <option>Бял</option>
-                    <option>Син</option>
-                    <option>Червен</option>
+                <select class="form-control" name="color" id="colorSelect">
+                    <option value="">Цвят</option>
+                    <option value="Черен">Черен</option>
+                    <option value="Бял">Бял</option>
+                    <option value="Син">Син</option>
+                    <option value="Червен">Червен</option>
                 </select>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary mt-3">Търсене</button>
     </form>
 </div>
 
-<div class="container sort-container">
-    <select id="sortDropdown" class="form-control sort-dropdown">
+<div class="container sort-container mt-4">
+    <select id="sortDropdown" class="form-control sort-dropdown" name="sortBy">
         <option value="">Сортиране по:</option>
         <option value="year-asc">Година (възходящо)</option>
         <option value="year-desc">Година (низходящо)</option>
@@ -70,7 +71,7 @@
     </select>
 </div>
 
-<div class="row">
+<div class="row mt-4" id="carResults">
     @foreach (var item in Model)
     {
         <div class="col-md-4">
@@ -92,3 +93,33 @@
     <img src="~/img/Transport_Logo-removebg-preview.png" alt="Decorative Image" />
 </div>
 
+@section Scripts {
+    <script>
+        // Функция за обновяване на резултатите
+        function updateResults() {
+            var formData = $('#searchForm').serialize();  // Събиране на всички параметри от формата
+            $.ajax({
+                url: '@Url.Action("Search", "Announcement")',  // Пътят към контролера
+                data: formData,  // Данни от формата
+                type: 'GET',
+                success: function(response) {
+                    $('#carResults').html(response);  // Обновяване на резултатите
+                },
+                error: function() {
+                    alert('Грешка при зареждането на резултатите');
+                }
+            });
+        }
+
+        // Слушатели за промяна на полета в формата
+        $('#makeSelect, #yearSelect, #engineSelect, #transmissionSelect, #colorSelect, #sortDropdown').on('change', function() {
+            updateResults();  // Обновяване на резултатите при промяна на филтрите
+        });
+
+        // Изпращане на формата при натискане на бутона за търсене
+        $('#searchForm').on('submit', function(event) {
+            event.preventDefault();  // Забранява стандартното изпращане на формата
+            updateResults();  // Обновяване на резултатите
+        });
+    </script>
+}
