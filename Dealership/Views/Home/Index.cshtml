@@ -1,8 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@using Dealership.Infrastructure.Data.Models
+@model IEnumerable<Announcement>
+
+@{
+    ViewData["Title"] = "Добре дошли в нашата автокъща!";
 }
 
-<div class="text-center mt-4">
-    <h1 class="display-4">Добре дошли!</h1>
-    <p>Научете повече за <a href="https://learn.microsoft.com/aspnet/core" style="color: #007bff;">създаването на уеб приложения с ASP.NET Core</a>.</p>
+<div class="hero-section">
+    <div class="carousel-container">
+        <h1 class="text-center mb-4">🌟 Добре дошли в най-добрата автокъща! 🌟</h1>
+
+
+        <div class="carousel">
+            @if (Model.Any())
+            {
+                <div id="carCarousel" class="carousel-inner">
+                    @foreach (var car in Model.Take(3)) 
+                    {
+                        <div class="carousel-item @(car == Model.First() ? "active" : "")">
+                            <img src="@Url.Content(car.Car.CarImages[0])" alt="@car.Car.Make @car.Car.Model" class="carousel-image" />
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" onclick="prevImage()">←</button>
+                <button class="carousel-control-next" onclick="nextImage()">→</button>
+            }
+        </div>
+    </div>
+
+    <div class="intro-text">
+        <p class="lead">🚗 Нашата автокъща предлага разнообразие от автомобили за всеки вкус и бюджет!</p>
+        <p>🌟 Изберете от широкото ни портфолио на нови и употребявани автомобили, които ще отговорят на вашите нужди и предпочитания.</p>
+        <p>💥 Ние вярваме, че всяка кола трябва да има история. Доверете се на нашите професионалисти за най-добри условия и оферти.</p>
+        <p>🚙 Погледнете най-новите ни предложения и не забравяйте да разгледате офертите ни в секцията "Специални оферти".</p>
+    </div>
+
+    <div class="text-center">
+        <a href="/Announcement/List" class="btn btn-primary btn-lg">Разгледайте обявите</a>
+    </div>
 </div>
+
+<div class="recent-announcements">
+    <h2 class="text-center mt-5">Последни обяви 🚗💨</h2>
+    <div class="announcement-grid">
+        @foreach (var car in Model.Take(6)) 
+        {
+            <div class="announcement-card">
+                <img src="@Url.Content(car.Car.CarImages[0])" alt="@car.Car.Make @car.Car.Model" class="car-image" />
+                <div class="car-info">
+                    <span class="car-make-model">@car.Car.Make @car.Car.Model</span>
+                    <span class="car-price">@car.Price.ToString("N0") лв.</span>
+                </div>
+                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-secondary">Преглед на обявата</a>
+            </div>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/Dealership/home-style.css" />
+<script>
+    // JavaScript функции за въртене на изображения в карусела
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel-item');
+    
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.classList.remove('active');
+            if (i === index) img.classList.add('active');
+        });
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex);
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex);
+    }
+</script>

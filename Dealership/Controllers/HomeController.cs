@@ -1,6 +1,8 @@
+using Dealership.Infrastructure.Data.Models;
 using Dealership.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Dealership.Controllers
@@ -16,7 +18,7 @@ namespace Dealership.Controllers
 
         public IActionResult Index()
         {
-            return View();
+      
         }
         public IActionResult AboutUs()
         {

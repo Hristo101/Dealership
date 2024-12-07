@@ -16,7 +16,7 @@ namespace Dealership.Infrastructure.Data.Models
         [Required]
         public string Message { get; set; }
 
-        public string AdminResponse { get; set; }
+        public string AdminResponse { get; set; } = string.Empty;
 
         public bool IsAnswered { get; set; }
 

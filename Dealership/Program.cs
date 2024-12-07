@@ -36,6 +36,7 @@ namespace Dealership
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+            builder.Services.AddScoped<IQueryService, QueryService>();
 
             var app = builder.Build();
 

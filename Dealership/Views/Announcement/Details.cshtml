@@ -108,12 +108,16 @@
 </script>
 <script src="~/js/details.js"></script>
 
-    <div class="questions-section">
-        <p>Ако имате още въпроси по обявата, може да ги зададете тук:</p>
-        <button id="askQuestionButton" class="button ask-question-button">
-            Задайте въпрос
-        </button>
-    </div>
+<div class="questions-section">
+    <p>Ако имате още въпроси по обявата, може да ги зададете тук:</p>
+
+    <a asp-controller="Query"
+       asp-action="AddQuery"
+       asp-route-announcementId="@Model.Id"
+       class="btn btn-primary btn-lg ask-question-button">
+        Задайте въпрос
+    </a>
+</div>
 
 
 

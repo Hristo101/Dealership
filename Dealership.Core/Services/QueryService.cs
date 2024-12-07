@@ -1,4 +1,5 @@
-﻿using Dealership.Infrastructure.Common;
+﻿using Dealership.Core.Contracts;
+using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Dealership.Core.Services
 {
-    public class QueryService
+    public class QueryService : IQueryService
     {
         private readonly IRepository repository;
 
@@ -26,6 +27,7 @@ namespace Dealership.Core.Services
                 AnnouncementId = announcementId,
                 UserId = userId,
                 CreatedAt = DateTime.Now,
+                AdminResponse = string.Empty,
                 IsAnswered = false 
             };
 

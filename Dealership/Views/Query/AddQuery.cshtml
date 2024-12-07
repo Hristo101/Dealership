@@ -1,0 +1,45 @@
+﻿@using Dealership.Core.Models
+@model QueryListViewModel
+
+@{
+    ViewData["Title"] = "Задайте въпрос";
+}
+
+<div class="query-page container my-5">
+    <h1 class="title text-center mb-4">Задайте въпрос към обявата</h1>
+
+    <!-- Показване на съобщение за успех -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center success-message">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <!-- Показване на грешки, ако има -->
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+    <form asp-action="AddQuery" asp-controller="Query" method="post" class="query-form">
+        <!-- Поле за съобщение -->
+        <div class="form-group">
+            <label asp-for="Message" class="form-label">Вашият въпрос:</label>
+            <textarea asp-for="Message" class="form-control" rows="6" placeholder="Опишете въпроса си тук..."></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+
+        <!-- Скрито поле за AnnouncementId -->
+        <input type="hidden" asp-for="AnnouncementId" value="@Model.AnnouncementId" />
+
+        <!-- Бутоните за изпращане и връщане назад -->
+        <div class="button-container text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg submit-button">Изпрати въпрос</button>
+            <a asp-action="Details" asp-controller="Announcement" asp-route-id="@Model.AnnouncementId" class="btn btn-danger btn-lg cancel-button">Назад към обявата</a>
+        </div>
+    </form>
+</div>
+
+<link rel="stylesheet" href="~/css/Query/add-query-style.css" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
