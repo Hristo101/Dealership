@@ -108,35 +108,45 @@ namespace Dealership.Core.Services
             return announcement;
         }
 
-        public async Task<IEnumerable<Announcement>> GetFilteredAnnouncements(string make, string year, string engine, string transmission, string color, string sortBy)
+        public async Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
+    string make, string year, string engine, string transmission, string color, string sortBy)
         {
-            var query = repository.All<Announcement>().AsQueryable();
+            // Строим запитването с филтрите
+            var query = repository.All<Announcement>()
+                .Include(a => a.Car) // Зареждаме свързаната кола
+                .Where(a => a.Car != null); // Проверка за null стойности на Car
 
+            // Филтрираме по марка, ако е зададена
             if (!string.IsNullOrEmpty(make))
             {
                 query = query.Where(a => a.Car.Make == make);
             }
 
+            // Филтрираме по година, ако е зададена
             if (!string.IsNullOrEmpty(year) && int.TryParse(year, out var parsedYear))
             {
                 query = query.Where(a => a.Car.Year == parsedYear);
             }
 
+            // Филтрираме по тип на двигателя, ако е зададен
             if (!string.IsNullOrEmpty(engine))
             {
                 query = query.Where(a => a.Car.EngineType == engine);
             }
 
+            // Филтрираме по тип на скоростите, ако е зададен
             if (!string.IsNullOrEmpty(transmission))
             {
                 query = query.Where(a => a.Car.Speeds == transmission);
             }
 
+            // Филтрираме по цвят, ако е зададен
             if (!string.IsNullOrEmpty(color))
             {
                 query = query.Where(a => a.Car.Color == color);
             }
 
+            // Приложение на сортирането
             switch (sortBy)
             {
                 case "year-asc":
@@ -146,7 +156,7 @@ namespace Dealership.Core.Services
                     query = query.OrderByDescending(a => a.Car.Year);
                     break;
                 case "price-asc":
-                    query = query.OrderBy(a => a.Price); 
+                    query = query.OrderBy(a => a.Price);
                     break;
                 case "price-desc":
                     query = query.OrderByDescending(a => a.Price);
@@ -155,7 +165,19 @@ namespace Dealership.Core.Services
                     break;
             }
 
-            return await query.ToListAsync();
+            // Извличане на резултатите от базата данни
+            var searchResults = await query.ToListAsync();
+
+            // Връщаме резултатите като модели
+            return searchResults.Select(a => new AllAnnouncementViewModel
+            {
+                Id = a.Id,
+                ImageUrl = a.Car.CarImages[0], 
+                Model = a.Car.Model,
+                Make = a.Car.Make,
+                HorsePower = a.Car.Horsepower,
+                Price = a.Price
+            }).ToList();
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Dealership.Core.Contracts
         Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync();
         IEnumerable<AllAnnouncementViewModel> GetPagedAnnouncements(int page, int pageSize);
         Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id);
-        Task<IEnumerable<Announcement>> GetFilteredAnnouncements(string make, string year, string engine, string transmission, string color, string sortBy);
+        Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
+               string make, string year, string engine, string transmission, string color, string sortBy);
         Task<bool> ExistAsync(int id);
         int GetTotalAnnouncementCount();
     }

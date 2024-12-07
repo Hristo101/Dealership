@@ -35,12 +35,11 @@ namespace Dealership.Controllers
 
             return View(model);
         }
+        [HttpGet]
         public async Task<IActionResult> Search(string make, string year, string engine, string transmission, string color, string sortBy)
         {
-            var announcements = await announcementService.(make, year, engine, transmission, color, sortBy);
-
-            // Връщане на резултатите към изгледа
-            return View(announcements);
+            var viewModel = await announcementService.GetFilteredAnnouncements(make, year, engine, transmission, color, sortBy);
+            return View(viewModel); 
         }
     }
 }

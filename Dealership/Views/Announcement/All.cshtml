@@ -97,13 +97,13 @@
     <script>
         // Функция за обновяване на резултатите
         function updateResults() {
-            var formData = $('#searchForm').serialize();  // Събиране на всички параметри от формата
+            var formData = $('#searchForm').serialize();  
             $.ajax({
-                url: '@Url.Action("Search", "Announcement")',  // Пътят към контролера
-                data: formData,  // Данни от формата
+                url: '@Url.Action("Search", "Announcement")',  
+                data: formData, 
                 type: 'GET',
                 success: function(response) {
-                    $('#carResults').html(response);  // Обновяване на резултатите
+                    $('#carResults').html(response); 
                 },
                 error: function() {
                     alert('Грешка при зареждането на резултатите');
@@ -111,15 +111,14 @@
             });
         }
 
-        // Слушатели за промяна на полета в формата
+
         $('#makeSelect, #yearSelect, #engineSelect, #transmissionSelect, #colorSelect, #sortDropdown').on('change', function() {
-            updateResults();  // Обновяване на резултатите при промяна на филтрите
+            updateResults(); 
         });
 
-        // Изпращане на формата при натискане на бутона за търсене
         $('#searchForm').on('submit', function(event) {
-            event.preventDefault();  // Забранява стандартното изпращане на формата
-            updateResults();  // Обновяване на резултатите
+            event.preventDefault();  
+            updateResults();  
         });
     </script>
 }
