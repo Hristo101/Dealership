@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dealership.Core.Models
 {
-    public class AddCommentViewModel
+    public class ConfirmDeleteViewModel
     {
         public int Id { get; set; }
         public string Content { get; set; }
         public int Grade { get; set; }
-        public string Username { get; set; }  
     }
-
 }

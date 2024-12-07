@@ -51,29 +51,94 @@ public class CommentsController : Controller
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(AddCommentViewModel model)
+    [HttpPost]
+    public async Task<IActionResult> Add(AddCommentViewModel model)
+    {
+        var user = await _userManager.GetUserAsync(User);
+        model.Username = user?.UserName;
+
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
+            var comment = new Comment
             {
-                var user = await _userManager.GetUserAsync(User);
+                Id = model.Id,
+                User = user,
+                Content = model.Content,
+                Grade = model.Grade,
+                UserId = user?.Id,
+                CreatedAt = DateTime.Now
+            };
 
-                var comment = new Comment
-                {
-                    User = user,
-                    Content = model.Content,
-                    Grade = model.Grade,
-                    UserId = GetUserId(), 
-                    CreatedAt = DateTime.Now
-                };
+            await _commentService.AddCommentAsync(comment);
 
-                await _commentService.AddCommentAsync(comment);
-
-                return RedirectToAction("AllComments");
-            }
-
-            return View(model);
+            return RedirectToAction("AllComments");
         }
+
+        return View(model);
+    }
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var comment = await _commentService.GetCommentByIdAsync(id);
+        if (comment == null)
+        {
+            return NotFound();
+        }
+
+        var model = new EditCommentViewModel
+        {
+            Id = comment.Id,
+            Content = comment.Content,
+            Grade = comment.Grade
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditCommentViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                await _commentService.UpdateCommentAsync(model);
+                return RedirectToAction(nameof(AllComments));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        return View(model);
+    }
+    [HttpGet]
+    public async Task<IActionResult> ConfirmDelete(int id)
+    {
+        var model = await _commentService.GetConfirmDeleteViewModelAsync(id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        return View(model);
+    }
+    [HttpPost]
+    [ActionName("ConfirmDelete")]
+    public async Task<IActionResult> ConfirmDeletePost(int id)
+    {
+        var result = await _commentService.DeleteCommentAsync(id);
+
+        if (result)
+        {
+            return RedirectToAction("AllComments");
+        }
+
+        return NotFound();
+    }
+
     private string GetUserId()
     {
         return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;

@@ -414,3 +414,40 @@ button, .thumbnail, .arrow {
         background-color: #004085;
         color: #cce5ff; /* Светъл цвят на текста за добро виждане */
     }
+/* Стил за секцията с въпроси */
+.questions-section {
+    margin-top: 30px;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .questions-section p {
+        font-size: 1.25rem;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+/* Стил за бутона за задаване на въпрос */
+.ask-question-button {
+    font-size: 1.2rem;
+    background-color: #3498db; /* Синьо за бутон */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    text-align: center;
+}
+
+    .ask-question-button:hover {
+        background-color: #2980b9;
+        transform: scale(1.05); /* Лека анимация при hover */
+    }
+
+    /* Ръка за курсора при hover */
+    .ask-question-button:hover {
+        cursor: pointer;
+    }

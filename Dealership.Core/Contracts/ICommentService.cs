@@ -1,4 +1,5 @@
-﻿using Dealership.Infrastructure.Data.Models;
+﻿using Dealership.Core.Models;
+using Dealership.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,9 @@ namespace Dealership.Core.Contracts
     {
         Task<IEnumerable<Comment>> GetAllCommentsAsync();
         Task AddCommentAsync(Comment comment);
+        Task<Comment> GetCommentByIdAsync(int id);
+        Task UpdateCommentAsync(EditCommentViewModel model);
+        Task<ConfirmDeleteViewModel> GetConfirmDeleteViewModelAsync(int id);
+        Task<bool> DeleteCommentAsync(int id);
     }
 }

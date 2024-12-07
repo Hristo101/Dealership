@@ -34,7 +34,7 @@ namespace Dealership.Infrastructure.Data.Models
         public Car Car { get; set; }
 
         public ICollection<Query> Queries { get; set; } = new List<Query>();
-
+        public ICollection<UserFavoriteAnnouncement> FavoriteUsers { get; set; } = new List<UserFavoriteAnnouncement>();
     }
 
 }

@@ -1,0 +1,122 @@
+﻿/* Основни стилове за тъмна тема */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 50px;
+    max-width: 800px;
+    background-color: #1c1c1c;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #e94e77; /* Розово за акцент */
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+    input[type="number"], textarea {
+        height: 45px;
+    }
+
+textarea {
+    min-height: 120px;
+}
+
+    input:focus, textarea:focus {
+        border-color: #e94e77;
+        outline: none;
+    }
+
+button {
+    background-color: #e94e77;
+    color: #fff;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #c23f5f; /* Малко по-тъмно розово */
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+/* Стил за съобщения за грешки */
+.text-danger {
+    color: #e94e77;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+small {
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 5px;
+}
+
+/* Разделител за полета */
+.form-group + .form-group {
+    margin-top: 15px;
+}
+
+/* За мобилни устройства */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    input, textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+}

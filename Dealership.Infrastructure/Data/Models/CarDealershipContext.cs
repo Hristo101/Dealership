@@ -34,6 +34,19 @@ namespace Dealership.Infrastructure.Data.Models
           .WithMany(u => u.Comments)
           .HasForeignKey(uc => uc.UserId);
 
+            modelBuilder.Entity<UserFavoriteAnnouncement>()
+                .HasKey(ufa => new { ufa.AnnouncementId, ufa.UserId });
+
+            modelBuilder.Entity<UserFavoriteAnnouncement>()
+        .HasOne(uc => uc.User)
+        .WithMany(u => u.FavoriteAnnouncements)
+        .HasForeignKey(uc => uc.UserId);
+
+            modelBuilder.Entity<UserFavoriteAnnouncement>()
+    .HasOne(uc => uc.Announcement)
+    .WithMany(u => u.FavoriteUsers)
+    .HasForeignKey(uc => uc.AnnouncementId);
+
             modelBuilder.ApplyConfiguration(new AnnouncementConfiguration());
             modelBuilder.ApplyConfiguration(new CarConfiguration());
         }

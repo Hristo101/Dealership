@@ -1,65 +1,55 @@
 ﻿@using Dealership.Core.Models
-@model AddCommentViewModel
-
+@model EditCommentViewModel
 <div class="hero-section">
     <div class="hero-content">
         <div class="text-content">
-            <h1>Споделете вашето мнение! ✨</h1>
+            <h1>Редактирайте вашия коментар ✍️</h1>
             <p>
-                Вашето мнение е важно за нас. Помогнете ни да се развием и да подобрим вашето преживяване! 😊
+                Променете вашето мнение и ни помогнете да се подобрим! 😊
             </p>
         </div>
         <div class="image-container">
-            <img src="https://img.freepik.com/free-vector/feedback-loop-concept-illustration_114360-21826.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1719878400&semt=ais_user"
-                 alt="Изображение за обратна връзка"
-                 class="hero-image">
+            <img src="https://img.freepik.com/free-photo/feedback-form-concept-with-clipboard_23-2149327682.jpg"
+                 alt="Редакция на коментар" class="hero-image">
         </div>
     </div>
 </div>
 
 <div class="container">
-    <h2 class="form-header">Добави нов коментар</h2>
-    <form asp-action="Add" asp-controller="Comments" method="post">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="Username" />
-
+    <h2 class="form-header">Редактиране на коментар</h2>
+    <form method="post" action="/Comments/Edit/@Model.Id">
         <div class="add-comment-form">
-            <textarea asp-for="Content" id="commentContent" placeholder="Напишете вашия коментар..." required></textarea><br>
+            <!-- Поле за коментар -->
+            <textarea id="commentContent" name="Content" placeholder="Напишете вашия коментар..." required>@Model.Content</textarea><br>
 
+            <!-- Оценка -->
             <label for="commentGrade">Оценка:</label>
-            <select asp-for="Grade" id="commentGrade">
-                <option value="1">1 ★</option>
+            <select id="commentGrade" name="Grade">
+                <option value="1" selected="selected">1 ★</option>
                 <option value="2">2 ★★</option>
-                <option value="3" selected>3 ★★★</option>
+                <option value="3">3 ★★★</option>
                 <option value="4">4 ★★★★</option>
                 <option value="5">5 ★★★★★</option>
             </select><br>
 
+            <!-- Бутоните за запазване и отказ -->
             <div class="form-buttons">
-                <button type="submit" class="btn-submit">💾 Запази коментара</button>
-                <button type="button" class="btn-cancel" onclick="window.location.href='@Url.Action("AllComments", "Comments")'">❌ Отказ</button>
+                <button type="submit" class="btn-submit">💾 Запази промените</button>
+                <a href="/Comments/All" class="btn-cancel">❌ Назад</a>
             </div>
         </div>
     </form>
+
+
 </div>
 
-
-<script>
-    function cancelAddComment() {
-        window.history.back();
-    }
-</script>
-
 <style>
-    /* Заглавна секция */
+    /* Стиловете са същите като преди */
     .hero-section {
-        background: linear-gradient(135deg, #6A11CB, #2575FC);
+        background: linear-gradient(135deg, #ff9966, #ff5e62);
         color: white;
-        padding: 50px 20px;
+        padding: 40px 20px;
         border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     .hero-content {
@@ -117,7 +107,7 @@
         font-size: 1.8em;
     }
 
-    .add-comment-form textarea {
+    .edit-comment-form textarea {
         width: 100%;
         height: 120px;
         padding: 10px;
@@ -128,7 +118,7 @@
         box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .add-comment-form select {
+    .edit-comment-form select {
         font-size: 1em;
         padding: 10px;
         margin-top: 10px;
@@ -172,6 +162,8 @@
         background: linear-gradient(135deg, #dc3545, #c82333);
         color: white;
         box-shadow: 0px 4px 8px rgba(220, 53, 69, 0.3);
+        text-align: center;
+        display: block;
     }
 
         .btn-cancel:hover {

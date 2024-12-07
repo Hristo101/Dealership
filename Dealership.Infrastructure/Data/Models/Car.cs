@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,15 @@ namespace Dealership.Infrastructure.Data.Models
         [Required]
         [StringLength(250, MinimumLength = 1)]
         public string Speeds { get; set; } = null!;
+        public bool IsInAnnouncement { get; set; } = false;
         [Required]
         [Range(1886, 9999)] 
         public int Year { get; set; }
+
+        public string? UserId { get; set; }  
+
+        [ForeignKey(nameof(UserId))]
+        public ApplicationUser? User { get; set; }
 
         [Required]
         [MinLength(4, ErrorMessage = "Трябва да има поне 4 снимки.")]

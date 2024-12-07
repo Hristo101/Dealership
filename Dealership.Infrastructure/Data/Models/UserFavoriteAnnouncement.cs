@@ -8,31 +8,22 @@ using System.Threading.Tasks;
 
 namespace Dealership.Infrastructure.Data.Models
 {
-    public class Query
+    public class UserFavoriteAnnouncement
     {
+
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Message { get; set; }
-
-        public string AdminResponse { get; set; }
-
-        public bool IsAnswered { get; set; }
-
-
-        [Required]
-        public int AnnouncementId { get; set; }
-        [ForeignKey(nameof(AnnouncementId))]
-        public Announcement Announcement { get; set; }
-
-
-        [Required]
         public string UserId { get; set; }
+
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; }
 
-        public DateTime CreatedAt { get; set; } 
-    }
+        [Required]
+        public int AnnouncementId { get; set; }
 
+        [ForeignKey(nameof(AnnouncementId))]
+        public Announcement Announcement { get; set; }
+    }
 }

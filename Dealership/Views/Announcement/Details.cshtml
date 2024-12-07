@@ -2,27 +2,33 @@
 @model DetailsAnnouncementViewModel
 
 <div class="announcement-container">
+
+    <!-- Показване на съобщение за успех -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
     <!-- Title -->
     <h1 class="title">@Model.Make @Model.Model</h1>
 
-    <!-- Main content container with image on the left and info on the right -->
     <div class="content-container">
-        <!-- Image Gallery (снимките под заглавието) -->
+        <!-- Image Gallery -->
         <div class="image-gallery">
-            <!-- Main Image -->
             <div class="main-image">
                 <img id="mainImage" src="@Url.Content(Model.ImageUrls.FirstOrDefault() ?? "~/images/default.jpg")" alt="@Model.Make @Model.Model" class="large-image" />
                 <button class="arrow left" onclick="previousImage()">←</button>
                 <button class="arrow right" onclick="nextImage()">→</button>
             </div>
 
-            <!-- Thumbnails (малки снимки) -->
             <div class="thumbnail-gallery">
                 @for (int i = 0; i < Model.ImageUrls.Count; i++)
                 {
                     if (i % 4 == 0 && i > 0)
                     {
-                        <div class="clear"></div> <!-- Start new row after 4 images -->
+                        <div class="clear"></div>
                     }
                     <img src="@Url.Content(Model.ImageUrls[i])" alt="Thumbnail" class="thumbnail" onclick="setMainImage(@i)" />
                 }
@@ -30,7 +36,6 @@
         </div>
 
         <div class="right-info">
-            <!-- Price -->
             <div class="price-section">
                 <h3>Цена:</h3>
                 <h2 class="price">@Model.Price.ToString("N0") лв.</h2>
@@ -49,29 +54,30 @@
                 </ul>
             </div>
 
-            <!-- Extras -->
             <div class="extras">
-                <h3><span class="triangle">&#x25B6;</span> Комфорт:</h3>
+                <h3>Комфорт:</h3>
                 <p>@Model.ExtrasForComfort</p>
 
-                <h3><span class="triangle">&#x25B6;</span> Сигурност:</h3>
+                <h3>Сигурност:</h3>
                 <p>@Model.SecurityExtras</p>
             </div>
         </div>
     </div>
 
-    <!-- Допълнителна информация -->
     <div class="additional-info">
         <h3>Допълнителна Информация</h3>
         <p>@Model.Description</p>
     </div>
 
     <div class="buttons-container">
-        <!-- Бутон за добавяне към любими -->
-        <button class="button favorite">Добави към любими</button>
+        <!-- Форма за добавяне към любими -->
+        <form method="post" asp-action="Add" asp-controller="Favorites">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="button favorite">Добави към любими</button>
+        </form>
 
         <!-- Бутон за връщане назад -->
-        <button class="button back">Назад</button>
+        <button class="button back" onclick="history.back()">Назад</button>
     </div>
 </div>
 
@@ -94,15 +100,23 @@
             </div>
         }
     </div>
-    <link rel="stylesheet" href="~/css/DesignDetailsStyle.css" />
+</div>
 
-<!-- Включване на JavaScript -->
+<link rel="stylesheet" href="~/css/DesignDetailsStyle.css" />
+
 <script>
     const imageUrls = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
         Model.ImageUrls.Select(url => Url.Content(url))
         ));
 </script>
 <script src="~/js/details.js"></script>
+
+    <div class="questions-section">
+        <p>Ако имате още въпроси по обявата, може да ги зададете тук:</p>
+        <button id="askQuestionButton" class="button ask-question-button">
+            Задайте въпрос
+        </button>
+    </div>
 
 
 

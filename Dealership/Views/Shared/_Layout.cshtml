@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "Налични автомобили";  // Задаваме заглавието на страницата
+    ViewData["ActivePage"] = "AvailableCars";  // Задаваме активната страница, за да се показва менюто
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,38 +16,46 @@
         nav.navbar {
             background-color: #343a40;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start; /* Подравняваме вляво */
             width: 100%;
             box-sizing: border-box;
             padding: 10px 20px;
+            margin-top: 0; /* Премахнато излишно разстояние */
         }
 
-        .navbar-nav .nav-link {
-            color: white !important;
-            font-weight: bold;
-            margin-right: 15px;
+        /* Подравняване на менюто точно под Dealership */
+        .navbar-nav {
             display: flex;
-            align-items: center;
-            text-transform: uppercase;
-            text-decoration: none;
-            position: relative;
+            gap: 15px;
+            align-items: center; /* Подравняваме елементите на менюто по лявата страна */
+            padding-left: 0;
+            list-style-type: none;
         }
 
-            .navbar-nav .nav-link:hover {
-                color: orange;
+            .navbar-nav .nav-link {
+                color: white !important;
+                font-weight: bold;
+                margin-right: 15px;
+                display: flex;
+                align-items: center;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+                transition: background-color 0.3s, transform 0.3s;
             }
 
-            /* Добавяне на триъгълничета към елементите */
-            .navbar-nav .nav-link:before {
-                content: '►';
-                margin-right: 5px;
-                color: orange;
-            }
+                /* Добавяме ефект при hover */
+                .navbar-nav .nav-link:hover {
+                    background-color: #f39c12;
+                    transform: translateX(10px);
+                }
 
-            .navbar-nav .nav-link i {
-                margin-right: 8px;
-                color: orange;
-            }
+                .navbar-nav .nav-link i {
+                    margin-right: 8px;
+                    color: #f39c12;
+                }
 
         /* Стил за падащото меню */
         .dropdown-menu {
@@ -51,20 +64,20 @@
         }
 
         .dropdown-item:hover {
-            background-color: orange;
+            background-color: #f39c12;
             color: white;
         }
 
+        /* Подравняване на контактната информация */
         .nav-contact-info {
             display: flex;
+            gap: 20px;
             align-items: center;
-            gap: 20px; /* Разстояние между контактите и "Welcome Terr26" */
         }
 
             .nav-contact-info span {
                 color: white;
                 font-size: 18px;
-                margin-right: 20px;
                 display: flex;
                 align-items: center;
             }
@@ -79,8 +92,9 @@
                 color: white;
             }
 
+        /* Бутон "Контакти" */
         .btn-contacts {
-            background-color: orange;
+            background-color: #f39c12;
             color: white;
             font-weight: bold;
             border: none;
@@ -88,63 +102,138 @@
             border-radius: 5px;
             transition: width 0.3s, border-radius 0.3s, transform 0.3s;
             cursor: pointer;
-            transform: skewX(-20deg);
         }
 
             .btn-contacts:hover {
                 width: 160px;
                 border-radius: 10px;
                 transform: skewX(0deg);
+                background-color: #e67e22;
             }
+
+        /* Стил за страничната лента (Sidebar) */
+        .content-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .sidebar {
+            width: 250px;
+            border: 1px solid #343a40;
+            padding: 20px;
+            background-color: #343a40;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 65px; /* Преместено над менюто */
+            left: 0;
+            z-index: 10;
+        }
+
+            .sidebar h3 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #f39c12;
+            }
+
+            .sidebar .btn-custom {
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
+                padding: 12px;
+                text-align: center;
+                text-decoration: none;
+                background-color: #007bff;
+                color: white;
+                font-weight: bold;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            }
+
+                .sidebar .btn-custom:hover {
+                    background-color: #0056b3;
+                    transform: translateY(-5px);
+                    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .sidebar .btn-custom:active {
+                    background-color: #004085;
+                    transform: translateY(2px);
+                    box-shadow: none;
+                }
+
+                .sidebar .btn-custom i {
+                    margin-right: 8px;
+                }
+
+        /* Подобрен стил за бутоните в основното съдържание */
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .btn-custom:hover {
+                background-color: #0056b3;
+                transform: translateY(-5px);
+            }
+
+            .btn-custom:active {
+                background-color: #004085;
+                transform: translateY(2px);
+            }
+
+        /* Позициониране на основното съдържание, за да не се застъпва с менюто */
+        .main-content {
+            margin-left: 270px; /* За да не се застъпва с лявото меню */
+            padding: 20px;
+            width: calc(100% - 270px); /* Добавяме ширината на страничната лента */
+        }
     </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dealership</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    Dealership
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs"><i class="fas fa-info-circle"></i> About Us</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Announcement" asp-action="All">Налични автомобили</a>
+                                <a class="nav-link" asp-area="" asp-controller="Announcement" asp-action="All"><i class="fas fa-car"></i> Налични автомобили</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-sync-alt"></i>Изкупуване на автомобили
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="HowWeWork">Как работим</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="SellCar">Закупуване</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i>Мнения</a>
-                            </li>
-                        }
-                        else
-                        {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
-                        </li>
                         }
                     </ul>
-
                     <ul class="navbar-nav">
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt"></i> Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register"><i class="fas fa-user-plus"></i> Register</a>
                             </li>
                         }
                         else
@@ -158,12 +247,12 @@
                                 <span class="phone">
                                     <i class="fas fa-phone-alt"></i> 0877 067 767
                                 </span>
-                                <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'">Контакти</button>
+                                <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'"><i class="fas fa-envelope"></i> Контакти</button>
                                 <span>Welcome, @User.Identity.Name!</span>
                             </div>
                             <li class="nav-item">
                                 <form method="post" asp-area="" asp-controller="Account" asp-action="Logout">
-                                    <button class="nav-link btn btn-link" style="text-decoration:none; color: white;">Logout</button>
+                                    <button class="nav-link btn btn-link" style="text-decoration:none; color: white;"><i class="fas fa-sign-out-alt"></i> Logout</button>
                                 </form>
                             </li>
                         }
@@ -174,9 +263,27 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        @if (ViewData["ActivePage"] == "AvailableCars")
+        {
+            <div class="content-container">
+                <div class="sidebar">
+                    <h3>Меню</h3>
+                    <a href="@Url.Action("All", "Favorites")" class="btn-custom"><i class="fas fa-heart"></i> Любими обяви</a>
+                    <a href="@Url.Action("All", "Inquiries")" class="btn-custom"><i class="fas fa-question-circle"></i> Запитвания</a>
+                </div>
+                <div class="main-content">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+        }
+        else
+        {
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        }
     </div>
 
     <footer class="border-top footer text-muted">

@@ -14,6 +14,9 @@ namespace Dealership.Infrastructure.Data.Models
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Query> Queries { get; set; } = new List<Query>();
+        public ICollection<Car> Cars { get; set; } = new List<Car>();
+        public ICollection<UserFavoriteAnnouncement> FavoriteAnnouncements { get; set; } = new List<UserFavoriteAnnouncement>();
     }
+}
 
 }

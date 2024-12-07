@@ -1,0 +1,69 @@
+﻿@model Dealership.Core.Models.CarViewModel
+
+@{
+    ViewData["Title"] = "Прати да оценим вашата кола";
+}
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="AddCar" method="post" enctype="multipart/form-data">
+
+        <!-- Скрито поле за UserId -->
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group">
+            <label for="Make">Марка</label>
+            <input type="text" class="form-control" id="Make" name="Make" value="@Model.Make" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Model">Модел</label>
+            <input type="text" class="form-control" id="Model" name="Model" value="@Model.Model" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Color">Цвят</label>
+            <input type="text" class="form-control" id="Color" name="Color" value="@Model.Color" required />
+        </div>
+
+        <div class="form-group">
+            <label for="EngineType">Тип на двигателя</label>
+            <input type="text" class="form-control" id="EngineType" name="EngineType" value="@Model.EngineType" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Speeds">Тип на скоростите</label>
+            <input type="text" class="form-control" id="Speeds" name="Speeds" value="@Model.Speeds" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Year">Година</label>
+            <input type="number" class="form-control" id="Year" name="Year" value="@Model.Year" required min="1886" max="9999" />
+        </div>
+
+        <div class="form-group">
+            <label for="Mileage">Пробег</label>
+            <input type="number" class="form-control" id="Mileage" name="Mileage" value="@Model.Mileage" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Horsepower">Мощност</label>
+            <input type="number" class="form-control" id="Horsepower" name="Horsepower" value="@Model.Horsepower" required />
+        </div>
+
+        <div class="form-group">
+            <label for="CarImages">Снимки на колата (URL-та, разделени със запетая)</label>
+            <textarea class="form-control" id="CarImages" name="CarImages" rows="4" required>@Model.CarImages</textarea>
+            <small class="form-text text-muted">Трябва да има поне 4 снимки. Използвайте запетаи за разделяне на URL-тата.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Изпрати за оценка</button>
+    </form>
+</div>
+
+
+<link rel="stylesheet" href="~/css/Car/AddCarCss.css" />
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

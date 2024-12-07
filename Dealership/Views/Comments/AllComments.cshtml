@@ -1,209 +1,63 @@
 ﻿@using Dealership.Core.Models
 @model IEnumerable<CommentViewModel>
 
-<div class="comments-container">
-    @foreach (var comment in Model)
-    {
-        <div class="comment-item">
-            <p><strong>@comment.UserName</strong> - @comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
-            <p>@comment.Content</p>
-            <p>Оценка: @comment.Grade</p>
-
-            <!-- Показваме бутоните за редактиране, детайли и изтриване само ако потребителят е автор на коментара -->
-            @if (comment.CanEdit)
-            {
-                <div>
-                    <a asp-action="Details" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-info">Детайли</a>
-
-                    <a asp-action="Edit" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-warning">Редактирай</a>
-
-                    <form method="post" asp-action="Delete" asp-controller="Comments" asp-route-id="@comment.Id" style="display:inline;">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този коментар?')">Изтрий</button>
-                    </form>
-                </div>
-            }
-        </div>
-    }
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Споделете мнението си! 😊</h1>
+        <p>Ние вярваме, че вашето мнение е важно! Оставете коментар и споделете вашето мнение за нашия продукт. 💬</p>
+    </div>
+    <img src="https://img.freepik.com/premium-photo/man-sitting-desk-with-laptop-computer-front-him-generative-ai_1034979-27394.jpg" alt="Изображение на продукт" class="hero-image">
 </div>
 
+<!-- Контейнер за коментари -->
+<div class="container">
+    <h2 class="comments-header">Коментари</h2>
 
+    <!-- Центриран бутон за добавяне на коментар -->
+    <div class="add-comment-btn-container">
+        <a href="@Url.Action("Add", "Comments")" class="btn btn-primary add-comment-btn">Добави коментар</a>
+    </div>
 
-    <style>
-    /* Основни стилове за коментарите */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
+    <!-- Коментари -->
+    <div class="comments-container">
+        @foreach (var comment in Model)
+        {
+            <div class="comment-item">
+                <p class="comment-author"><strong>@comment.UserName</strong> - @comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                <p class="comment-content">@comment.Content</p>
+                <p class="comment-grade">Оценка: @comment.Grade</p>
 
-    /* Hero секция с фоново изображение */
-    .hero-section {
-        position: relative;
-        background-color: #222;
-        color: #fff;
-        text-align: center;
-        padding: 0px 0; /* Намалих padding-а за по-компактен вид */
-        position: relative;
-    }
+                <div class="stars">
+                    @for (var i = 1; i <= 5; i++)
+                    {
+                        if (i <= comment.Grade)
+                        {
+                            <span class="star filled">★</span>
+                        }
+                        else
+                        {
+                            <span class="star">★</span>
+                        }
+                    }
+                </div>
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        padding: 15px; /* Намалих padding за по-компактен вид */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
+                @if (comment.CanEdit)
+                {
+                    <div class="comment-actions">
+                        <a asp-action="Details" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-info">Детайли</a>
+                        <a asp-action="Edit" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-warning">Редактирай</a>
 
-        .hero-content h1 {
-            font-size: 2em; /* Намалих размера на заглавието */
-            margin: 0;
-            padding: 10px;
-            font-weight: bold;
+                        <!-- Формата за изтриване -->
+                        <form method="get" asp-action="ConfirmDelete" asp-controller="Comments" asp-route-id="@comment.Id" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този коментар?')">Изтрий</button>
+                        </form>
+                    </div>
+                }
+            </div>
         }
+    </div>
+</div>
 
-        .hero-content p {
-            font-size: 1.1em;
-            margin-top: 10px;
-            max-width: 500px; /* Намалих ширината на параграфа */
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-    /* Снимката над текста */
-    .hero-image {
-        width: 100%;
-        max-height: 557px; /* Намалих височината на изображението */
-        object-fit: cover; /* Пазим пропорциите на изображението */
-        margin-top: 20px;
-        border-radius: 8px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Контейнер за коментари */
-    .container {
-        width: 80%;
-        margin: 0 auto;
-        padding: 30px;
-        margin-top:3em;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-    }
-    h3 {
-        margin-bottom: 2rem;
-    }
-    /* Бутон за добавяне на коментар */
-    .add-comment-btn-container {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .add-comment-btn {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        font-size: 1.1em;
-        cursor: pointer;
-        border-radius: 5px;
-        border: none;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-        .add-comment-btn:hover {
-            background-color: #0056b3;
-        }
-
-    /* Стилове за коментарите */
-    .comment {
-        border-bottom: 1px solid #ddd;
-        padding: 15px; /* Намалих padding-а за по-компактен вид */
-        margin-bottom: 15px;
-    }
-
-    .comment-header {
-        display: flex;
-        align-items: center;
-    }
-
-    .user-image {
-        width: 40px; /* Намалих размера на снимката */
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    .comment-rating {
-        margin-top: 10px;
-        font-size: 1.1em; /* Намалих размерите на звездите */
-    }
-
-    .comment-content {
-        margin-top: 10px;
-    }
-
-    .comment-footer {
-        margin-top: 10px;
-    }
-
-        .comment-footer button {
-            background-color: #28a745;
-            color: white;
-            padding: 8px 12px; /* Намалих padding-а за по-компактен бутон */
-            font-size: 0.9em;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-            .comment-footer button:hover {
-                background-color: #218838;
-            }
-
-    /* Стилове за формата за добавяне на коментар */
-    .add-comment-form {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-
-        .add-comment-form textarea {
-            width: 100%;
-            height: 80px; /* Намалих височината на полето за коментар */
-            padding: 10px;
-            font-size: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .add-comment-form select {
-            font-size: 1.1em;
-            padding: 5px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            width: 131px;
-        }
-
-        .add-comment-form button {
-            background-color: #007bff;
-            color: white;
-            padding: 8px 15px; /* Намалих padding-а */
-            font-size: 1em;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-        }
-
-            .add-comment-form button:hover {
-                background-color: #0056b3;
-            }
-
-</style>
-
-        
+<!-- Връзка към стилизирания CSS -->
+<link rel="stylesheet" href="~/css/Comments/AllCommentsCss.css" />
