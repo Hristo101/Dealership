@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="~/css/AllitemStyle.css">
 
 <div class="container search-container">
-    <h2 class="search-title">Търсене на автомобил</h2>
+    <h2 class="search-title">Резултати от търсенето</h2>
     <hr class="title-divider" />
 
     <form method="get" action="/Announcement/Search" id="searchForm">
@@ -12,7 +12,8 @@
                 <select class="form-control" name="make" id="makeSelect">
                     <option value="">Марка</option>
                     <option value="BMW">BMW</option>
-                    <option value="Mercedes">Mercedes</option>
+                    <option value="Mercedes">Mercedes-Benz</option>
+                    <option value="Audi">Audi</option>
                     <option value="Volkswagen">Volkswagen</option>
                     <option value="Toyota">Toyota</option>
                 </select>
@@ -39,7 +40,7 @@
             <div class="col-md-2">
                 <select class="form-control" name="transmission" id="transmissionSelect">
                     <option value="">Скорости</option>
-                    <option value="Автоматични">Автоматични</option>
+                    <option value="Автоматични">Автоматик</option>
                     <option value="Ръчни">Ръчни</option>
                 </select>
             </div>
@@ -53,12 +54,12 @@
             </div>
 
             <div class="col-md-2">
-                <select id="sortDropdown" class="form-control sort-dropdown" name="sortBy">
-                    <option value="" disabled selected>Сортиране по:</option>
-                    <option value="year-asc">Година (възходящо)</option>
-                    <option value="year-desc">Година (низходящо)</option>
-                    <option value="price-asc">Цена (възходящо)</option>
-                    <option value="price-desc">Цена (низходящо)</option>
+                <select name="sortBy" id="sortDropdown" class="form-control sort-dropdown">
+                    <option value="">Сортиране по:</option>
+                    <option value="year-desc">Година (възходящо)</option>
+                    <option value="year-asc">Година (низходящо)</option>
+                    <option value="price-desc">Цена (възходящо)</option>
+                    <option value="price-asc">Цена (низходящо)</option>
                 </select>
             </div>
         </div>
@@ -68,7 +69,11 @@
 </div>
 
 <div class="row mt-4" id="carResults">
-    @if (Model.Any())
+    @if (!Model.Any())
+    {
+        <h4>Няма намерени резултати по зададените критерии.</h4>
+    }
+    else
     {
         @foreach (var item in Model)
         {
@@ -85,10 +90,6 @@
                 </div>
             </div>
         }
-    }
-    else
-    {
-        <p>Няма намерени резултати.</p>
     }
 </div>
 
