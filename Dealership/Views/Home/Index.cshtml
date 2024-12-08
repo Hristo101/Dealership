@@ -1,8 +1,92 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Dealership.Core.Models.Home
+@model IEnumerable<HomeCarViewModel>
 
-<div class="text-center mt-4">
-    <h1 class="display-4">Добре дошли!</h1>
-    <p>Научете повече за <a href="https://learn.microsoft.com/aspnet/core" style="color: #007bff;">създаването на уеб приложения с ASP.NET Core</a>.</p>
+@{
+    var backgroundColor = "#f8f9fa";
+    var accentColor = "#007bff";
+    var secondaryColor = "#6c757d";
+    var lightAccentColor = "#eaf1ff";
+    var highlightColor = "#ffffff";
+    var textPrimaryColor = "#212529";
+}
+<link rel="stylesheet" href="css/Home/IndexStyleCss.css" />
+
+<div class="container">
+    <!-- Хедър -->
+    <div class="header">
+        <h1 class="header-title">Добре дошли в нашата автокъща!</h1>
+        <p class="header-subtitle">Намерете перфектния автомобил за вашите нужди и стил.</p>
+    </div>
+
+    <!-- Галерия за коли -->
+    <div class="gallery">
+        @foreach (var car in Model.Take(1))
+        {
+            <img id="car-image" src="@Url.Content(car.CarImage)" alt="Car">
+            <p id="car-text" class="gallery-text">@car.Make @car.Model</p>
+        }
+        <div class="gallery-controls">
+            <button onclick="prevCar()">&#8249; Назад</button>
+            <button onclick="nextCar()">Напред &#8250;</button>
+        </div>
+    </div>
+
+    <!-- Информационна секция -->
+    <div class="info-section">
+        <div class="info-box">
+            <h4>Гаранция за качество</h4>
+            <p>Всеки автомобил преминава през строг технически преглед и идва с гаранция.</p>
+            <img src="https://nostrolux.viste.eu/img/cms/computer-service-abstract-concept-illustration_335657-1897.jpg" alt="Гаранция" class="img-fluid">
+        </div>
+        <div class="info-box">
+            <h4>Изгодни цени</h4>
+            <p>Нашите автомобили се предлагат на конкурентни и достъпни цени. За нас е важно да предложим най-добрата стойност на нашите клиенти.</p>
+            <img src="https://img.freepik.com/free-vector/flat-design-luxury-car-dealer-sale-banner_23-2149975175.jpg" alt="Цени" class="img-fluid">
+        </div>
+        <div class="info-box">
+            <h4>Проверено качество</h4>
+            <p>Всеки автомобил в нашия каталог е преминал през детайлен технически преглед, за да гарантира безупречна работа и сигурност на пътя.</p>
+            <img src="https://sovman.ru/wp-content/uploads/2023/04/st186.png" alt="Проверено качество" class="img-fluid">
+        </div>
+        <div class="info-box">
+            <h4>Обслужване</h4>
+            <p>Нашият екип от професионалисти е на ваше разположение за консултации и обслужване. Вие сте на първо място за нас!</p>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA1IFnZfTT52etK4r_ivhpcYkkK0HUW4SbaY7Sc7HF0Snv7Vv0rdAAQ533VavMV5iWY4k&usqp=CAU" alt="Обслужване" class="img-fluid">
+        </div>
+    </div>
+
+    <!-- Акцент -->
+    <div class="highlight-section">
+        <h3>Вашият нов автомобил ви очаква!</h3>
+        <p>Свържете се с нас днес и направете следващата стъпка към мечтания автомобил.</p>
+    </div>
 </div>
+
+<script>
+    // Данни за галерията
+    const cars = [
+    @foreach (var car in Model)
+    {
+        @:{ image: "@Url.Content(car.CarImage)", text: "@car.Make @car.Model" },
+    }
+    ];
+
+    let currentIndex = 0;
+
+    function updateGallery() {
+        const carImage = document.getElementById("car-image");
+        const carText = document.getElementById("car-text");
+        carImage.src = cars[currentIndex].image;
+        carText.innerText = cars[currentIndex].text;
+    }
+
+    function prevCar() {
+        currentIndex = (currentIndex - 1 + cars.length) % cars.length;
+        updateGallery();
+    }
+
+    function nextCar() {
+        currentIndex = (currentIndex + 1) % cars.length;
+        updateGallery();
+    }
+</script>

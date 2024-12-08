@@ -1,3 +1,4 @@
+using Dealership.Core.Contracts;
 using Dealership.Infrastructure.Data.Models;
 using Dealership.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,14 +12,17 @@ namespace Dealership.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IHomeService homeService;
+        public HomeController(ILogger<HomeController> logger, IHomeService _homeService)
         {
             _logger = logger;
+            this.homeService = _homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var cars = await homeService.GetCarsForHomePageAsync();
+            return View(cars);
         }
         public IActionResult AboutUs()
         {
