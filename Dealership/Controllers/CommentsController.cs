@@ -1,5 +1,5 @@
 ﻿using Dealership.Core.Contracts;
-using Dealership.Core.Models;
+using Dealership.Core.Models.Comments;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +9,9 @@ public class CommentsController : Controller
 {
     private readonly ICommentService _commentService;
     private readonly UserManager<ApplicationUser> _userManager;
+
+    private static int _idCounter = 0;
+
     public CommentsController(ICommentService commentService, UserManager<ApplicationUser> userManager)
     {
         _commentService = commentService;
@@ -38,59 +41,44 @@ public class CommentsController : Controller
     }
 
     [HttpGet]
-        public async Task<IActionResult> Add()
-        {
-            var model = new AddCommentViewModel();
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                model.Username = user?.UserName;
-            }
-
-            return View(model);
-        }
-
-    [HttpPost]
-    public async Task<IActionResult> Add(AddCommentViewModel model)
+    public async Task<IActionResult> Add()
     {
-        var user = await _userManager.GetUserAsync(User);
-        model.Username = user?.UserName;
+        var model = new AddCommentViewModel();
 
-        if (ModelState.IsValid)
+        if (User.Identity.IsAuthenticated)
         {
-            var comment = new Comment
-            {
-                Id = model.Id,
-                User = user,
-                Content = model.Content,
-                Grade = model.Grade,
-                UserId = user?.Id,
-                CreatedAt = DateTime.Now
-            };
-
-            await _commentService.AddCommentAsync(comment);
-
-            return RedirectToAction("AllComments");
+            var user = await _userManager.GetUserAsync(User);
+            model.Username = user?.UserName;
         }
 
         return View(model);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AddCommentViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            model.Username = user?.UserName; 
+
+            await _commentService.AddCommentAsync(model,GetUserId());
+
+            return RedirectToAction("AllComments");
+        }
+
+        return View(model); 
+    }
+
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var comment = await _commentService.GetCommentByIdAsync(id);
-        if (comment == null)
+        if (id <= 0)
         {
-            return NotFound();
+            return BadRequest("Невалиден идентификатор на коментар.");
         }
 
-        var model = new EditCommentViewModel
-        {
-            Id = comment.Id,
-            Content = comment.Content,
-            Grade = comment.Grade
-        };
+        var model = await _commentService.GetCommentByIdAsync(id);
 
         return View(model);
     }
@@ -126,7 +114,6 @@ public class CommentsController : Controller
         return View(model);
     }
     [HttpPost]
-    [ActionName("ConfirmDelete")]
     public async Task<IActionResult> ConfirmDeletePost(int id)
     {
         var result = await _commentService.DeleteCommentAsync(id);

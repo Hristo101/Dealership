@@ -18,7 +18,7 @@ namespace Dealership.Controllers
 
         public IActionResult Index()
         {
-      
+            return View();
         }
         public IActionResult AboutUs()
         {

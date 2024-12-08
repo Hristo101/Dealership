@@ -1,7 +1,6 @@
-﻿@using Dealership.Core.Models
+﻿@using Dealership.Core.Models.Comments
 @model IEnumerable<CommentViewModel>
 
-<!-- Hero Section -->
 <div class="hero-section">
     <div class="hero-content">
         <h1>Споделете мнението си! 😊</h1>
@@ -10,16 +9,13 @@
     <img src="https://img.freepik.com/premium-photo/man-sitting-desk-with-laptop-computer-front-him-generative-ai_1034979-27394.jpg" alt="Изображение на продукт" class="hero-image">
 </div>
 
-<!-- Контейнер за коментари -->
 <div class="container">
     <h2 class="comments-header">Коментари</h2>
 
-    <!-- Центриран бутон за добавяне на коментар -->
     <div class="add-comment-btn-container">
         <a href="@Url.Action("Add", "Comments")" class="btn btn-primary add-comment-btn">Добави коментар</a>
     </div>
 
-    <!-- Коментари -->
     <div class="comments-container">
         @foreach (var comment in Model)
         {
@@ -48,7 +44,6 @@
                         <a asp-action="Details" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-info">Детайли</a>
                         <a asp-action="Edit" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-warning">Редактирай</a>
 
-                        <!-- Формата за изтриване -->
                         <form method="get" asp-action="ConfirmDelete" asp-controller="Comments" asp-route-id="@comment.Id" style="display:inline;">
                             <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този коментар?')">Изтрий</button>
                         </form>
@@ -59,5 +54,4 @@
     </div>
 </div>
 
-<!-- Връзка към стилизирания CSS -->
 <link rel="stylesheet" href="~/css/Comments/AllCommentsCss.css" />

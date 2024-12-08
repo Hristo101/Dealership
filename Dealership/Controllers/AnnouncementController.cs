@@ -39,7 +39,8 @@ namespace Dealership.Controllers
         public async Task<IActionResult> Search(string make, string year, string engine, string transmission, string color, string sortBy)
         {
             var viewModel = await announcementService.GetFilteredAnnouncements(make, year, engine, transmission, color, sortBy);
-            return View(viewModel); 
+            return View(viewModel);
         }
     }
 }
+

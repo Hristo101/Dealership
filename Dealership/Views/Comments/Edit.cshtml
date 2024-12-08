@@ -1,4 +1,4 @@
-﻿@using Dealership.Core.Models
+﻿@using Dealership.Core.Models.Comments
 @model EditCommentViewModel
 <div class="hero-section">
     <div class="hero-content">
@@ -9,7 +9,7 @@
             </p>
         </div>
         <div class="image-container">
-            <img src="https://img.freepik.com/free-photo/feedback-form-concept-with-clipboard_23-2149327682.jpg"
+            <img src="https://videoigniter.com/wp-content/uploads/2023/01/animation-process-animator.png"
                  alt="Редакция на коментар" class="hero-image">
         </div>
     </div>
@@ -44,7 +44,10 @@
 </div>
 
 <style>
-    /* Стиловете са същите като преди */
+    textarea {
+        resize: vertical;
+        width: 600px;
+    }
     .hero-section {
         background: linear-gradient(135deg, #ff9966, #ff5e62);
         color: white;

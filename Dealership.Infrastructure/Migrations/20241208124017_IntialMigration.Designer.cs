@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dealership.Infrastructure.Migrations
 {
     [DbContext(typeof(CarDealershipContext))]
-    [Migration("20241203194427_IntialMigration")]
+    [Migration("20241208124017_IntialMigration")]
     partial class IntialMigration
     {
         /// <inheritdoc />
@@ -36,18 +36,25 @@ namespace Dealership.Infrastructure.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExtrasForComfort")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("SecurityExtras")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -56,6 +63,41 @@ namespace Dealership.Infrastructure.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("Sales");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CarId = 1,
+                            CreatedDate = new DateTime(2024, 12, 8, 14, 40, 16, 638, DateTimeKind.Local).AddTicks(6460),
+                            Description = "Audi RS7 е високопроизводителен спортен седан, оборудван с 4.0-литров V8 битурбо двигател с 600 к.с. (640 к.с. в Performance версията), който ускорява от 0 до 100 км/ч за около 3.5 секунди. Колата разполага с 8-степенна автоматична трансмисия и система за задвижване на четирите колела (quattro), което осигурява отлична стабилност и сцепление. С адаптивно въздушно окачване и високо ефективни спирачки, RS7 предлага както комфорт при дълги пътувания, така и безкомпромисна динамика при спортно шофиране. Интериорът е луксозен, с кожени и спортни седалки, напълно интегрирана мултимедийна система и множество асистиращи технологии за безопасност.",
+                            ExtrasForComfort = "Климатроник, Кожен салон, Електрически стъкла, Електрически огледала, Електрически седалки, Подгряване на седалки, Стерео уредба, Алуминиеви джанти, Мултифункционален волан, Автопилот, Серво управление, Бордови компютър, Навигационна система",
+                            Price = 89900m,
+                            SecurityExtras = "ABS, ESP, Airbag, Ксенонови фарове, Халогенни фарове, Парктроник, Аларма, Имобилайзер, Централно заключване, Застраховка",
+                            Status = "Approved"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CarId = 2,
+                            CreatedDate = new DateTime(2024, 12, 8, 14, 40, 16, 638, DateTimeKind.Local).AddTicks(6500),
+                            Description = "Toyota Tacoma 2018 е сред най-надеждните пикапи на пазара, със здраво шаси и силен двигател 3.5 V6 с мощност от около 278 к.с. и въртящ момент от 359 Нм. Предлага отлична производителност както на асфалт, така и в офроуд условия благодарение на системата 4x4 и наличните TRD Pro версии, които включват специализирано окачване и офроуд гуми.\r\n\r\nТози модел е популярен и заради издръжливостта си – поддържа висока остатъчна стойност на пазара на употребявани автомобили. Toyota Tacoma е идеален избор за активен начин на живот, който комбинира ежедневна употреба с приключения извън града.",
+                            ExtrasForComfort = "Двузонен автоматичен климатроник, Подгряване на предните седалки, Удобна тапицерия, Електрически регулируеми седалки, Мултимедиен дисплей с тъчскрийн, Аудиосистема JBL, Безключов достъп и стартиране, Слънцезащитни сенници с огледала и осветление, Електрическо задно стъкло, Амбиентно осветление в интериора, Автопилот, Серво управление, Бордови компютър, Навигационна система",
+                            Price = 92000m,
+                            SecurityExtras = "ABS, ESP, Airbag, Ксенонови фарове, Халогенни фарове, Парктроник, Аларма, Имобилайзер, Централно заключване, Застраховка",
+                            Status = "Approved"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CarId = 3,
+                            CreatedDate = new DateTime(2024, 12, 8, 14, 40, 16, 638, DateTimeKind.Local).AddTicks(6503),
+                            Description = "Mercedes-Benz S 350 (2018) е луксозен седан, който въплъщава върхови технологии и изтънченост. Той е оборудван с 3.0-литров V6 двигател с мощност от около 286 к.с. и въртящ момент от 600 Нм, което осигурява плавно ускорение и нисък разход на гориво за класа си.\r\n\r\nТази лимузина е символ на комфорт и престиж, като предлага най-нови технологии за автономно шофиране и върхова сигурност. Интериорът е изпълнен с висококачествени материали, а стилът и изпълнението правят S-класата един от лидерите в своя сегмент.",
+                            ExtrasForComfort = "Мултиконтурни седалки с масаж, Четиризонов климатроник, Ароматизация на купето, Panoramic Sunroof, Ambiente осветление, Мултимедиен дисплей с двойна конфигурация, Електрическа задна врата, Електрически регулиране на волана, Аудиосистема Burmester, Шумоизолиран салон, Автопилот, Серво управление, Бордови компютър, Навигационна система",
+                            Price = 195000m,
+                            SecurityExtras = "ABS, ESP, Airbag, BAS, Distronic Plus, Active Lane Keeping Assist, Blind Spot Assist, PRE-SAFE, TPMS, Active Brake Assist, 360-градусова камера",
+                            Status = "Approved"
+                        });
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.ApplicationUser", b =>
@@ -76,16 +118,6 @@ namespace Dealership.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -158,6 +190,9 @@ namespace Dealership.Infrastructure.Migrations
                     b.Property<int>("Horsepower")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsInAnnouncement")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -176,36 +211,70 @@ namespace Dealership.Infrastructure.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Cars");
-                });
 
-            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.CarDealership", b =>
-                {
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DealershipId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CarId", "DealershipId");
-
-                    b.HasIndex("DealershipId");
-
-                    b.ToTable("CarDealerships");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CarImages = "[\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211138.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211219.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211310.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211403.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211429.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211504.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211528.png\",\"~/img/Cars/AudiRs7/Screenshot 2024-12-03 211604.png\"]",
+                            Color = "Сив",
+                            EngineType = "Дизелов",
+                            Horsepower = 720,
+                            IsInAnnouncement = false,
+                            Make = "Audi",
+                            Mileage = 120000,
+                            Model = "Rs7",
+                            Speeds = "Автоматик",
+                            Year = 2014
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CarImages = "[\"~/img/Cars/Toyota/Capture6.PNG\",\"~/img/Cars/Toyota/Capture.PNG\",\"~/img/Cars/Toyota/Capture3.PNG\",\"~/img/Cars/Toyota/Capture4.PNG\",\"~/img/Cars/Toyota/Capture5.PNG\",\"~/img/Cars/Toyota/Capture2.PNG\",\"~/img/Cars/Toyota/Capture7.PNG\",\"~/img/Cars/Toyota/Capture8.PNG\"]",
+                            Color = "Жълт",
+                            EngineType = "Бензинов",
+                            Horsepower = 278,
+                            IsInAnnouncement = false,
+                            Make = "Toyota",
+                            Mileage = 61000,
+                            Model = "Tacoma 3.5 V6",
+                            Speeds = "Автоматик",
+                            Year = 2018
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CarImages = "[\"~/img/Cars/Mercedes/MercedesCapture3.PNG\",\"~/img/Cars/Mercedes/MercedesCapture4.PNG\",\"~/img/Cars/Mercedes/MercedesCapture5.PNG\",\"~/img/Cars/Mercedes/MercedesCapture6.PNG\",\"~/img/Cars/Mercedes/MercedesCapture7.PNG\",\"~/img/Cars/Mercedes/MercedesCapture8.PNG\",\"~/img/Cars/Mercedes/MercedesCapture1.PNG\",\"~/img/Cars/Mercedes/MercedesCapture2.PNG\"]",
+                            Color = "Черен",
+                            EngineType = "Дизелов",
+                            Horsepower = 286,
+                            IsInAnnouncement = false,
+                            Make = "Mercedes-Benz",
+                            Mileage = 120000,
+                            Model = "S 350",
+                            Speeds = "Автоматик",
+                            Year = 2021
+                        });
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Comment", b =>
                 {
-                    b.Property<int>("DealershipId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -218,34 +287,15 @@ namespace Dealership.Infrastructure.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.HasKey("DealershipId", "UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Dealership", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Dealerships");
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Query", b =>
@@ -284,6 +334,24 @@ namespace Dealership.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Queries");
+                });
+
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.UserFavoriteAnnouncement", b =>
+                {
+                    b.Property<int>("AnnouncementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnnouncementId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserFavoriteAnnouncement");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -434,40 +502,22 @@ namespace Dealership.Infrastructure.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.CarDealership", b =>
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Car", b =>
                 {
-                    b.HasOne("Dealership.Infrastructure.Data.Models.Car", "Car")
-                        .WithMany("CarDealerships")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Dealership.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany("Cars")
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("Dealership.Infrastructure.Data.Models.Dealership", "Dealership")
-                        .WithMany("CarDealerships")
-                        .HasForeignKey("DealershipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Car");
-
-                    b.Navigation("Dealership");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Comment", b =>
                 {
-                    b.HasOne("Dealership.Infrastructure.Data.Models.Dealership", "Dealership")
-                        .WithMany("Comments")
-                        .HasForeignKey("DealershipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Dealership.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Dealership");
 
                     b.Navigation("User");
                 });
@@ -482,6 +532,25 @@ namespace Dealership.Infrastructure.Migrations
 
                     b.HasOne("Dealership.Infrastructure.Data.Models.ApplicationUser", "User")
                         .WithMany("Queries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Announcement");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.UserFavoriteAnnouncement", b =>
+                {
+                    b.HasOne("Dealership.Infrastructure.Data.Models.Announcement", "Announcement")
+                        .WithMany("FavoriteUsers")
+                        .HasForeignKey("AnnouncementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dealership.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany("FavoriteAnnouncements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -544,12 +613,18 @@ namespace Dealership.Infrastructure.Migrations
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Announcement", b =>
                 {
+                    b.Navigation("FavoriteUsers");
+
                     b.Navigation("Queries");
                 });
 
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Cars");
+
                     b.Navigation("Comments");
+
+                    b.Navigation("FavoriteAnnouncements");
 
                     b.Navigation("Queries");
                 });
@@ -557,15 +632,6 @@ namespace Dealership.Infrastructure.Migrations
             modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Car", b =>
                 {
                     b.Navigation("Announcements");
-
-                    b.Navigation("CarDealerships");
-                });
-
-            modelBuilder.Entity("Dealership.Infrastructure.Data.Models.Dealership", b =>
-                {
-                    b.Navigation("CarDealerships");
-
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

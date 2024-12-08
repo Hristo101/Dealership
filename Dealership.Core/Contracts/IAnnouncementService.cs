@@ -1,4 +1,4 @@
-﻿using Dealership.Core.Models;
+﻿using Dealership.Core.Models.Announcement;
 using Dealership.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,14 @@ namespace Dealership.Core.Contracts
         Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync();
         IEnumerable<AllAnnouncementViewModel> GetPagedAnnouncements(int page, int pageSize);
         Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id);
-        Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
-               string make, string year, string engine, string transmission, string color, string sortBy);
         Task<bool> ExistAsync(int id);
-        int GetTotalAnnouncementCount();
+        Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
+           string make,
+           string year,
+           string engine,
+           string transmission,
+           string color,
+           string sortBy
+       );
     }
 }

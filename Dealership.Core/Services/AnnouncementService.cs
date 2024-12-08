@@ -1,5 +1,5 @@
 ﻿using Dealership.Core.Contracts;
-using Dealership.Core.Models;
+using Dealership.Core.Models.Announcement;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -107,77 +107,71 @@ namespace Dealership.Core.Services
 
             return announcement;
         }
-
         public async Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
-    string make, string year, string engine, string transmission, string color, string sortBy)
+       string make,
+       string year,
+       string engine,
+       string transmission,
+       string color,
+       string sortBy
+   )
         {
-            // Строим запитването с филтрите
-            var query = repository.All<Announcement>()
-                .Include(a => a.Car) // Зареждаме свързаната кола
-                .Where(a => a.Car != null); // Проверка за null стойности на Car
+            var query = repository.AllAsReadOnly<Announcement>();
 
-            // Филтрираме по марка, ако е зададена
-            if (!string.IsNullOrEmpty(make))
+            if (!string.IsNullOrWhiteSpace(make))
             {
-                query = query.Where(a => a.Car.Make == make);
+                query = query.Where(x => x.Car.Make == make);
             }
 
-            // Филтрираме по година, ако е зададена
-            if (!string.IsNullOrEmpty(year) && int.TryParse(year, out var parsedYear))
+            if (!string.IsNullOrWhiteSpace(year) && int.TryParse(year, out int parsedYear))
             {
-                query = query.Where(a => a.Car.Year == parsedYear);
+                query = query.Where(x => x.Car.Year == parsedYear);
             }
 
-            // Филтрираме по тип на двигателя, ако е зададен
-            if (!string.IsNullOrEmpty(engine))
+            if (!string.IsNullOrWhiteSpace(engine))
             {
-                query = query.Where(a => a.Car.EngineType == engine);
+                query = query.Where(x => x.Car.EngineType == engine);
             }
 
-            // Филтрираме по тип на скоростите, ако е зададен
-            if (!string.IsNullOrEmpty(transmission))
+            if (!string.IsNullOrWhiteSpace(transmission))
             {
-                query = query.Where(a => a.Car.Speeds == transmission);
+                query = query.Where(x => x.Car.Speeds == transmission);
             }
 
-            // Филтрираме по цвят, ако е зададен
-            if (!string.IsNullOrEmpty(color))
+            if (!string.IsNullOrWhiteSpace(color))
             {
-                query = query.Where(a => a.Car.Color == color);
+                query = query.Where(x => x.Car.Color == color);
             }
 
-            // Приложение на сортирането
             switch (sortBy)
             {
                 case "year-asc":
-                    query = query.OrderBy(a => a.Car.Year);
+                    query = query.OrderBy(x => x.Car.Year);
                     break;
                 case "year-desc":
-                    query = query.OrderByDescending(a => a.Car.Year);
+                    query = query.OrderByDescending(x => x.Car.Year);
                     break;
                 case "price-asc":
-                    query = query.OrderBy(a => a.Price);
+                    query = query.OrderBy(x => x.Price);
                     break;
                 case "price-desc":
-                    query = query.OrderByDescending(a => a.Price);
-                    break;
-                default:
+                    query = query.OrderByDescending(x => x.Price);
                     break;
             }
 
-            // Извличане на резултатите от базата данни
-            var searchResults = await query.ToListAsync();
+            var viewModels = await query
+                .Select(x => new AllAnnouncementViewModel()
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Car.CarImages.FirstOrDefault() ?? "~/images/default.jpg",
+                    Model = x.Car.Model,
+                    Make = x.Car.Make,
+                    Price = x.Price,
+                    HorsePower = x.Car.Horsepower
+                }).ToListAsync();
 
-            // Връщаме резултатите като модели
-            return searchResults.Select(a => new AllAnnouncementViewModel
-            {
-                Id = a.Id,
-                ImageUrl = a.Car.CarImages[0], 
-                Model = a.Car.Model,
-                Make = a.Car.Make,
-                HorsePower = a.Car.Horsepower,
-                Price = a.Price
-            }).ToList();
+            return viewModels;
         }
+
     }
 }

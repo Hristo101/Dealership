@@ -19,7 +19,7 @@ namespace Dealership.Infrastructure.Common
 
         private DbSet<T> DbSet<T>() where T : class
         {
-            return context.Set<T>(); // Тук context трябва да е от тип DbContext от EF Core
+            return context.Set<T>(); 
         }
         public IQueryable<T> All<T>() where T : class
         {
@@ -54,7 +54,7 @@ namespace Dealership.Infrastructure.Common
 
         public async Task<T?> GetByIdAsync<T>(int id) where T : class
         {
-            return await DbSet<T>().FindAsync(id);
+            return await DbSet<T>().FindAsync(id); 
         }
     }
 }

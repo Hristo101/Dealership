@@ -53,8 +53,8 @@
             </div>
 
             <div class="col-md-2">
-                <select name="sortBy" id="sortDropdown" class="form-control sort-dropdown">
-                    <option value="">Сортиране по:</option>
+                <select id="sortDropdown" class="form-control sort-dropdown" name="sortBy">
+                    <option value="" disabled selected>Сортиране по:</option>
                     <option value="year-asc">Година (възходящо)</option>
                     <option value="year-desc">Година (низходящо)</option>
                     <option value="price-asc">Цена (възходящо)</option>
@@ -68,20 +68,27 @@
 </div>
 
 <div class="row mt-4" id="carResults">
-    @foreach (var item in Model)
+    @if (Model.Any())
     {
-        <div class="col-md-4">
-            <div class="announcement-card">
-                <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
-                <div class="car-info">
-                    <span class="car-make">@item.Make</span>
-                    <span class="car-model">@item.Model</span>
-                    <span class="car-horsepower">@item.HorsePower HP</span>
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="announcement-card">
+                    <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
+                    <div class="car-info">
+                        <span class="car-make">@item.Make</span>
+                        <span class="car-model">@item.Model</span>
+                        <span class="car-horsepower">@item.HorsePower HP</span>
+                    </div>
+                    <div class="car-price">Цена: @item.Price лв.</div>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
                 </div>
-                <div class="car-price">Цена: @item.Price лв.</div>
-                <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
             </div>
-        </div>
+        }
+    }
+    else
+    {
+        <p>Няма намерени резултати.</p>
     }
 </div>
 

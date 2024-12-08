@@ -1,4 +1,4 @@
-﻿@using Dealership.Core.Models
+﻿@using Dealership.Core.Models.Comments
 @model ConfirmDeleteViewModel
 
 @{
@@ -14,10 +14,10 @@
     </div>
 
     <div class="confirm-delete-buttons">
-        <form method="post" action="@Url.Action("ConfirmDeletePost", "Comment", new { id = Model.Id })">
+        <form method="post" action="@Url.Action("ConfirmDeletePost", "Comments", new { id = Model.Id })">
             <button type="submit" class="btn btn-danger">Да, изтрий го</button>
         </form>
-        <a href="@Url.Action("AllComments", "Comment")" class="btn btn-secondary">Отказ</a>
+        <a href="@Url.Action("AllComments", "Comments")" class="btn btn-secondary">Отказ</a>
     </div>
 </div>
 

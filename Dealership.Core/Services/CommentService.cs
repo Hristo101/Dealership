@@ -1,5 +1,5 @@
 ﻿using Dealership.Core.Contracts;
-using Dealership.Core.Models;
+using Dealership.Core.Models.Comments;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,22 +23,30 @@ namespace Dealership.Core.Services
 
 
 
-        public async Task AddCommentAsync(Comment comment)
+        public async Task AddCommentAsync(AddCommentViewModel comment,string userId)
         {
-            await _repository.AddAsync(comment);
+            Comment comment1 = new Comment()
+            {
+                Content = comment.Content,
+                Grade = comment.Grade,
+                UserId = userId,
+                CreatedAt = DateTime.Now
+            };
+            await _repository.AddAsync(comment1);
             await _repository.SaveChangesAsync(); 
         }
 
         public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
-            // Връщаме всички коментари и включваме потребителите чрез repository
             return await _repository.All<Comment>()
-                .Include(c => c.User)  // Включваме User
+                .Include(c => c.User) 
                 .ToListAsync();
         }
         public async Task<ConfirmDeleteViewModel> GetConfirmDeleteViewModelAsync(int id)
         {
-            var comment = await _repository.GetByIdAsync<Comment>(id);
+            var comment = await _repository.AllAsReadOnly<Comment>()
+                        .Where(x => x.Id == id)
+                        .FirstAsync(); ;
 
             if (comment == null)
             {
@@ -55,14 +63,18 @@ namespace Dealership.Core.Services
             return model;
         }
 
-        public async Task<Comment> GetCommentByIdAsync(int id)
+        public async Task<EditCommentViewModel> GetCommentByIdAsync(int id)
         {
-            var comment = await _repository.GetByIdAsync<Comment>(id);
-            if (comment == null)
-            {
-                throw new KeyNotFoundException("Коментарът не беше намерен.");
-            }
-            return comment;
+            var model = await _repository.AllAsReadOnly<Comment>()
+                        .Where(x =>x.Id == id)
+                        .Select(x => new EditCommentViewModel()
+                        {
+                            Id = id,
+                            Content = x.Content,
+                            Grade = x.Grade
+                        })
+                        .FirstAsync();
+            return model;
         }
 
 
@@ -74,13 +86,13 @@ namespace Dealership.Core.Services
                 throw new ArgumentNullException(nameof(model), "Коментарът не може да бъде null.");
             }
 
-            var existingComment = await _repository.GetByIdAsync<Comment>(model.Id);
+            var existingComment = await _repository.All<Comment>().Where(x =>x.Id == model.Id).FirstAsync();
             if (existingComment == null)
             {
                 throw new KeyNotFoundException("Коментарът за обновяване не беше намерен.");
             }
 
-            // Обновяваме съдържанието на коментара
+  
             existingComment.Content = model.Content;
             existingComment.Grade = model.Grade;
 
@@ -89,7 +101,7 @@ namespace Dealership.Core.Services
 
         public async Task<bool> DeleteCommentAsync(int id)
         {
-            var comment = await _repository.GetByIdAsync<Comment>(id);
+            var comment = await _repository.All<Comment>().Where(x => x.Id == id).FirstAsync();
 
             if (comment == null)
             {

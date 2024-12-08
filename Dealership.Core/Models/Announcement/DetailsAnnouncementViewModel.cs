@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Core.Models
+namespace Dealership.Core.Models.Announcement
 {
     public class DetailsAnnouncementViewModel
     {
@@ -18,7 +18,7 @@ namespace Dealership.Core.Models
         public string EngineType { get; set; }
         public string Speeds { get; set; }
         public int Mileage { get; set; }
-        public string Color { get; set; }   
+        public string Color { get; set; }
         public string Description { get; set; }
         public string ExtrasForComfort { get; set; }
         public string SecurityExtras { get; set; }

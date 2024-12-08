@@ -26,8 +26,6 @@ namespace Dealership.Infrastructure.Data.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Comment>()
-             .HasKey(cd => new { cd.UserId });
 
             modelBuilder.Entity<Comment>()
           .HasOne(uc => uc.User)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Core.Models
+namespace Dealership.Core.Models.Comments
 {
     public class CommentViewModel
     {

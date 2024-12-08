@@ -1,26 +1,20 @@
-﻿@using Dealership.Core.Models
+﻿@using Dealership.Core.Models.Comments
 @model AddCommentViewModel
 
 <div class="hero-section">
     <div class="hero-content">
-        <div class="text-content">
-            <h1>Споделете вашето мнение! ✨</h1>
-            <p>
-                Вашето мнение е важно за нас. Помогнете ни да се развием и да подобрим вашето преживяване! 😊
-            </p>
-        </div>
-        <div class="image-container">
-            <img src="https://img.freepik.com/free-vector/feedback-loop-concept-illustration_114360-21826.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1719878400&semt=ais_user"
-                 alt="Изображение за обратна връзка"
-                 class="hero-image">
-        </div>
+        <h1>Споделете вашето мнение! ✨</h1>
+        <p>Вашето мнение е важно за нас. Помогнете ни да се развием и да подобрим вашето преживяване! 😊</p>
     </div>
+    <img src="https://img.freepik.com/free-vector/feedback-loop-concept-illustration_114360-21826.jpg"
+         alt="Изображение за обратна връзка"
+         class="hero-image">
 </div>
 
 <div class="container">
     <h2 class="form-header">Добави нов коментар</h2>
+
     <form asp-action="Add" asp-controller="Comments" method="post">
-        <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Username" />
 
         <div class="add-comment-form">
@@ -93,7 +87,7 @@
     }
 
     .hero-image {
-        max-width: 100%;
+        max-width: 40%;
         height: auto;
         border-radius: 15px;
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
