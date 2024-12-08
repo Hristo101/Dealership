@@ -19,20 +19,26 @@ namespace Dealership.Core.Services
         {
             repository = _repository;
         }
-        public async Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync()
-        {
-            var viewModels = await repository.AllAsReadOnly<Announcement>()
-                   .Select(x => new AllAnnouncementViewModel()
-                   {
-                       Id = x.Id,
-                       ImageUrl = x.Car.CarImages[0],
-                       Model = x.Car.Model,
-                       Make = x.Car.Make,
-                       Price = x.Price,
-                       HorsePower = x.Car.Horsepower
-                   }).ToListAsync();
 
-            return viewModels;
+        public async Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync(int page, int pageSize)
+        {
+            var skip = (page - 1) * pageSize;
+
+            var announcements = await repository.AllAsReadOnly<Announcement>()
+                .Skip(skip)
+                .Take(pageSize)
+                .Select(x => new AllAnnouncementViewModel()
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Car.CarImages[0],
+                    Model = x.Car.Model,
+                    Make = x.Car.Make,
+                    Price = x.Price,
+                    HorsePower = x.Car.Horsepower
+                })
+                .ToListAsync();
+
+            return announcements;
         }
 
         public async Task<bool> ExistAsync(int id)
@@ -41,29 +47,9 @@ namespace Dealership.Core.Services
                     .AnyAsync(x => x.Id == id);
         }
 
-        public IEnumerable<AllAnnouncementViewModel> GetPagedAnnouncements(int page, int pageSize)
+        public async Task<int> GetTotalAnnouncementCountAsync()
         {
-            var announcementsQuery = repository.All<Announcement>() 
-                .Select(a => new AllAnnouncementViewModel
-                {
-                    Id = a.Id,
-                    Make = a.Car.Make,
-                    Model = a.Car.Model,
-                    Price = a.Price,
-                    HorsePower = a.Car.Horsepower,
-                    ImageUrl = a.Car.CarImages[0]
-                });
-
-            var pagedAnnouncements = announcementsQuery
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize);
-
-        return pagedAnnouncements.ToList();
-        }
-
-        public int GetTotalAnnouncementCount()
-        {
-            return repository.All<Announcement>().Count();
+            return await repository.AllAsReadOnly<Announcement>().CountAsync();
         }
         public async Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id)
         {
@@ -108,16 +94,19 @@ namespace Dealership.Core.Services
             return announcement;
         }
         public async Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
-       string make,
-       string year,
-       string engine,
-       string transmission,
-       string color,
-       string sortBy
-   )
+             string make,
+             string year,
+             string engine,
+             string transmission,
+             string color,
+             string sortBy,
+             int page,
+             int pageSize
+         )
         {
             var query = repository.AllAsReadOnly<Announcement>();
 
+            // Филтри
             if (!string.IsNullOrWhiteSpace(make))
             {
                 query = query.Where(x => x.Car.Make == make);
@@ -143,6 +132,7 @@ namespace Dealership.Core.Services
                 query = query.Where(x => x.Car.Color == color);
             }
 
+ 
             switch (sortBy)
             {
                 case "year-asc":
@@ -159,18 +149,22 @@ namespace Dealership.Core.Services
                     break;
             }
 
-            var viewModels = await query
+            var skip = (page - 1) * pageSize;
+            var announcements = await query
+                .Skip(skip)
+                .Take(pageSize)
                 .Select(x => new AllAnnouncementViewModel()
                 {
                     Id = x.Id,
-                    ImageUrl = x.Car.CarImages.FirstOrDefault() ?? "~/images/default.jpg",
+                    ImageUrl = x.Car.CarImages[0],
                     Model = x.Car.Model,
                     Make = x.Car.Make,
                     Price = x.Price,
                     HorsePower = x.Car.Horsepower
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
-            return viewModels;
+            return announcements;
         }
 
     }

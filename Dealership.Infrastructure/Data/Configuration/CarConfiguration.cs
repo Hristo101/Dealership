@@ -68,6 +68,70 @@ namespace Dealership.Infrastructure.Data.Configuration
 
             cars.Add(car);
 
+            car = new Car()
+            {
+                Id = 4,
+                Make = "Mercedes-Benz",
+                Model = "E 250",
+                Color = "Бял",
+                EngineType = "Дизелов",
+                Speeds = "Автоматик",
+                Year = 2017,
+                Mileage = 115000,
+                Horsepower = 204,
+                CarImages = new List<string> { "~/img/Cars/MercedesEClass/MercedesEClassPicture1.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture2.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture3.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture4.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture5.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture6.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture7.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture8.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture9.png", "~/img/Cars/MercedesEClass/MercedesEClassPicture10.png" }
+            };
+
+            cars.Add(car);
+
+            car = new Car()
+            {
+                Id = 5,
+                Make = "Volkswagen",
+                Model = "Passat",
+                Color = "Сив",
+                EngineType = "Дизелов",
+                Speeds = "Ръчни",
+                Year = 2012,
+                Mileage = 224000,
+                Horsepower = 140,
+                CarImages = new List<string> { "~/img/Cars/Volkswagen/VKPicture1.png", "~/img/Cars/Volkswagen/VKPicture2.png", "~/img/Cars/Volkswagen/VKPicture3.png", "~/img/Cars/Volkswagen/VKPicture4.png", "~/img/Cars/Volkswagen/VKPicture5.png", "~/img/Cars/Volkswagen/VKPicture6.png", "~/img/Cars/Volkswagen/VKPicture7.png", "~/img/Cars/Volkswagen/VKPicture8.png" }
+            };
+
+            cars.Add(car);
+
+            car = new Car()
+            {
+                Id = 6,
+                Make = "BMW",
+                Model = "X6 3.0d",
+                Color = "Черен",
+                EngineType = "Дизелов",
+                Speeds = "Автоматик",
+                Year = 2021,
+                Mileage = 129000,
+                Horsepower = 286,
+                CarImages = new List<string> { "~/img/Cars/BMV/BMVPicture1.png", "~/img/Cars/BMV/BMWPicture2.png", "~/img/Cars/BMV/BMWPicture3.png", "~/img/Cars/BMV/BMVPicture4.png", "~/img/Cars/BMV/BMWPicture5.png", "~/img/Cars/BMV/BMWPicture6.png", "~/img/Cars/BMV/BMVPicture7.png", "~/img/Cars/BMV/BMWPicture8.png" }
+            };
+
+            cars.Add(car);
+
+            car = new Car()
+            {
+                Id = 7,
+                Make = "Audi",
+                Model = "A7 50 TDI",
+                Color = "Черен",
+                EngineType = "Дизелов",
+                Speeds = "Автоматик",
+                Year = 2024,
+                Mileage = 5000,
+                Horsepower = 286,
+                CarImages = new List<string> { "~/img/Cars/AudiA7/AudiA7Picture1.png", "~/img/Cars/AudiA7/AudiA7Picture2.png", "~/img/Cars/AudiA7/AudiA7Picture3.png", "~/img/Cars/AudiA7/AudiA7Picture4.png", "~/img/Cars/AudiA7/AudiA7Picture5.png"}
+            };
+
+            cars.Add(car);
+
             return cars;
         }
     }

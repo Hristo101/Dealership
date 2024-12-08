@@ -1,4 +1,5 @@
 ﻿using Dealership.Core.Contracts;
+using Dealership.Core.Models.Announcement;
 using Dealership.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace Dealership.Controllers
     public class AnnouncementController : Controller
     {
         private readonly IAnnouncementService announcementService;
-
+        private const int PageSize = 6;
         public AnnouncementController(IAnnouncementService _announcementService)
         {
             this.announcementService = _announcementService;
@@ -18,9 +19,20 @@ namespace Dealership.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1, int pageSize = 6)
         {
-            var model = await announcementService.AllAnnouncementAsync();
+            var announcements = await announcementService.AllAnnouncementAsync(page, pageSize);
+
+            var totalAnnouncements = await announcementService.GetTotalAnnouncementCountAsync();
+
+            var totalPages = (int)Math.Ceiling(totalAnnouncements / (double)pageSize);
+
+            var model = new AnnouncementListViewModel
+            {
+                Announcements = announcements,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
 
             return View(model);
         }
@@ -35,11 +47,22 @@ namespace Dealership.Controllers
 
             return View(model);
         }
-        [HttpGet]
-        public async Task<IActionResult> Search(string make, string year, string engine, string transmission, string color, string sortBy)
+        public async Task<IActionResult> Search(string make, string year, string engine, string transmission, string color, string sortBy, int page = 1, int pageSize = 6)
         {
-            var viewModel = await announcementService.GetFilteredAnnouncements(make, year, engine, transmission, color, sortBy);
-            return View(viewModel);
+            var filteredAnnouncements = await announcementService.GetFilteredAnnouncements(make, year, engine, transmission, color, sortBy, page, pageSize);
+
+            var totalAnnouncements = await announcementService.GetTotalAnnouncementCountAsync();
+
+            var totalPages = (int)Math.Ceiling(totalAnnouncements / (double)pageSize);
+
+            var model = new AnnouncementListViewModel
+            {
+                Announcements = filteredAnnouncements,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
+
+            return View(model);
         }
     }
 }

@@ -10,17 +10,20 @@ namespace Dealership.Core.Contracts
 {
     public interface IAnnouncementService
     {
-        Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync();
-        IEnumerable<AllAnnouncementViewModel> GetPagedAnnouncements(int page, int pageSize);
+        Task<IEnumerable<AllAnnouncementViewModel>> AllAnnouncementAsync(int page, int pageSize);
+        Task<int> GetTotalAnnouncementCountAsync();
         Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id);
         Task<bool> ExistAsync(int id);
         Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
-           string make,
-           string year,
-           string engine,
-           string transmission,
-           string color,
-           string sortBy
-       );
+          string make,
+          string year,
+          string engine,
+          string transmission,
+          string color,
+          string sortBy,
+          int page,
+          int pageSize
+      );
     }
+
 }

@@ -1,9 +1,9 @@
 ﻿@using Dealership.Core.Models.Announcement
-@model IEnumerable<AllAnnouncementViewModel>
-<link rel="stylesheet" href="~/css/AllitemStyle.css">
+@model AnnouncementListViewModel
+<link rel="stylesheet" href="~/css/Announcement/AllAnnouncemetItemStyle.css" />
 
 <div class="container search-container">
-    <h2 class="search-title">Резултати от търсенето</h2>
+    <h2 class="search-title">Търсене на автомобил</h2>
     <hr class="title-divider" />
 
     <form method="get" action="/Announcement/Search" id="searchForm">
@@ -12,7 +12,7 @@
                 <select class="form-control" name="make" id="makeSelect">
                     <option value="">Марка</option>
                     <option value="BMW">BMW</option>
-                    <option value="Mercedes">Mercedes-Benz</option>
+                    <option value="Mercedes-Benz">Mercedes-Benz</option>
                     <option value="Audi">Audi</option>
                     <option value="Volkswagen">Volkswagen</option>
                     <option value="Toyota">Toyota</option>
@@ -40,7 +40,7 @@
             <div class="col-md-2">
                 <select class="form-control" name="transmission" id="transmissionSelect">
                     <option value="">Скорости</option>
-                    <option value="Автоматични">Автоматик</option>
+                    <option value="Автоматик">Автоматик</option>
                     <option value="Ръчни">Ръчни</option>
                 </select>
             </div>
@@ -69,13 +69,13 @@
 </div>
 
 <div class="row mt-4" id="carResults">
-    @if (!Model.Any())
+    @if (!Model.Announcements.Any())
     {
         <h4>Няма намерени резултати по зададените критерии.</h4>
     }
     else
     {
-        @foreach (var item in Model)
+        @foreach (var item in Model.Announcements)
         {
             <div class="col-md-4">
                 <div class="announcement-card">
@@ -91,6 +91,30 @@
             </div>
         }
     }
+</div>
+
+<div class="pagination-container">
+    <div class="pagination">
+        @if (Model.CurrentPage > 1)
+        {
+            <a href="@Url.Action("Search", new { page = Model.CurrentPage - 1 })" class="page-link">&laquo; Предишна</a>
+        }
+        else
+        {
+            <span class="page-link disabled">&laquo; Предишна</span>
+        }
+
+        <span class="page-info">Страница @Model.CurrentPage от @Model.TotalPages</span>
+
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <a href="@Url.Action("Search", new { page = Model.CurrentPage + 1 })" class="page-link">Следваща &raquo;</a>
+        }
+        else
+        {
+            <span class="page-link disabled">Следваща &raquo;</span>
+        }
+    </div>
 </div>
 
 <div class="bottom-right-image">

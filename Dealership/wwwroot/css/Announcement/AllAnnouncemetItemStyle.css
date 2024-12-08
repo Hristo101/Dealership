@@ -1,0 +1,265 @@
+﻿body {
+    background-color: #f4f7fc;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.search-container {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+    .search-container:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+    }
+
+.search-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+}
+
+.title-divider {
+    width: 150px;
+    height: 3px;
+    background-color: #007BFF;
+    margin: 10px auto;
+    border: none;
+    border-radius: 10px;
+}
+
+.search-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.form-control {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.1);
+}
+
+    .form-control:focus {
+        border-color: #007BFF;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    }
+
+.sort-container {
+    margin-top: 40px;
+    width: 320px;
+    margin-top: 2em;
+    margin-left: 6em;
+}
+
+.sort-dropdown {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    color: #333;
+    position: relative;
+    appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cpath fill=%22none%22 d=%22M8 10l8 8 8-8%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+    .sort-dropdown:focus {
+        border-color: #007BFF;
+        background-color: #ffffff;
+    }
+
+    .sort-dropdown option {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+.announcement-card {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: white;
+    padding: 25px;
+    margin: 20px;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .announcement-card:hover {
+        background-color: #f0f8ff;
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+.car-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+    .car-image:hover {
+        transform: scale(1.05);
+    }
+
+.car-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    gap: 8px;
+}
+
+    .car-info .car-make,
+    .car-info .car-model,
+    .car-info .car-horsepower {
+        font-size: 22px;
+        color: #555;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+.announcement-card:hover .car-info .car-make,
+.announcement-card:hover .car-info .car-model,
+.announcement-card:hover .car-info .car-horsepower {
+    color: #007bff;
+}
+
+.car-price {
+    color: #28a745;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.view-button {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
+    font-weight: bold;
+}
+
+    .view-button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .view-button:active {
+        background-color: #004085;
+        color: #cce5ff;
+    }
+
+.bottom-right-image img {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+    .bottom-right-image img:hover {
+        opacity: 1;
+        transform: rotate(10deg);
+    }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: 1px solid #007BFF;
+    border-radius: 50%;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
+}
+
+    .page-link:hover {
+        background-color: #007BFF;
+        color: white;
+        transform: scale(1.1);
+    }
+
+    .page-link.disabled {
+        color: #ccc;
+        border-color: #ccc;
+        cursor: not-allowed;
+    }
+
+.page-info {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+}
+
+.page-link:before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid #007BFF;
+    border-bottom: 2px solid #007BFF;
+    transform: rotate(-45deg);
+    margin-right: 8px;
+}
+
+.page-link.prev:before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid #007BFF;
+    border-bottom: 2px solid #007BFF;
+    transform: rotate(135deg);
+    margin-right: 8px;
+}
