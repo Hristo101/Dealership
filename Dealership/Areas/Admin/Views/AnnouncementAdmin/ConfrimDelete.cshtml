@@ -1,0 +1,115 @@
+﻿@* Views/AnnouncementAdmin/ConfirmDelete.cshtml *@
+@using Dealership.Core.Models.Announcement
+@model DeleteAnnouncementViewModel
+
+@{
+    ViewData["Title"] = "Потвърдете изтриването";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="confirmation-message">
+        <p>Наистина ли искате да изтриете тази обява?</p>
+
+        <div class="announcement-details">
+            <div class="car-image-container">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Car Image" class="car-image" />
+                }
+                else
+                {
+                    <p>Няма изображение на колата.</p>
+                }
+            </div>
+
+            <div><strong>Описание:</strong> @Model.Description</div>
+            <div><strong>Цена:</strong> @Model.Price лв.</div>
+            <div><strong>Дата на създаване:</strong> @Model.CreatedDate.ToString("yyyy-MM-dd")</div>
+        </div>
+    </div>
+
+    <form asp-action="Delete" asp-controller="AnnouncementAdmin" method="post" class="delete-form">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Изтрий обявата</button>
+            <a href="@Url.Action("AllSales", "AnnouncementAdmin", new { area = "Admin" })" class="btn btn-secondary">Отказ</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-message {
+        background-color: #f8d7da;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .announcement-details {
+        background-color: #fff3cd;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+
+        .announcement-details div {
+            margin-bottom: 10px;
+        }
+
+    .car-image-container {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .car-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+</style>

@@ -3,16 +3,18 @@ using Dealership.Core.Models.Car;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Dealership.Controllers
+namespace Dealership.Areas.Admin.Controllers
 {
-    public class CarController : Controller
+    [Area("Admin")]
+    public class CarAdminController : Controller
     {
         private readonly ICarService _carService;
 
-        public CarController(ICarService carService)
+        public CarAdminController(ICarService carService)
         {
             _carService = carService;
         }
+
 
         public IActionResult Index()
         {
@@ -20,23 +22,23 @@ namespace Dealership.Controllers
         }
         [HttpGet]
 
-        public IActionResult AddCar()
+        public IActionResult Add()
         {
             var userId = GetUserId();
             var model = new CarViewModel
             {
-                UserId = userId 
+                UserId = userId
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCar(CarViewModel carViewModel)
+        public async Task<IActionResult> Add(CarViewModel carViewModel)
         {
             if (ModelState.IsValid)
             {
                 await _carService.AddCarAsync(carViewModel);
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("AllSales", "AnnouncementAdmin");
             }
 
             return View(carViewModel);

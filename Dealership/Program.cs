@@ -1,4 +1,3 @@
-
 using Dealership.Core.Contracts;
 using Dealership.Core.Services;
 using Dealership.Extensions;
@@ -7,69 +6,71 @@ using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-            var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// Настройка на връзка с база данни
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddDbContext<CarDealershipContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-        
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            })
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<CarDealershipContext>();
+builder.Services.AddDbContext<CarDealershipContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IRepository, Repository>();
-            builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
-            builder.Services.AddScoped<ICommentService, CommentService>();
-            builder.Services.AddScoped<ICarService, CarService>();
-            builder.Services.AddScoped<IFavoriteService, FavoriteService>();
-            builder.Services.AddScoped<IQueryService, QueryService>();
-            builder.Services.AddScoped<IHomeService, HomeService>();
+// Настройка на Identity и ролите
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<CarDealershipContext>();
 
-            var app = builder.Build();
+// Регистриране на услугите
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
+builder.Services.AddScoped<IQueryService, QueryService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+var app = builder.Build();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+// Конфигуриране на HTTP заявките
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
 
-            app.UseRouting();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 
+app.UseAuthentication();
+app.UseAuthorization(); 
 
-            app.UseAuthorization();
-            app.UseAuthentication();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                name: "areas",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
 
-                endpoints.MapDefaultControllerRoute();
-                endpoints.MapRazorPages();
-            });
-
-            app.MapRazorPages();
 await app.CreateAdminRoleAsync();
+
 await app.RunAsync();

@@ -61,7 +61,6 @@ namespace Dealership.Controllers
             var model = new LoginViewModel();
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -78,16 +77,26 @@ namespace Dealership.Controllers
 
                 if (result.Succeeded)
                 {
+                    if (await userManager.IsInRoleAsync(user, "Administrator"))
+                    {
+                        return RedirectToAction("AllSales", "AnnouncementAdmin", new { area = "Admin" });
+                    }
 
                     return RedirectToAction("All", "Announcement");
-
+                }
+                else
+                {
+                    ModelState.AddModelError(nameof(model.Email), "Невалидни данни за вход");
                 }
             }
-
-            ModelState.AddModelError(nameof(model.Email), "Invalid login");
+            else
+            {
+                ModelState.AddModelError(nameof(model.Email), "Невалидни данни за вход");
+            }
 
             return View(model);
         }
+
 
         public async Task<IActionResult> Logout()
         {

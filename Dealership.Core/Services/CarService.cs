@@ -1,5 +1,5 @@
 ﻿using Dealership.Core.Contracts;
-using Dealership.Core.Models;
+using Dealership.Core.Models.Car;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;

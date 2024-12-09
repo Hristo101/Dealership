@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Dealership.Core.Services
 {
-    public class AnnouncementService :IAnnouncementService
+    public class AnnouncementService : IAnnouncementService
     {
         private readonly IRepository repository;
 
@@ -167,5 +167,67 @@ namespace Dealership.Core.Services
             return announcements;
         }
 
+        public async Task<EditAnnouncementViewModel> GetAnnouncementForEditAsync(int id)
+        {
+            var announcement = await repository.AllAsReadOnly<Announcement>()
+               .Where(x => x.Id == id)
+               .Select(x => new EditAnnouncementViewModel()
+               {
+                 Id = x.Id,
+                 ExtrasForComfort = x.ExtrasForComfort,
+                 SecurityExtras = x.SecurityExtras,
+                 CreatedDate = x.CreatedDate,
+                  Description = x.Description,
+                  Price = (int)x.Price,
+               })
+               .FirstAsync();
+
+            return announcement;
+        }
+
+        public async Task EditAsync(int id, EditAnnouncementViewModel model)
+        {
+            var announcement = await repository.GetByIdAsync<Announcement>(id);
+
+            if (announcement != null)
+            {
+                announcement.ExtrasForComfort = model.ExtrasForComfort;
+                announcement.SecurityExtras = model.SecurityExtras;
+                announcement.CreatedDate = model.CreatedDate;
+                announcement.Description = model.Description;
+                announcement.Price = model.Price;
+
+                await repository.SaveChangesAsync();
+            }
+        }
+
+        public async Task<DeleteAnnouncementViewModel> GetAnnouncementForDeleteAsync(int id)
+        {
+            var announcement = await repository.AllAsReadOnly<Announcement>()
+             .Where(x => x.Id == id)
+             .Select(x => new DeleteAnnouncementViewModel()
+             {
+                 Id = x.Id,
+                 Description = x.Description,
+                 CreatedDate = x.CreatedDate,
+                 Price= (int)x.Price,
+                 ImageUrl = x.Car.CarImages[0]
+             })
+             .FirstAsync();
+
+            return announcement;
+        }
+        public async Task RemoveAsync(int id)
+        {
+            var announcement = await repository.GetByIdAsync<Announcement>(id);
+            var car = await repository.GetByIdAsync<Car>(announcement.CarId);
+            if (announcement != null)
+            {
+                repository.Delete<Announcement>(announcement);
+                repository.Delete<Car>(car);
+                await repository.SaveChangesAsync();
+            }
+
+        }
     }
 }

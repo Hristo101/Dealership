@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Core.Models
+namespace Dealership.Core.Models.Car
 {
     public class CarViewModel
     {

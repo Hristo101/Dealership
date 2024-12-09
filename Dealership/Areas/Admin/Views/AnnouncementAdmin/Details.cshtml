@@ -1,0 +1,108 @@
+﻿@* Views/AnnouncementAdmin/Details.cshtml *@
+@using Dealership.Core.Models.Announcement
+@model DetailsAnnouncementViewModel
+
+<div class="announcement-container">
+
+    <!-- Показване на съобщение за успех -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <h1 class="title">@Model.Make @Model.Model</h1>
+
+    <div class="content-container">
+        <div class="image-gallery">
+            <div class="main-image">
+                <img id="mainImage" src="@Url.Content(Model.ImageUrls.FirstOrDefault() ?? "~/images/default.jpg")" alt="@Model.Make @Model.Model" class="large-image" />
+                <button class="arrow left" onclick="previousImage()">←</button>
+                <button class="arrow right" onclick="nextImage()">→</button>
+            </div>
+
+            <div class="thumbnail-gallery">
+                @for (int i = 0; i < Model.ImageUrls.Count; i++)
+                {
+                    if (i % 4 == 0 && i > 0)
+                    {
+                        <div class="clear"></div>
+                    }
+                    <img src="@Url.Content(Model.ImageUrls[i])" alt="Thumbnail" class="thumbnail" onclick="setMainImage(@i)" />
+                }
+            </div>
+        </div>
+
+        <div class="right-info">
+            <div class="price-section">
+                <h3>Цена:</h3>
+                <h2 class="price">@Model.Price.ToString("N0") лв.</h2>
+                <hr />
+            </div>
+
+            <div class="features">
+                <h3>Особености</h3>
+                <ul>
+                    <li>Година: @Model.Year</li>
+                    <li>Двигател: @Model.EngineType</li>
+                    <li>Мощност: @Model.HorsePower к.с.</li>
+                    <li>Скорости: @Model.Speeds</li>
+                    <li>Пробег: @Model.Mileage км</li>
+                    <li>Цвят: @Model.Color</li>
+                </ul>
+            </div>
+
+            <div class="extras">
+                <h3>Комфорт:</h3>
+                <p>@Model.ExtrasForComfort</p>
+
+                <h3>Сигурност:</h3>
+                <p>@Model.SecurityExtras</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="additional-info">
+        <h3>Допълнителна Информация</h3>
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="buttons-container">
+        <button class="button back" onclick="history.back()">Назад</button>
+    </div>
+</div>
+
+<div class="recent-announcements">
+    <h2><span class="car-emoji">🚗</span> Последни обяви</h2>
+    <div class="announcement-grid">
+        @foreach (var item in Model.RecentAnnouncements)
+        {
+            <div class="announcement-card">
+                <img src="@Url.Content(item.ImageUrl)" alt="@item.Make @item.Model" class="car-image" />
+                <div class="car-info">
+                    <span class="car-make-model-hp">
+                        @item.Make @item.Model, @item.HorsePower к.с.
+                    </span>
+                    <span class="car-price">
+                        @item.Price.ToString("N0") лв.
+                    </span>
+                </div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="view-details-button">Преглед</a>
+            </div>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/DesignDetailsStyle.css" />
+
+<script>
+    const imageUrls = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+        Model.ImageUrls.Select(url => Url.Content(url))
+        ));
+</script>
+<script src="~/js/details.js"></script>
+
+
+
+

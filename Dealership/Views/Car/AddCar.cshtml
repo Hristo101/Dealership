@@ -1,4 +1,5 @@
-﻿@model Dealership.Core.Models.CarViewModel
+﻿@using Dealership.Core.Models.Car
+@model CarViewModel
 
 @{
     ViewData["Title"] = "Прати да оценим вашата кола";
@@ -9,7 +10,6 @@
 
     <form asp-action="AddCar" method="post" enctype="multipart/form-data">
 
-        <!-- Скрито поле за UserId -->
         <input type="hidden" asp-for="UserId" />
 
         <div class="form-group">

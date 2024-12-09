@@ -1,4 +1,4 @@
-﻿using Dealership.Core.Models;
+﻿using Dealership.Core.Models.Car;
 using Dealership.Infrastructure.Data.Models;
 using System;
 using System.Collections.Generic;

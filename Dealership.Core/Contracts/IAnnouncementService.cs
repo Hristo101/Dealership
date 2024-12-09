@@ -14,6 +14,10 @@ namespace Dealership.Core.Contracts
         Task<int> GetTotalAnnouncementCountAsync();
         Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id);
         Task<bool> ExistAsync(int id);
+        Task<EditAnnouncementViewModel> GetAnnouncementForEditAsync(int id);
+        Task<DeleteAnnouncementViewModel> GetAnnouncementForDeleteAsync(int id);
+        Task RemoveAsync(int id);
+        Task EditAsync(int id, EditAnnouncementViewModel model);
         Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
           string make,
           string year,

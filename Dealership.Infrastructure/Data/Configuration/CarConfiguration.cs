@@ -27,6 +27,7 @@ namespace Dealership.Infrastructure.Data.Configuration
                 Make = "Audi",
                 Model = "Rs7",
                 Color = "Сив",
+                IsInAnnouncement = true,
                 EngineType = "Дизелов",
                 Speeds = "Автоматик",
                 Year = 2014,
@@ -40,6 +41,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 2,
                 Make = "Toyota",
+                IsInAnnouncement = true,
                 Model = "Tacoma 3.5 V6",
                 Color = "Жълт",
                 EngineType = "Бензинов",
@@ -56,6 +58,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 3,
                 Make = "Mercedes-Benz",
+                IsInAnnouncement = true,
                 Model = "S 350",
                 Color = "Черен",
                 EngineType = "Дизелов",
@@ -72,6 +75,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 4,
                 Make = "Mercedes-Benz",
+                IsInAnnouncement = true,
                 Model = "E 250",
                 Color = "Бял",
                 EngineType = "Дизелов",
@@ -88,6 +92,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 5,
                 Make = "Volkswagen",
+                IsInAnnouncement = true,
                 Model = "Passat",
                 Color = "Сив",
                 EngineType = "Дизелов",
@@ -104,6 +109,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 6,
                 Make = "BMW",
+                IsInAnnouncement = true,
                 Model = "X6 3.0d",
                 Color = "Черен",
                 EngineType = "Дизелов",
@@ -120,6 +126,7 @@ namespace Dealership.Infrastructure.Data.Configuration
             {
                 Id = 7,
                 Make = "Audi",
+                IsInAnnouncement = true,
                 Model = "A7 50 TDI",
                 Color = "Черен",
                 EngineType = "Дизелов",

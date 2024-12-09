@@ -133,11 +133,10 @@
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
-                            @if (User.IsInRole("Admin"))
+                            @if (User.IsInRole("Administrator"))
                             {
-                                <!-- Менюта за администратор с asp-area="Admin" -->
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="Announcement" asp-action="All"><i class="fas fa-car"></i> Налични автомобили</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Announcement" asp-action="AllSales"><i class="fas fa-car"></i> Налични автомобили</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i> Мнения</a>
@@ -151,7 +150,7 @@
                             }
                             else
                             {
-                                <!-- Менюта за обикновен потребител -->
+
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Identity" asp-controller="Announcement" asp-action="All"><i class="fas fa-car"></i> Налични автомобили</a>
                                 </li>
