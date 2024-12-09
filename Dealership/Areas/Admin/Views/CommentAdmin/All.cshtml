@@ -1,0 +1,47 @@
+﻿@using Dealership.Core.Models.Comments
+@model IEnumerable<CommentViewModel>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Споделете мнението си! 😊</h1>
+        <p>Ние вярваме, че вашето мнение е важно! Оставете коментар и споделете вашето мнение за нашия продукт. 💬</p>
+    </div>
+    <img src="https://img.freepik.com/premium-photo/man-sitting-desk-with-laptop-computer-front-him-generative-ai_1034979-27394.jpg" alt="Изображение на продукт" class="hero-image">
+</div>
+
+<div class="container">
+    <h2 class="comments-header">Коментари</h2>
+
+    <div class="comments-container">
+        @foreach (var comment in Model)
+        {
+            <div class="comment-item">
+                <p class="comment-author"><strong>@comment.UserName</strong> - @comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                <p class="comment-content">@comment.Content</p>
+                <p class="comment-grade">Оценка: @comment.Grade</p>
+
+                <div class="stars">
+                    @for (var i = 1; i <= 5; i++)
+                    {
+                        if (i <= comment.Grade)
+                        {
+                            <span class="star filled">★</span>
+                        }
+                        else
+                        {
+                            <span class="star">★</span>
+                        }
+                    }
+                </div>
+
+                    <div class="comment-actions">
+                    <form method="get" asp-action="ConfirmDelete" asp-controller="CommentAdmin" asp-route-id="@comment.Id" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този коментар?')">Изтрий</button>
+                        </form>
+                    </div>
+            </div>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/Comments/AllCommentsCss.css" />

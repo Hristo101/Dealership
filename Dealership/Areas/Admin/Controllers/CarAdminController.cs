@@ -21,6 +21,8 @@ namespace Dealership.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
+         public async Task<IActionResult> AllCarFor
+        [HttpGet]
 
         public IActionResult Add()
         {

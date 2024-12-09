@@ -2,7 +2,9 @@
 using Dealership.Core.Models.Announcement;
 using Dealership.Core.Services;
 using Dealership.Extensions;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Dealership.Areas.Admin.Controllers
 {
@@ -10,10 +12,12 @@ namespace Dealership.Areas.Admin.Controllers
     public class AnnouncementAdminController : Controller
     {
         private readonly IAnnouncementService announcementService;
+        private readonly ICarService carService;
         private const int PageSize = 6;
-        public AnnouncementAdminController(IAnnouncementService _announcementService)
+        public AnnouncementAdminController(IAnnouncementService _announcementService, ICarService _carService)
         {
             this.announcementService = _announcementService;
+            this.carService = _carService;
         }
 
         public IActionResult Index()
@@ -116,10 +120,42 @@ namespace Dealership.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(AllSales));
         }
-        //[HttpGet]
-        //public async Task<IActionResult> AddAnnouncement()
-        //{
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var cars = await carService.GetAllCarsAsync(); 
 
-        //}
+            var model = new AddAnnouncementViewModel
+            {
+                Cars = cars.ToList(),
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(AddAnnouncementViewModel model)
+        {
+            if (User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var cars = await carService.GetAllCarsAsync();
+                model.Cars = cars.ToList();
+                return View(model);
+            }
+            string userId = GetUserId();
+
+            await announcementService.AddAsync(model, userId);
+
+            return RedirectToAction(nameof(AllSales));
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+        }
     }
 }

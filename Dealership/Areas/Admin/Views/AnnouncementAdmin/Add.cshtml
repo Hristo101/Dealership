@@ -1,0 +1,87 @@
+﻿@using Dealership.Core.Models.Announcement
+@model AddAnnouncementViewModel
+
+<div class="container">
+    <h2>Добави обява</h2>
+
+    <form method="post">
+        <!-- Избор на кола -->
+        <div class="form-group">
+            <label for="CarId">Изберете кола</label>
+            <select name="CarId" id="CarId" class="form-control">
+                <option value="">Изберете кола</option>
+                @foreach (var car in Model.Cars)
+                {
+                    <option value="@car.Id">@car.Id - @car.Make @car.Model</option>
+                }
+            </select>
+        </div>
+
+        <!-- Описание на обявата -->
+        <div class="form-group">
+            <label for="Description">Описание</label>
+            <textarea name="Description" id="Description" class="form-control" rows="4">@Model.Description</textarea>
+        </div>
+
+        <!-- Допълнителни екстри за комфорт -->
+        <div class="form-group">
+            <label for="ExtrasForComfort">Допълнителни екстри за комфорт</label>
+            <textarea name="ExtrasForComfort" id="ExtrasForComfort" class="form-control" rows="3">@Model.ExtrasForComfort</textarea>
+        </div>
+
+        <!-- Допълнителни екстри за безопасност -->
+        <div class="form-group">
+            <label for="SecurityExtras">Допълнителни екстри за безопасност</label>
+            <textarea name="SecurityExtras" id="SecurityExtras" class="form-control" rows="3">@Model.SecurityExtras</textarea>
+        </div>
+
+        <!-- Цена на обявата -->
+        <div class="form-group">
+            <label for="Price">Цена</label>
+            <input name="Price" id="Price" type="number" class="form-control" value="@Model.Price" />
+        </div>
+
+        <!-- Бутон за подаване на формата -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Добави обявата</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    textarea.form-control {
+        resize: vertical;
+    }
+</style>

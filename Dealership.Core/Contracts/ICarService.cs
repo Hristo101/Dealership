@@ -11,5 +11,6 @@ namespace Dealership.Core.Contracts
     public interface ICarService
     {
         Task AddCarAsync(CarViewModel carViewModel);
+        Task <IEnumerable<AddCarViewModel>> GetAllCarsAsync();
     }
 }

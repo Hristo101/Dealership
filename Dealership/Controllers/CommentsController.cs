@@ -10,7 +10,6 @@ public class CommentsController : Controller
     private readonly ICommentService _commentService;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    private static int _idCounter = 0;
 
     public CommentsController(ICommentService commentService, UserManager<ApplicationUser> userManager)
     {

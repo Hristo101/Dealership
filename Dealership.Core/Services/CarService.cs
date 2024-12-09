@@ -50,6 +50,21 @@ namespace Dealership.Core.Services
             await repository.AddAsync(car);
             await repository.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<AddCarViewModel>> GetAllCarsAsync()
+        {
+           var cars =await repository.AllAsReadOnly<Car>()
+                .Where(c => c.IsInAnnouncement == false)
+                .Select(c => new AddCarViewModel()
+                {
+                    Make = c.Make,
+                    Model = c.Model,
+                    Id = c.Id,
+                })
+                .ToListAsync();
+
+            return cars;
+        }
     }
 }
 

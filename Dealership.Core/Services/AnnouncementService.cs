@@ -223,11 +223,30 @@ namespace Dealership.Core.Services
             var car = await repository.GetByIdAsync<Car>(announcement.CarId);
             if (announcement != null)
             {
+                car.IsInAnnouncement = false;
                 repository.Delete<Announcement>(announcement);
-                repository.Delete<Car>(car);
                 await repository.SaveChangesAsync();
             }
 
+        }
+
+        public async Task AddAsync(AddAnnouncementViewModel model, string userId)
+        {
+
+            Announcement diet = new Announcement()
+                {
+                  Description = model.Description,
+                  ExtrasForComfort = model.ExtrasForComfort,
+                  CreatedDate = DateTime.Now,
+                  CarId = model.CarId,
+                  Price = model.Price,
+                  Id = model.Id,
+                  SecurityExtras = model.SecurityExtras,
+                };
+
+                await repository.AddAsync(diet);
+                await repository.SaveChangesAsync();
+         
         }
     }
 }

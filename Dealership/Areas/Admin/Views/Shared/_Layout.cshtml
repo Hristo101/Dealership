@@ -136,16 +136,16 @@
                             @if (User.IsInRole("Administrator"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="Announcement" asp-action="AllSales"><i class="fas fa-car"></i> Налични автомобили</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AnnouncementAdmin" asp-action="AllSales"><i class="fas fa-car"></i> Налични автомобили</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i> Мнения</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="CommentAdmin" asp-action="All"><i class="fas fa-comments"></i> Мнения</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="Inquiries" asp-action="All"><i class="fas fa-question-circle"></i> Въпроси</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="Admin" asp-controller="Car" asp-action="All"><i class="fas fa-star"></i> Оценяване</a>
+                                    <a class="nav-link" asp-area="Admin" asp-controller="CarAdmin" asp-action="All"><i class="fas fa-star"></i> Оценяване</a>
                                 </li>
                             }
                             else
