@@ -46,7 +46,7 @@ namespace Dealership.Core.Services
         {
             var comment = await _repository.AllAsReadOnly<Comment>()
                         .Where(x => x.Id == id)
-                        .FirstAsync(); ;
+                        .FirstAsync(); 
 
             if (comment == null)
             {
@@ -109,6 +109,7 @@ namespace Dealership.Core.Services
             }
 
              _repository.Delete(comment);
+            await _repository.SaveChangesAsync();
             return true;
         }
     }

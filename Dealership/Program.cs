@@ -1,17 +1,12 @@
 
 using Dealership.Core.Contracts;
 using Dealership.Core.Services;
+using Dealership.Extensions;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dealership
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -20,7 +15,7 @@ namespace Dealership
             builder.Services.AddDbContext<CarDealershipContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+        
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -28,6 +23,7 @@ namespace Dealership
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CarDealershipContext>();
 
             builder.Services.AddControllersWithViews();
@@ -58,14 +54,22 @@ namespace Dealership
 
             app.UseRouting();
 
+
+
             app.UseAuthorization();
+            app.UseAuthentication();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
+
             app.MapRazorPages();
-
-            app.Run();
-        }
-    }
-}
+await app.CreateAdminRoleAsync();
+await app.RunAsync();

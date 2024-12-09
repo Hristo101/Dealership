@@ -1,6 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+
+@{
+    string userName = string.Empty;
+
+    if (SignInManager.IsSignedIn(User))
+    {
+        userName = User.FindFirstValue(Dealership.Core.Constants.CustomClaims.UserFullNameClaim) ?? string.Empty;
+    }
+}
+
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
