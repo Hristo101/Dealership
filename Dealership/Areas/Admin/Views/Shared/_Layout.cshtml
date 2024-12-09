@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dealership</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* Основен стил за навигационната лента */
+        nav.navbar {
+            background-color: #343a40;
+            width: 100%;
+            padding: 10px 20px;
+        }
+
+        /* Подравняване на менюто */
+        .navbar-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+            .navbar-nav .nav-link {
+                color: white !important;
+                font-weight: bold;
+                margin-right: 15px;
+                display: flex;
+                align-items: center;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+
+                .navbar-nav .nav-link:hover {
+                    background-color: #f39c12;
+                    transform: translateX(10px);
+                }
+
+                .navbar-nav .nav-link i {
+                    margin-right: 8px;
+                    color: #f39c12;
+                }
+
+        /* Падащо меню */
+        .dropdown-menu {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        /* Подравняване на контактната информация */
+        .nav-contact-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+            .nav-contact-info span {
+                color: white;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+            }
+
+                .nav-contact-info span i {
+                    color: yellow;
+                    margin-right: 8px;
+                    font-size: 24px;
+                }
+
+            .nav-contact-info .phone {
+                color: white;
+            }
+
+        /* Бутон "Контакти" */
+        .btn-contacts {
+            background-color: #f39c12;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: width 0.3s, border-radius 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+            .btn-contacts:hover {
+                width: 160px;
+                border-radius: 10px;
+                transform: skewX(0deg);
+                background-color: #e67e22;
+            }
+
+        /* Позициониране на основното съдържание */
+        .main-content {
+            padding: 20px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    Dealership
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs"><i class="fas fa-info-circle"></i> About Us</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <!-- Менюта за администратор с asp-area="Admin" -->
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Announcement" asp-action="All"><i class="fas fa-car"></i> Налични автомобили</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i> Мнения</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Inquiries" asp-action="All"><i class="fas fa-question-circle"></i> Въпроси</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="Car" asp-action="All"><i class="fas fa-star"></i> Оценяване</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <!-- Менюта за обикновен потребител -->
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Identity" asp-controller="Announcement" asp-action="All"><i class="fas fa-car"></i> Налични автомобили</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="buyCarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-sync-alt"></i> Изкупуване на автомобили
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="buyCarDropdown">
+                                        <li><a class="dropdown-item" asp-area="Identity" asp-controller="Home" asp-action="HowWeWork"><i class="fas fa-cogs"></i> Как работим</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Car" asp-action="AddCar"><i class="fas fa-dollar-sign"></i> Закупуване</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userMenuDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-user"></i> Моето меню
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="userMenuDropdown">
+                                        <li><a class="dropdown-item" href="@Url.Action("All", "Favorites")"><i class="fas fa-heart"></i> Любими обяви</a></li>
+                                        <li><a class="dropdown-item" href="@Url.Action("All", "Inquiries")"><i class="fas fa-question-circle"></i> Запитвания</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Identity" asp-controller="Comments" asp-action="AllComments"><i class="fas fa-comments"></i> Мнения</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register"><i class="fas fa-user-plus"></i> Register</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <div class="nav-contact-info">
+                                <span>
+                                    <a asp-action="Contact" asp-controller="Home">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </a>
+                                </span>
+                                <span class="phone">
+                                    <i class="fas fa-phone-alt"></i> 0877 067 767
+                                </span>
+                                <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'"><i class="fas fa-envelope"></i> Контакти</button>
+                                <span>Welcome, @User.Identity.Name!</span>
+                            </div>
+                            <li class="nav-item">
+                                <form method="post" asp-area="" asp-controller="Account" asp-action="Logout">
+                                    <button class="nav-link btn btn-link" style="text-decoration:none; color: white;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="content-container">
+                <div class="main-content">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+            </div>
+        }
+        else
+        {
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        }
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Dealership - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
