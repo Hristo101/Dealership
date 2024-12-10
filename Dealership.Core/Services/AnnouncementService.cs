@@ -233,7 +233,7 @@ namespace Dealership.Core.Services
         public async Task AddAsync(AddAnnouncementViewModel model, string userId)
         {
 
-            Announcement diet = new Announcement()
+            Announcement announcement = new Announcement()
                 {
                   Description = model.Description,
                   ExtrasForComfort = model.ExtrasForComfort,
@@ -244,9 +244,39 @@ namespace Dealership.Core.Services
                   SecurityExtras = model.SecurityExtras,
                 };
 
-                await repository.AddAsync(diet);
+                await repository.AddAsync(announcement);
                 await repository.SaveChangesAsync();
          
+        }
+
+        public async Task<AnnouncementEvaluationViewModel> GetModelForAnnouncment(int carId)
+        {
+            var car =  await repository.GetByIdAsync<Car>(carId);
+            var model = new AnnouncementEvaluationViewModel()
+            {
+                CarId = carId,
+                CarImage = car.CarImages[0],
+                Make = car.Make,
+                Model = car.Model,
+            };
+            return model;
+        }
+
+        public async Task EvaluationAsync(int id, AnnouncementEvaluationViewModel model)
+        {
+            var car = await repository.GetByIdAsync<Car>(id);
+            car.IsInAnnouncement = true;
+            Announcement announcement = new Announcement()
+            {
+                Description = model.Description,
+                ExtrasForComfort = model.ExtrasForComfort,
+                CreatedDate = DateTime.Now,
+                CarId = id,
+                Price = model.Price,
+                SecurityExtras = model.SecurityExtras,
+            };
+            await repository.AddAsync(announcement);
+            await repository.SaveChangesAsync();
         }
     }
 }

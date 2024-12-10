@@ -65,6 +65,34 @@ namespace Dealership.Core.Services
 
             return cars;
         }
+
+        public async Task<CarDetailsViewModel> DetailsCarAsync(int id)
+        {
+            var car = await repository.AllAsReadOnly<Car>()
+                .Where(x => x.Id == id)
+                .Select(x => new CarDetailsViewModel()
+                {
+                    Id = x.Id,
+                    Color = x.Color,
+                    EngineType = x.EngineType,
+                    Horsepower = x.Horsepower,
+                    CarImages = x.CarImages,
+                    Make = x.Make,
+                    Model = x.Model,
+                    Mileage = x.Mileage,
+                    Speeds = x.Speeds,
+                     Year = x.Year,
+                }).FirstAsync();
+
+            return car;
+        }
+
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await repository.AllAsReadOnly<Car>()
+                .AnyAsync(x => x.Id == id);
+        }
+
     }
 }
 

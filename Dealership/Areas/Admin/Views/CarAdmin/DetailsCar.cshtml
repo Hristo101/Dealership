@@ -1,0 +1,107 @@
+﻿@model Dealership.Core.Models.Car.CarDetailsViewModel
+
+@{
+    ViewData["Title"] = "Детайли за колата";
+}
+
+<div class="container car-details-container">
+    <h2 class="car-details-title">@Model.Make @Model.Model (@Model.Year)</h2>
+
+    <div class="car-details-content">
+        <div class="car-images">
+            @foreach (var imageUrl in Model.CarImages)
+            {
+                <img src="@Url.Content(imageUrl)" alt="@Model.Make @Model.Model" class="car-image" />
+            }
+        </div>
+
+        <div class="car-info">
+            <p><strong>Цвят:</strong> @Model.Color</p>
+            <p><strong>Тип двигател:</strong> @Model.EngineType</p>
+            <p><strong>Мощност:</strong> @Model.Horsepower к.с.</p>
+            <p><strong>Пробег:</strong> @Model.Mileage км</p>
+            <p><strong>Скоростна кутия:</strong> @Model.Speeds</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a asp-action="AllCarsForEvaluation" asp-controller="CarAdmin" asp-area="Admin" class="btn btn-secondary">Обратно към списъка</a>
+    </div>
+</div>
+
+<style>
+    .car-details-container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .car-details-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+    }
+
+    .car-details-content {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .car-images {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .car-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .car-info {
+        flex: 1;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .car-info p {
+            margin: 10px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .car-info strong {
+            color: #555;
+        }
+
+    .back-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-decoration: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+</style>

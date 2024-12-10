@@ -21,7 +21,23 @@ namespace Dealership.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-         public async Task<IActionResult> AllCarFor
+        public async Task<IActionResult> AllCarsForEvaluation()
+        {
+            var models = await _carService.GetAllCarsAsync();
+            return View(models);
+        }
+        [HttpGet]
+        public async Task<IActionResult> DetailsCar(int id)
+        {
+            if (await _carService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+           var carForDetails = await _carService.DetailsCarAsync(id);
+
+            return View(carForDetails);
+        }
         [HttpGet]
 
         public IActionResult Add()

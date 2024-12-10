@@ -67,8 +67,8 @@ namespace Dealership.Infrastructure.Data.Configuration
                ExtrasForComfort = "Ергономични седалки с многопозиционно регулиране, Триплекс климатроник, Ароматизация на купето, Панорамен покрив, Ambiente осветление, Мултимедиен дисплей с интуитивен интерфейс, Електрическа задна врата, Моторизирано регулиране на волана, Аудиосистема с висока резолюция, Шумоизолирана кабина, Полуавтономна шофьорска система, Серво управление, Бордови компютър, Интегрирана навигация",
                SecurityExtras = "ABS, ESP, Airbag, BAS, Distronic, Активен помощник за лента, Blind Spot Assist, PRE-SAFE, TPMS, Активна спирачна помощ, 360-градусова камера",
                 Price = 39900m,
-                Status = "Approved",
                 CreatedDate = DateTime.Now,
+                Status = "Approved",
                 CarId = 4
             };
             announcements.Add(announcement);

@@ -19,6 +19,8 @@ namespace Dealership.Core.Contracts
         Task<DeleteAnnouncementViewModel> GetAnnouncementForDeleteAsync(int id);
         Task RemoveAsync(int id);
         Task EditAsync(int id, EditAnnouncementViewModel model);
+        Task EvaluationAsync(int id, AnnouncementEvaluationViewModel model);
+        Task<AnnouncementEvaluationViewModel> GetModelForAnnouncment(int carId);
         Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
           string make,
           string year,

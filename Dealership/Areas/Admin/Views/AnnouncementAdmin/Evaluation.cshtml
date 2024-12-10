@@ -1,0 +1,52 @@
+﻿@using Dealership.Core.Models.Announcement
+@model AnnouncementEvaluationViewModel
+<link rel="stylesheet" href="~/css/Announcement/Evaluation.css" />
+
+<div class="container mt-5">
+    <h2 class="text-center">Създаване на обява за автомобил</h2>
+
+        <input type="hidden" name="CarId" value="@Model.CarId" />
+    <form asp-action="Evaluation" asp-controller="AnnouncementAdmin" asp-route-id="@Model.CarId" method="post" enctype="multipart/form-data" class="mt-4 needs-validation" novalidate>
+
+
+        <div class="car-header d-flex align-items-center mb-4">
+            <div class="car-image-container">
+                <img src="@Model.CarImage" alt="Car Image" class="car-image" />
+            </div>
+            <div class="car-details ms-3">
+                <h3 class="car-make-model">@Model.Make @Model.Model</h3>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Описание</label>
+            <textarea id="description" name="Description" class="form-control" rows="4">@Model.Description</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="extrasForComfort" class="form-label">Екстри за комфорт</label>
+            <textarea id="extrasForComfort" name="ExtrasForComfort" class="form-control" rows="3">@Model.ExtrasForComfort</textarea>
+            <span asp-validation-for="ExtrasForComfort" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="securityExtras" class="form-label">Системи за безопасност</label>
+            <textarea id="securityExtras" name="SecurityExtras" class="form-control" rows="3">@Model.SecurityExtras</textarea>
+            <span asp-validation-for="SecurityExtras" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Цена</label>
+            <input type="number" id="price" name="Price" class="form-control" value="@Model.Price" step="0.01" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Създай обява</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

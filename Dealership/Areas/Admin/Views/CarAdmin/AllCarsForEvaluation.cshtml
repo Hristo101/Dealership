@@ -1,0 +1,32 @@
+﻿@using Dealership.Core.Models.Car
+@model IEnumerable<AddCarViewModel>
+<link rel="stylesheet" href="~/css/Car/AllCarForEvaluation.css" />
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var car in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card car-card">
+                    <div class="card-header">
+                        Car Details
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Make:</strong> @car.Make</p>
+                        <p><strong>Model:</strong> @car.Model</p>
+                    </div>
+                    <div class="card-footer">
+                        <form method="get"  asp-controller="AnnouncementAdmin" asp-action="Evaluation">
+                            <input type="hidden" name="Id" value="@car.Id" />
+                            <button type="submit" class="btn-rate">Оценяване</button>
+                        </form>
+
+                        <form method="get" asp-controller="CarAdmin" asp-action="DetailsCar">
+                            <input type="hidden" name="Id" value="@car.Id" />
+                            <button type="submit" class="btn-details">Details</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

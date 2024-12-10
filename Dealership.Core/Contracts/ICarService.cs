@@ -12,5 +12,7 @@ namespace Dealership.Core.Contracts
     {
         Task AddCarAsync(CarViewModel carViewModel);
         Task <IEnumerable<AddCarViewModel>> GetAllCarsAsync();
+        Task<bool> ExistAsync(int id);
+        Task<CarDetailsViewModel> DetailsCarAsync(int id);
     }
 }

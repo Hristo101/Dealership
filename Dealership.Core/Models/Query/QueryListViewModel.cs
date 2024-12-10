@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dealership.Core.Models
+namespace Dealership.Core.Models.Query
 {
     public class QueryListViewModel
     {
@@ -16,6 +16,6 @@ namespace Dealership.Core.Models
         public string Message { get; set; }
         public bool IsAnswered { get; set; }
         public string AdminResponse { get; set; } = string.Empty;
-        public int AnnouncementId { get; set; } 
+        public int AnnouncementId { get; set; }
     }
 }

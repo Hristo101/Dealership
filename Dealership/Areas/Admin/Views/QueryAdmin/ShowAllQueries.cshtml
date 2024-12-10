@@ -1,0 +1,132 @@
+﻿@using Dealership.Core.Models.Query
+@model IEnumerable<AllQueriesViewModel>
+<link rel="stylesheet" href="~/css/Query/ShowAllQueries.css" />
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Всички въпроси без отговор</h2>
+
+    @foreach (var query in Model)
+    {
+        <div class="row mb-4 border-bottom pb-3">
+            <div class="col-md-6">
+                <!-- Email на потребителя -->
+                <div class="user-email mb-3">
+                    <strong>Имейл:</strong> <span>@query.Email</span>
+                </div>
+
+                <!-- Въпрос -->
+                <div class="query-description mb-4">
+                    <strong>Въпрос:</strong>
+                    <p>@query.Description</p>
+                </div>
+
+                <form method="get" asp-route-id="@query.Id" asp-action="GiveAnswer" asp-controller="QueryAdmin" class="d-flex justify-content-start">
+                    <input type="hidden" name="queryId" value="@query.Id" />
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Отговори на въпроса
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <div class="car-details d-flex justify-content-between">
+                    <div class="car-image-container">
+                        <img src="@Url.Content(@query.CarImage)" alt="Car Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;" />
+                    </div>
+
+                    <div class="car-make-model text-center">
+                        <strong>@query.Make</strong><br />
+                        <span>@query.Model</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .container {
+        margin-top: 30px;
+    }
+
+    .user-email {
+        font-size: 18px; /* Увеличаване на шрифта за имейла */
+        color: #333;
+        font-weight: bold; /* Добавяне на удебелен шрифт */
+    }
+
+    .query-description {
+        font-size: 16px; /* Увеличаване на шрифта за въпроса */
+        color: #555;
+        line-height: 1.5; /* По-добро разстояние между редовете */
+    }
+
+    .car-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .car-image-container img {
+        border-radius: 10px; /* Увеличаване на радиуса на ъглите на снимката */
+        max-width: 200px; /* Увеличаване на размера на снимката */
+        height: auto;
+    }
+
+    .car-make-model {
+        text-align: center;
+    }
+
+        .car-make-model strong {
+            font-size: 24px; /* Увеличаване на размера на марката */
+            color: #000;
+        }
+
+        .car-make-model span {
+            font-size: 18px; /* Увеличаване на размера на модела */
+            color: #777;
+        }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        font-size: 18px; /* Увеличаване на шрифта на бутона */
+        padding: 12px 20px; /* Увеличаване на вътрешното разстояние на бутона */
+        border-radius: 8px; /* Заобляне на ръбовете на бутона */
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .card {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    .card-body {
+        padding: 25px; /* Увеличаване на вътрешното разстояние в картата */
+    }
+
+    .border-bottom {
+        border-bottom: 2px solid #ddd;
+    }
+
+    .mb-3, .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .p-3 {
+        padding: 1.5rem;
+    }
+
+    /* Добавяне на малко разстояние между редовете */
+    .row {
+        margin-bottom: 30px;
+    }
+</style>
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

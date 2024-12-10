@@ -1,5 +1,5 @@
 ﻿using Dealership.Core.Contracts;
-using Dealership.Core.Models;
+using Dealership.Core.Models.Query;
 using Dealership.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

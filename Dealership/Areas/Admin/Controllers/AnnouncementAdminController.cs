@@ -152,6 +152,33 @@ namespace Dealership.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(AllSales));
         }
+        [HttpGet]
+        public async Task<IActionResult> Evaluation(int id)
+        {
+            if (await carService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            var model = await announcementService.GetModelForAnnouncment(id);
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Evaluation(AnnouncementEvaluationViewModel model,int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (await carService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+            await announcementService.EvaluationAsync(id, model);
+
+            return RedirectToAction("AllCarsForEvaluation","CarAdmin");
+        }
 
         private string GetUserId()
         {
