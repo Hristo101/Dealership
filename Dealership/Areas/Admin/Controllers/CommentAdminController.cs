@@ -28,7 +28,7 @@ namespace Dealership.Areas.Admin.Controllers
             var commentViewModels = comments.Select(c => new CommentViewModel
             {
                 Id = c.Id,
-                UserName = c.User.UserName ?? string.Empty,
+                UserName = c.UserName,
                 Content = c.Content,
                 CreatedAt = c.CreatedAt,
                 Grade = c.Grade,

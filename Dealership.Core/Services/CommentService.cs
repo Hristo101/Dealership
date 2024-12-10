@@ -2,6 +2,7 @@
 using Dealership.Core.Models.Comments;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,7 +16,6 @@ namespace Dealership.Core.Services
     public class CommentService : ICommentService
     {
         private readonly IRepository _repository;
-
         public CommentService(IRepository repository)
         {
             _repository = repository;
@@ -27,6 +27,7 @@ namespace Dealership.Core.Services
         {
             Comment comment1 = new Comment()
             {
+                Id = comment.Id,
                 Content = comment.Content,
                 Grade = comment.Grade,
                 UserId = userId,
@@ -36,10 +37,20 @@ namespace Dealership.Core.Services
             await _repository.SaveChangesAsync(); 
         }
 
-        public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
+        public async Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync()
         {
-            return await _repository.All<Comment>()
+            return await _repository.AllAsReadOnly<Comment>()
                 .Include(c => c.User) 
+                .Select(c => new CommentViewModel() 
+                {
+                    Id = c.Id,
+                    UserName = c.User.UserName ?? string.Empty,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    Grade = c.Grade,
+                    CanDetails = true
+                })
+
                 .ToListAsync();
         }
         public async Task<ConfirmDeleteViewModel> GetConfirmDeleteViewModelAsync(int id)

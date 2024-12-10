@@ -10,7 +10,7 @@ namespace Dealership.Core.Contracts
 {
     public interface ICommentService
     {
-        Task<IEnumerable<Comment>> GetAllCommentsAsync();
+        Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync();
         Task AddCommentAsync(AddCommentViewModel comment, string userId);
         Task<EditCommentViewModel> GetCommentByIdAsync(int id);
         Task UpdateCommentAsync(EditCommentViewModel model);

@@ -19,24 +19,11 @@ public class CommentsController : Controller
     [HttpGet]
     public async Task<IActionResult> AllComments()
     {
-        var comments = await _commentService.GetAllCommentsAsync();
-
         var currentUser = await _userManager.GetUserAsync(User);
 
-        var commentViewModels = comments.Select(c => new CommentViewModel
-        {
-            Id = c.Id,
-            UserName = c.User.UserName ?? string.Empty,
-            Content = c.Content,
-            CreatedAt = c.CreatedAt,
-            Grade = c.Grade,
+        var comments = await _commentService.GetAllCommentsAsync();
 
-            CanEdit = c.UserId == currentUser?.Id,
-            CanDelete = c.UserId == currentUser?.Id,
-            CanDetails = true
-        }).ToList();
-
-        return View(commentViewModels);
+        return View(comments);
     }
 
     [HttpGet]
