@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dealership.Infrastructure.Common.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,37 +15,44 @@ namespace Dealership.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(DataConstant.Car.MakeMaxLength, MinimumLength = DataConstant.Car.MakeMinLength)]
         public string Make { get; set; } = null!;
+
         [Required]
-        [StringLength(50, MinimumLength = 2)]
+        [StringLength(DataConstant.Car.ModelMaxLength, MinimumLength = DataConstant.Car.ModelMinLength)]
+        public string Model { get; set; } = null!;
+
+        [Required]
+        [StringLength(DataConstant.Car.ColorMaxLength, MinimumLength = DataConstant.Car.ColorMinLength)]
         public string Color { get; set; } = null!;
+
         [Required]
         public int Mileage { get; set; }
+
         [Required]
         public int Horsepower { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 1)]
-        public string Model { get; set; } = null!;
-        [Required]
-        [StringLength(250, MinimumLength = 1)]
+        [StringLength(DataConstant.Car.EngineTypeMaxLength, MinimumLength = DataConstant.Car.EngineTypeMinLength)]
         public string EngineType { get; set; } = null!;
+
         [Required]
-        [StringLength(250, MinimumLength = 1)]
+        [StringLength(DataConstant.Car.SpeedsMaxLength, MinimumLength = DataConstant.Car.SpeedsMinLength)]
         public string Speeds { get; set; } = null!;
+
         public bool IsInAnnouncement { get; set; } = false;
+
         [Required]
-        [Range(1886, 9999)] 
+        [Range(DataConstant.Car.YearMinValue, DataConstant.Car.YearMaxValue)]
         public int Year { get; set; }
 
-        public string? UserId { get; set; }  
+        public string? UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser? User { get; set; }
 
         [Required]
-        [MinLength(4, ErrorMessage = "Трябва да има поне 4 снимки.")]
+        [MinLength(DataConstant.Car.MinCarImagesCount, ErrorMessage = "Трябва да има поне 4 снимки.")]
         public List<string> CarImages { get; set; } = new List<string>();
 
         public ICollection<Announcement> Announcements { get; set; } = new List<Announcement>();

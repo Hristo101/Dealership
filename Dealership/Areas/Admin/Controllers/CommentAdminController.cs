@@ -32,10 +32,6 @@ namespace Dealership.Areas.Admin.Controllers
                 Content = c.Content,
                 CreatedAt = c.CreatedAt,
                 Grade = c.Grade,
-
-                CanEdit = c.UserId == currentUser?.Id,
-                CanDelete = c.UserId == currentUser?.Id,
-                CanDetails = true
             }).ToList();
 
             return View(commentViewModels);

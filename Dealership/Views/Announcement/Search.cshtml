@@ -12,7 +12,7 @@
                 <select class="form-control" name="make" id="makeSelect">
                     <option value="">Марка</option>
                     <option value="BMW">BMW</option>
-                    <option value="Mercedes-Benz">Mercedes-Benz</option>
+                    <option value="Mercedes">Mercedes-Benz</option>
                     <option value="Audi">Audi</option>
                     <option value="Volkswagen">Volkswagen</option>
                     <option value="Toyota">Toyota</option>
@@ -40,7 +40,7 @@
             <div class="col-md-2">
                 <select class="form-control" name="transmission" id="transmissionSelect">
                     <option value="">Скорости</option>
-                    <option value="Автоматик">Автоматик</option>
+                    <option value="Автоматични">Автоматик</option>
                     <option value="Ръчни">Ръчни</option>
                 </select>
             </div>
@@ -69,27 +69,20 @@
 </div>
 
 <div class="row mt-4" id="carResults">
-    @if (!Model.Announcements.Any())
+    @foreach (var item in Model.Announcements)
     {
-        <h4>Няма намерени резултати по зададените критерии.</h4>
-    }
-    else
-    {
-        @foreach (var item in Model.Announcements)
-        {
-            <div class="col-md-4">
-                <div class="announcement-card">
-                    <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
-                    <div class="car-info">
-                        <span class="car-make">@item.Make</span>
-                        <span class="car-model">@item.Model</span>
-                        <span class="car-horsepower">@item.HorsePower HP</span>
-                    </div>
-                    <div class="car-price">Цена: @item.Price лв.</div>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
+        <div class="col-md-4">
+            <div class="announcement-card">
+                <img src="@Url.Content(item.ImageUrl)" alt="@item.Model" class="car-image" />
+                <div class="car-info">
+                    <span class="car-make">@item.Make</span>
+                    <span class="car-model">@item.Model</span>
+                    <span class="car-horsepower">@item.HorsePower HP</span>
                 </div>
+                <div class="car-price">Цена: @item.Price лв.</div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="view-button">Преглед</a>
             </div>
-        }
+        </div>
     }
 </div>
 
@@ -97,7 +90,7 @@
     <div class="pagination">
         @if (Model.CurrentPage > 1)
         {
-            <a href="@Url.Action("Search", new { page = Model.CurrentPage - 1 })" class="page-link">&laquo; Предишна</a>
+            <a href="@Url.Action("Search", new { page = Model.CurrentPage - 1, make = Model.Make, year = Model.Year, engine = Model.Engine, transmission = Model.Transmission, color = Model.Color, sortBy = Model.SortBy })" class="page-link">&laquo; Предишна</a>
         }
         else
         {
@@ -108,7 +101,7 @@
 
         @if (Model.CurrentPage < Model.TotalPages)
         {
-            <a href="@Url.Action("Search", new { page = Model.CurrentPage + 1 })" class="page-link">Следваща &raquo;</a>
+            <a href="@Url.Action("Search", new { page = Model.CurrentPage + 1, make = Model.Make, year = Model.Year, engine = Model.Engine, transmission = Model.Transmission, color = Model.Color, sortBy = Model.SortBy })" class="page-link">Следваща &raquo;</a>
         }
         else
         {
@@ -116,6 +109,7 @@
         }
     </div>
 </div>
+
 
 <div class="bottom-right-image">
     <img src="~/img/Transport_Logo-removebg-preview.png" alt="Decorative Image" />

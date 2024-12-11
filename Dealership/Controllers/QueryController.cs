@@ -30,7 +30,13 @@ namespace Dealership.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var models = await queryService.ShowAllQueriesWithAnswer();
 
+            return View(models);
+        }
         [HttpPost]
         public async Task<IActionResult> AddQuery(QueryListViewModel model)
         {

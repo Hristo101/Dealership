@@ -12,6 +12,7 @@ namespace Dealership.Core.Contracts
     {
         Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync();
         Task AddCommentAsync(AddCommentViewModel comment, string userId);
+        Task<bool> UserHasPermissionToEditOrDeleteComment(string userId, int commentId);
         Task<EditCommentViewModel> GetCommentByIdAsync(int id);
         Task UpdateCommentAsync(EditCommentViewModel model);
         Task<ConfirmDeleteViewModel> GetConfirmDeleteViewModelAsync(int id);

@@ -2,6 +2,7 @@
 using Dealership.Core.Models;
 using Dealership.Infrastructure.Common;
 using Dealership.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,13 @@ namespace Dealership.Core.Services
             }).ToList();
 
             return favoriteViewModels;
+        }
+        public async Task<bool> IsFavoriteAsync(string userId, int announcementId)
+        { 
+            var favorite = _repository.All<UserFavoriteAnnouncement>()
+                .FirstOrDefault(f => f.UserId == userId && f.AnnouncementId == announcementId);
+
+            return favorite != null;
         }
         public async Task<bool> RemoveFromFavoritesAsync(string userId, int announcementId)
         {

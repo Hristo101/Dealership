@@ -39,14 +39,15 @@ builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
 
-// Конфигуриране на HTTP заявките
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 }
 else
 {
+
     app.UseExceptionHandler("/Home/Error");
+    app.UseStatusCodePagesWithRedirects("/Home/Error/{0}");
     app.UseHsts();
 }
 
@@ -55,9 +56,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

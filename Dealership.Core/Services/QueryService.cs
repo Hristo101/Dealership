@@ -72,6 +72,25 @@ namespace Dealership.Core.Services
             return models;
         }
 
+        public async Task<IEnumerable<AllQueriesViewModel>> ShowAllQueriesWithAnswer()
+        {
+            var models = await repository.AllAsReadOnly<Query>()
+                 .Where(x => x.IsAnswered == true && x.AdminResponse != string.Empty)
+                 .Select(x => new AllQueriesViewModel()
+                 {
+                     Id = x.Id,
+                     CarImage = x.Announcement.Car.CarImages[0],
+                     Make = x.Announcement.Car.Make,
+                     Model = x.Announcement.Car.Model,
+                     AdminResponse = x.AdminResponse,
+                     Email = x.User.Email,
+                     Description = x.Message,
+                 })
+                 .ToListAsync();
+
+            return models;
+        }
+
         public async Task AddAnswerAsync(int id, QueryAnswerViewModel model)
         {
             var query = await repository.All<Query>().Where(x => x.Id == id).FirstAsync();

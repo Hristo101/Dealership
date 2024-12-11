@@ -12,6 +12,7 @@ namespace Dealership.Core.Contracts
     {
         Task AddToFavoritesAsync(string userId, int announcementId);
         Task<List<FavoriteViewModel>> GetFavoritesAsync(string userId);
+        Task<bool> IsFavoriteAsync(string userId, int announcementId);
         Task<bool> RemoveFromFavoritesAsync(string userId, int announcementId);
     }
 }

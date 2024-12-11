@@ -35,10 +35,20 @@ namespace Dealership.Controllers
                 return Unauthorized();
             }
 
+            var alreadyAdded = await _favoriteService.IsFavoriteAsync(userId, id);
+
+            if (alreadyAdded)
+            {
+                int statusCode = 404;
+                TempData["ErrorMessage"] = "Тази обява вече е добавена в любими!";
+
+                return RedirectToAction("Error", "Home", new { statusCode });
+            }
+
             await _favoriteService.AddToFavoritesAsync(userId, id);
 
             TempData["SuccessMessage"] = "Обявата беше добавена към вашите любими!";
-            return RedirectToAction("Details", "Announcement", new { id });
+            return RedirectToAction("All");
         }
         [HttpPost]
         public async Task<IActionResult> RemoveFromFavorites(int announcementId)

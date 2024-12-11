@@ -17,30 +17,42 @@
 
 <div class="container">
     <h2 class="form-header">Редактиране на коментар</h2>
+
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <form method="post" action="/Comments/Edit/@Model.Id">
         <div class="add-comment-form">
-            <!-- Поле за коментар -->
-            <textarea id="commentContent" name="Content" placeholder="Напишете вашия коментар..." required>@Model.Content</textarea><br>
 
-            <!-- Оценка -->
-            <label for="commentGrade">Оценка:</label>
-            <select id="commentGrade" name="Grade">
-                <option value="1" selected="selected">1 ★</option>
-                <option value="2">2 ★★</option>
-                <option value="3">3 ★★★</option>
-                <option value="4">4 ★★★★</option>
-                <option value="5">5 ★★★★★</option>
-            </select><br>
+            <div class="form-group">
+                <label for="commentContent">Коментар:</label>
+                <textarea id="commentContent"
+                          name="Content"
+                          class="form-control"
+                          placeholder="Напишете вашия коментар..."
+                          asp-for="Content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
 
-            <!-- Бутоните за запазване и отказ -->
+
+            <div class="form-group">
+                <label for="commentGrade">Оценка:</label>
+                <select id="commentGrade" name="Grade" class="form-control" asp-for="Grade">
+                    <option value="1">1 ★</option>
+                    <option value="2">2 ★★</option>
+                    <option value="3">3 ★★★</option>
+                    <option value="4">4 ★★★★</option>
+                    <option value="5">5 ★★★★★</option>
+                </select>
+                <span asp-validation-for="Grade" class="text-danger"></span>
+            </div>
+
             <div class="form-buttons">
                 <button type="submit" class="btn-submit">💾 Запази промените</button>
                 <a href="/Comments/All" class="btn-cancel">❌ Назад</a>
             </div>
         </div>
     </form>
-
-
 </div>
 
 <style>
@@ -93,7 +105,6 @@
         transform: rotate(-2deg);
     }
 
-    /* Контейнер за формата */
     .container {
         margin: 40px auto;
         padding: 30px;

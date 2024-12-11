@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Dealership.Infrastructure.Common.Constants;
 
 namespace Dealership.Infrastructure.Data.Models
 {
@@ -15,25 +16,31 @@ namespace Dealership.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        [StringLength(DataConstant.Announcement.DescriptionMaxLength, MinimumLength = DataConstant.Announcement.DescriptionMinLength)]
+        public string Description { get; set; } = null!;
+
         [Required]
         public DateTime CreatedDate { get; set; }
-        public string ExtrasForComfort { get; set; }
-        public string SecurityExtras { get; set; }
+
+        public string ExtrasForComfort { get; set; } = string.Empty;
+
+        public string SecurityExtras { get; set; } = string.Empty;
 
         [Required]
+        [Range(DataConstant.Announcement.PriceMinValue,DataConstant.Announcement.PriceMaxValue)]
         public decimal Price { get; set; }
-        [Required]
-        public string Status { get; set; } = "Approved";
 
+        [Required]
+        public string Status { get; set; } = DataConstant.Announcement.DefaultStatus;
 
         [Required]
         public int CarId { get; set; }
 
         [ForeignKey(nameof(CarId))]
-        public Car Car { get; set; }
+        public Car Car { get; set; } = null!;
 
         public ICollection<Query> Queries { get; set; } = new List<Query>();
+
         public ICollection<UserFavoriteAnnouncement> FavoriteUsers { get; set; } = new List<UserFavoriteAnnouncement>();
     }
 

@@ -13,6 +13,7 @@ namespace Dealership.Core.Contracts
         Task<IEnumerable<AllQueriesViewModel>> ShowAllQueriesWithoutAnswer();
         Task<QueryAnswerViewModel> AddAnswer(int id);
         Task<bool> ExistAsync(int id);
+        Task<IEnumerable<AllQueriesViewModel>> ShowAllQueriesWithAnswer();
         Task AddAnswerAsync(int id, QueryAnswerViewModel model);
     }
 }

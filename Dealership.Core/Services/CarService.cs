@@ -34,6 +34,7 @@ namespace Dealership.Core.Services
 
             var car = new Car
             {
+                Id = carViewModel.Id,
                 Make = carViewModel.Make,
                 Model = carViewModel.Model,
                 Color = carViewModel.Color,

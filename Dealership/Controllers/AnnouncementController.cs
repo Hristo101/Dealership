@@ -45,6 +45,12 @@ namespace Dealership.Controllers
             }
             var model = await announcementService.DetailsAnnouncementAsync(id);
 
+            if (model == null)
+            {
+                int statusCode = 404;
+                return RedirectToAction("Error", "Home",new {statusCode}); 
+            }
+
             return View(model);
         }
         public async Task<IActionResult> Search(string make, string year, string engine, string transmission, string color, string sortBy, int page = 1, int pageSize = 6)
@@ -55,14 +61,8 @@ namespace Dealership.Controllers
 
             var totalPages = (int)Math.Ceiling(totalAnnouncements / (double)pageSize);
 
-            var model = new AnnouncementListViewModel
-            {
-                Announcements = filteredAnnouncements,
-                CurrentPage = page,
-                TotalPages = totalPages
-            };
 
-            return View(model);
+            return View(filteredAnnouncements);
         }
     }
 }

@@ -14,56 +14,65 @@
 
         <div class="form-group">
             <label for="Make">Марка</label>
-            <input type="text" class="form-control" id="Make" name="Make" value="@Model.Make" required />
+            <input type="text" class="form-control" id="Make" asp-for="Make" />
+            <span asp-validation-for="Make" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Model">Модел</label>
-            <input type="text" class="form-control" id="Model" name="Model" value="@Model.Model" required />
+            <input type="text" class="form-control" id="Model" asp-for="Model" />
+            <span asp-validation-for="Model" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Color">Цвят</label>
-            <input type="text" class="form-control" id="Color" name="Color" value="@Model.Color" required />
+            <input type="text" class="form-control" id="Color" asp-for="Color" />
+            <span asp-validation-for="Color" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="EngineType">Тип на двигателя</label>
-            <input type="text" class="form-control" id="EngineType" name="EngineType" value="@Model.EngineType" required />
+            <input type="text" class="form-control" id="EngineType" asp-for="EngineType" />
+            <span asp-validation-for="EngineType" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Speeds">Тип на скоростите</label>
-            <input type="text" class="form-control" id="Speeds" name="Speeds" value="@Model.Speeds" required />
+            <input type="text" class="form-control" id="Speeds" asp-for="Speeds" />
+            <span asp-validation-for="Speeds" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Year">Година</label>
-            <input type="number" class="form-control" id="Year" name="Year" value="@Model.Year" required min="1886" max="9999" />
+            <input type="number" class="form-control" id="Year" asp-for="Year" min="1886" max="9999" />
+            <span asp-validation-for="Year" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Mileage">Пробег</label>
-            <input type="number" class="form-control" id="Mileage" name="Mileage" value="@Model.Mileage" required />
+            <input type="number" class="form-control" id="Mileage" asp-for="Mileage" />
+            <span asp-validation-for="Mileage" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Horsepower">Мощност</label>
-            <input type="number" class="form-control" id="Horsepower" name="Horsepower" value="@Model.Horsepower" required />
+            <input type="number" class="form-control" id="Horsepower" asp-for="Horsepower" />
+            <span asp-validation-for="Horsepower" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="CarImages">Снимки на колата (URL-та, разделени със запетая)</label>
-            <textarea class="form-control" id="CarImages" name="CarImages" rows="4" required>@Model.CarImages</textarea>
+            <textarea class="form-control" id="CarImages" asp-for="CarImages" rows="4"></textarea>
             <small class="form-text text-muted">Трябва да има поне 4 снимки. Използвайте запетаи за разделяне на URL-тата.</small>
+            <span asp-validation-for="CarImages" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-primary">Изпрати за оценка</button>
     </form>
 </div>
 
-
 <link rel="stylesheet" href="~/css/Car/AddCarCss.css" />
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

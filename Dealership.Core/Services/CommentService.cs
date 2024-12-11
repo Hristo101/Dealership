@@ -36,6 +36,21 @@ namespace Dealership.Core.Services
             await _repository.AddAsync(comment1);
             await _repository.SaveChangesAsync(); 
         }
+        public async Task<bool> UserHasPermissionToEditOrDeleteComment(string userId, int commentId)
+        {
+            var comment = await _repository.AllAsReadOnly<Comment>()
+                                           .FirstOrDefaultAsync(c => c.Id == commentId);
+            if (comment == null)
+            {
+                return false;
+            }
+            if (comment.UserId == userId)
+            {
+                return true; 
+            }
+
+            return false;
+        }
 
         public async Task<IEnumerable<CommentViewModel>> GetAllCommentsAsync()
         {
@@ -48,7 +63,6 @@ namespace Dealership.Core.Services
                     Content = c.Content,
                     CreatedAt = c.CreatedAt,
                     Grade = c.Grade,
-                    CanDetails = true
                 })
 
                 .ToListAsync();
@@ -87,8 +101,6 @@ namespace Dealership.Core.Services
                         .FirstAsync();
             return model;
         }
-
-
 
         public async Task UpdateCommentAsync(EditCommentViewModel model)
         {

@@ -190,18 +190,22 @@
                         }
                         else
                         {
+                            @if (User.IsInRole("Administrator") == false)
+                            {
+                                
                             <div class="nav-contact-info">
                                 <span>
-                                    <a asp-action="Contact" asp-controller="Home">
+                                    <a asp-action="Contact" asp-area="Identity" asp-controller="Home">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </a>
                                 </span>
                                 <span class="phone">
                                     <i class="fas fa-phone-alt"></i> 0877 067 767
                                 </span>
-                                <button class="btn-contacts" onclick="window.location.href='@Url.Action("Contact", "Home")'"><i class="fas fa-envelope"></i> Контакти</button>
-                                <span>Welcome, @User.Identity.Name!</span>
+                                <button class="btn-contacts" asp-area="Identity" onclick="window.location.href='@Url.Action("Contact", "Home")'"><i class="fas fa-envelope"></i> Контакти</button>
                             </div>
+                            }
+                                <span>Welcome, @User.Identity.Name!</span>
                             <li class="nav-item">
                                 <form method="post" asp-area="" asp-controller="Account" asp-action="Logout">
                                     <button class="nav-link btn btn-link" style="text-decoration:none; color: white;"><i class="fas fa-sign-out-alt"></i> Logout</button>

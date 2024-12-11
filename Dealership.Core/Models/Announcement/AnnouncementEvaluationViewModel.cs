@@ -9,6 +9,7 @@ namespace Dealership.Core.Models.Announcement
 {
     public class AnnouncementEvaluationViewModel
     {
+        public int Id { get; set; }
         public int CarId { get; set; }
         public string? Make { get; set; }
 

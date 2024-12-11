@@ -5,7 +5,6 @@
 @{
     ViewData["Title"] = "Редактиране на обява";
 }
-
 <div class="container">
     <h2>@ViewData["Title"]</h2>
 
@@ -13,21 +12,25 @@
         <div class="form-group">
             <label for="Description">Описание на обявата</label>
             <textarea class="form-control" id="Description" name="Description" rows="5">@Model.Description</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="ExtrasForComfort">Екстри за комфорт</label>
             <textarea class="form-control" id="ExtrasForComfort" name="ExtrasForComfort" rows="5">@Model.ExtrasForComfort</textarea>
+            <span asp-validation-for="ExtrasForComfort" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="SecurityExtras">Екстри за безопасност</label>
             <textarea class="form-control" id="SecurityExtras" name="SecurityExtras" rows="5">@Model.SecurityExtras</textarea>
+            <span asp-validation-for="SecurityExtras" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="Price">Цена</label>
             <input type="number" step="0.01" class="form-control" id="Price" name="Price" value="@Model.Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -41,6 +44,7 @@
         </div>
     </form>
 </div>
+
 
 <!-- Стилове -->
 <style>

@@ -93,80 +93,6 @@ namespace Dealership.Core.Services
 
             return announcement;
         }
-        public async Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
-             string make,
-             string year,
-             string engine,
-             string transmission,
-             string color,
-             string sortBy,
-             int page,
-             int pageSize
-         )
-        {
-            var query = repository.AllAsReadOnly<Announcement>();
-
-            // Филтри
-            if (!string.IsNullOrWhiteSpace(make))
-            {
-                query = query.Where(x => x.Car.Make == make);
-            }
-
-            if (!string.IsNullOrWhiteSpace(year) && int.TryParse(year, out int parsedYear))
-            {
-                query = query.Where(x => x.Car.Year == parsedYear);
-            }
-
-            if (!string.IsNullOrWhiteSpace(engine))
-            {
-                query = query.Where(x => x.Car.EngineType == engine);
-            }
-
-            if (!string.IsNullOrWhiteSpace(transmission))
-            {
-                query = query.Where(x => x.Car.Speeds == transmission);
-            }
-
-            if (!string.IsNullOrWhiteSpace(color))
-            {
-                query = query.Where(x => x.Car.Color == color);
-            }
-
- 
-            switch (sortBy)
-            {
-                case "year-asc":
-                    query = query.OrderBy(x => x.Car.Year);
-                    break;
-                case "year-desc":
-                    query = query.OrderByDescending(x => x.Car.Year);
-                    break;
-                case "price-asc":
-                    query = query.OrderBy(x => x.Price);
-                    break;
-                case "price-desc":
-                    query = query.OrderByDescending(x => x.Price);
-                    break;
-            }
-
-            var skip = (page - 1) * pageSize;
-            var announcements = await query
-                .Skip(skip)
-                .Take(pageSize)
-                .Select(x => new AllAnnouncementViewModel()
-                {
-                    Id = x.Id,
-                    ImageUrl = x.Car.CarImages[0],
-                    Model = x.Car.Model,
-                    Make = x.Car.Make,
-                    Price = x.Price,
-                    HorsePower = x.Car.Horsepower
-                })
-                .ToListAsync();
-
-            return announcements;
-        }
-
         public async Task<EditAnnouncementViewModel> GetAnnouncementForEditAsync(int id)
         {
             var announcement = await repository.AllAsReadOnly<Announcement>()
@@ -187,7 +113,10 @@ namespace Dealership.Core.Services
 
         public async Task EditAsync(int id, EditAnnouncementViewModel model)
         {
-            var announcement = await repository.GetByIdAsync<Announcement>(id);
+            var announcement = await repository.AllAsReadOnly<Announcement>().Include(c =>c.Car).Where(x => x.Id == id).FirstAsync();
+
+            var car = await repository.GetByIdAsync<Car>(announcement.CarId);
+            car.IsInAnnouncement = true;
 
             if (announcement != null)
             {
@@ -196,7 +125,6 @@ namespace Dealership.Core.Services
                 announcement.CreatedDate = model.CreatedDate;
                 announcement.Description = model.Description;
                 announcement.Price = model.Price;
-
                 await repository.SaveChangesAsync();
             }
         }
@@ -230,7 +158,7 @@ namespace Dealership.Core.Services
 
         }
 
-        public async Task AddAsync(AddAnnouncementViewModel model, string userId)
+        public async Task AddAsync(AddAnnouncementViewModel model)
         {
 
             Announcement announcement = new Announcement()
@@ -277,6 +205,86 @@ namespace Dealership.Core.Services
             };
             await repository.AddAsync(announcement);
             await repository.SaveChangesAsync();
+        }
+
+        public async Task<AnnouncementListViewModel> GetFilteredAnnouncements(string make, string year, string engine, string transmission, string color, string sortBy, int page, int pageSize)
+        {
+            var query = repository.AllAsReadOnly<Announcement>();
+
+                if (!string.IsNullOrWhiteSpace(make))
+                {
+                    query = query.Where(x => x.Car.Make == make);
+                }
+
+                if (!string.IsNullOrWhiteSpace(year) && int.TryParse(year, out int parsedYear))
+                {
+                    query = query.Where(x => x.Car.Year == parsedYear);
+                }
+
+                if (!string.IsNullOrWhiteSpace(engine))
+                {
+                    query = query.Where(x => x.Car.EngineType == engine);
+                }
+
+                if (!string.IsNullOrWhiteSpace(transmission))
+                {
+                    query = query.Where(x => x.Car.Speeds == transmission);
+                }
+
+                if (!string.IsNullOrWhiteSpace(color))
+                {
+                    query = query.Where(x => x.Car.Color == color);
+                }
+
+            switch (sortBy)
+            {
+                case "year-asc":
+                    query = query.OrderBy(x => x.Car.Year);
+                    break;
+                case "year-desc":
+                    query = query.OrderByDescending(x => x.Car.Year);
+                    break;
+                case "price-asc":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                case "price-desc":
+                    query = query.OrderByDescending(x => x.Price);
+                    break;
+            }
+
+            var skip = (page - 1) * pageSize;
+
+            var announcements = await query
+                .Skip(skip)
+                .Take(pageSize)
+                .Select(x => new AllAnnouncementViewModel
+                {
+                    Id = x.Id,
+                    ImageUrl = x.Car.CarImages[0], 
+                    Model = x.Car.Model,  
+                    Make = x.Car.Make,  
+                    Price = x.Price,
+                    HorsePower = x.Car.Horsepower 
+                })
+                .ToListAsync();
+
+
+            var totalAnnouncements = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalAnnouncements / pageSize);
+
+            return new AnnouncementListViewModel
+            {
+                Announcements = announcements,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                Make = make,
+                Year = year,
+                Engine = engine,
+                Transmission = transmission,
+                Color = color,
+                SortBy = sortBy
+            };
+
         }
     }
 }

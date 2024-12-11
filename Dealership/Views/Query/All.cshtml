@@ -1,0 +1,142 @@
+﻿@using Dealership.Core.Models.Query
+@model IEnumerable<AllQueriesViewModel>
+<link rel="stylesheet" href="~/css/Query/ShowAllQueries.css" />
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Всички въпроси с отговор</h2>
+
+    @foreach (var query in Model)
+    {
+        <div class="row mb-4 border-bottom pb-3">
+            <div class="col-md-6">
+                <div class="user-email mb-3">
+                    <strong>Имейл:</strong> <span>@query.Email</span>
+                </div>
+
+                <div class="query-description mb-4">
+                    <strong>Въпрос:</strong>
+                    <p>@query.Description</p>
+                </div>
+
+                @if (!string.IsNullOrEmpty(query.AdminResponse))
+                {
+                    <div class="admin-response mb-4">
+                        <strong>Отговор от администратор:</strong>
+                        <p>@query.AdminResponse</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="no-admin-response mb-4 text-muted">
+                        <em>Все още няма отговор от администратора.</em>
+                    </div>
+                }
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="car-details d-flex justify-content-between">
+                    <div class="car-image-container">
+                        <img src="@Url.Content(@query.CarImage)" alt="Car Image" class="img-fluid rounded shadow-sm" style="max-width: 150px;" />
+                    </div>
+
+                    <div class="car-make-model text-center">
+                        <strong>@query.Make</strong><br />
+                        <span>@query.Model</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .container {
+        margin-top: 30px;
+    }
+
+    .user-email {
+        font-size: 18px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .query-description {
+        font-size: 16px;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    .admin-response {
+        font-size: 16px;
+        color: #007bff;
+        font-style: italic;
+        line-height: 1.5;
+        border-left: 4px solid #007bff;
+        padding-left: 15px;
+    }
+
+    .no-admin-response {
+        font-size: 16px;
+        color: #6c757d;
+        font-style: italic;
+        line-height: 1.5;
+    }
+
+    .car-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .car-image-container img {
+        border-radius: 10px;
+        max-width: 200px;
+        height: auto;
+    }
+
+    .car-make-model {
+        text-align: center;
+    }
+
+    .car-make-model strong {
+        font-size: 24px;
+        color: #000;
+    }
+
+    .car-make-model span {
+        font-size: 18px;
+        color: #777;
+    }
+
+    .card {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+    .border-bottom {
+        border-bottom: 2px solid #ddd;
+    }
+
+    .mb-3, .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .p-3 {
+        padding: 1.5rem;
+    }
+
+    .row {
+        margin-bottom: 30px;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

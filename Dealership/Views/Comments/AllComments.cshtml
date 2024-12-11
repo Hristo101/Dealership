@@ -38,17 +38,12 @@
                     }
                 </div>
 
-                @if (comment.CanEdit)
-                {
                     <div class="comment-actions">
-                        <a asp-action="Details" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-info">Детайли</a>
                         <a asp-action="Edit" asp-controller="Comments" asp-route-id="@comment.Id" class="btn btn-outline-warning">Редактирай</a>
-
                         <form method="get" asp-action="ConfirmDelete" asp-controller="Comments" asp-route-id="@comment.Id" style="display:inline;">
                             <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Сигурни ли сте, че искате да изтриете този коментар?')">Изтрий</button>
                         </form>
                     </div>
-                }
             </div>
         }
     </div>

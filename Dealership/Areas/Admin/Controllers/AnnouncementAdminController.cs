@@ -146,9 +146,8 @@ namespace Dealership.Areas.Admin.Controllers
                 model.Cars = cars.ToList();
                 return View(model);
             }
-            string userId = GetUserId();
 
-            await announcementService.AddAsync(model, userId);
+            await announcementService.AddAsync(model);
 
             return RedirectToAction(nameof(AllSales));
         }

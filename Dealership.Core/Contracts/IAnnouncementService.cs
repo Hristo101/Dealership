@@ -15,13 +15,13 @@ namespace Dealership.Core.Contracts
         Task<DetailsAnnouncementViewModel> DetailsAnnouncementAsync(int id);
         Task<bool> ExistAsync(int id);
         Task<EditAnnouncementViewModel> GetAnnouncementForEditAsync(int id);
-        Task AddAsync(AddAnnouncementViewModel model, string userId);
+        Task AddAsync(AddAnnouncementViewModel model);
         Task<DeleteAnnouncementViewModel> GetAnnouncementForDeleteAsync(int id);
         Task RemoveAsync(int id);
         Task EditAsync(int id, EditAnnouncementViewModel model);
         Task EvaluationAsync(int id, AnnouncementEvaluationViewModel model);
         Task<AnnouncementEvaluationViewModel> GetModelForAnnouncment(int carId);
-        Task<IEnumerable<AllAnnouncementViewModel>> GetFilteredAnnouncements(
+        Task<AnnouncementListViewModel> GetFilteredAnnouncements(
           string make,
           string year,
           string engine,

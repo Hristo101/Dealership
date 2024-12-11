@@ -4,6 +4,7 @@ using Dealership.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static Dealership.Infrastructure.Common.Constants.DataConstant;
 
 public class CommentsController : Controller
 {
@@ -66,32 +67,53 @@ public class CommentsController : Controller
 
         var model = await _commentService.GetCommentByIdAsync(id);
 
+        var currentUser = await _userManager.GetUserAsync(User);
+
+        var hasPermission = await _commentService.UserHasPermissionToEditOrDeleteComment(currentUser.Id, model.Id);
+
+        if (!hasPermission)
+        {
+
+            return Unauthorized();
+        }
+
+        if (!ModelState.IsValid || model.IsInvalid)
+        {
+            Response.StatusCode = 500;
+            return RedirectToAction("Error", "Home");
+        }
+
+
         return View(model);
     }
 
     [HttpPost]
     public async Task<IActionResult> Edit(EditCommentViewModel model)
     {
-        if (ModelState.IsValid)
-        {
-            try
+
+            if (ModelState.IsValid)
             {
                 await _commentService.UpdateCommentAsync(model);
                 return RedirectToAction(nameof(AllComments));
             }
-            catch (KeyNotFoundException)
-            {
-                return NotFound();
-            }
-        }
 
-        return View(model);
+            return View(model);
+        
     }
     [HttpGet]
     public async Task<IActionResult> ConfirmDelete(int id)
     {
         var model = await _commentService.GetConfirmDeleteViewModelAsync(id);
 
+        var currentUser = await _userManager.GetUserAsync(User);
+
+        var hasPermission = await _commentService.UserHasPermissionToEditOrDeleteComment(currentUser.Id, model.Id);
+
+        if (!hasPermission)
+        {
+
+            return Unauthorized();
+        }
         if (model == null)
         {
             return NotFound();
@@ -102,14 +124,15 @@ public class CommentsController : Controller
     [HttpPost]
     public async Task<IActionResult> ConfirmDeletePost(int id)
     {
+
+
         var result = await _commentService.DeleteCommentAsync(id);
 
         if (result)
         {
             return RedirectToAction("AllComments");
         }
-
-        return NotFound();
+        return BadRequest();
     }
 
     private string GetUserId()
